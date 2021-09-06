@@ -1,0 +1,1036 @@
+[
+  {
+    "id": -262709472,
+    "antecedent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.GetMapping",
+      "Annotation_org.springframework.web.bind.annotation.GetMapping --(hasParam)--> Param_value:java.lang.String"
+    ],
+    "consequent": [
+      "Method --(hasReturnType)--> org.springframework.http.ResponseEntity"
+    ],
+    "label": "not a rule",
+    "sameAs": 0
+  },
+  {
+    "id": 2142106243,
+    "antecedent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.boot.context.properties.EnableConfigurationProperties",
+      "Annotation_org.springframework.boot.context.properties.EnableConfigurationProperties --(hasParam)--> Param_value:java.lang.Class"
+    ],
+    "consequent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration"
+    ],
+    "label": "part. correct",
+    "distance": 1,
+    "distanceComments": [
+      "REMOVE `EnableConfigurationProperties --(hasParam)--> Param_value`"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": -1738125672,
+    "antecedent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean",
+      "Class --(annotatedWith)--> Annotation_org.springframework.transaction.annotation.EnableTransactionManagement",
+      "Class --(annotatedWith)--> Annotation_org.springframework.data.jpa.repository.config.EnableJpaRepositories",
+      "Annotation_org.springframework.data.jpa.repository.config.EnableJpaRepositories --(hasParam)--> Param_entityManagerFactoryRef:java.lang.String",
+      "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration",
+      "Annotation_org.springframework.context.annotation.Bean --(hasParam)--> Param_name:java.lang.String",
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Primary",
+      "Method --(hasReturnType)--> org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+    ],
+    "consequent": [
+      "Annotation_org.springframework.data.jpa.repository.config.EnableJpaRepositories --(hasParam)--> Param_basePackages:"
+    ],
+    "label": "part. correct",
+    "distance": 8,
+    "distanceComments": [
+      "REMOVE 1 `EnableJpaRepositories --(hasParam)--> Param_entityManagerFactoryRef`",
+      "REMOVE 1 `Bean --(hasParam)--> Param_name`",
+      "REMOVE 1 `EnableJpaRepositories --(hasParam)--> Param_basePackages`",
+      "REMOVE 1 `Method --(hasReturnType)--> org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean`",
+      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean`",
+      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Primary`",
+      "DISJOIN (1 op) `@EnableTransactionManagement`, `@EnableJPARepositories`",
+      "MOVE 1 `@Configuration` to consequent"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": -1531069957,
+    "antecedent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.stereotype.Controller",
+      "Class --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.RequestMapping"
+    ],
+    "consequent": [
+      "Annotation_org.springframework.web.bind.annotation.RequestMapping --(hasParam)--> Param_value:java.lang.String"
+    ],
+    "label": "part. correct",
+    "distance": 2,
+    "distanceComments": [
+      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.stereotype.Controller` to cons",
+      "REMOVE 1 `RequestMapping --(hasParam)--> Param_value`"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": -670233010,
+    "antecedent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.security.access.prepost.PreAuthorize",
+      "Class --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.RequestMapping",
+      "Annotation_org.springframework.web.bind.annotation.RequestMapping --(hasParam)--> Param_value:java.lang.String"
+    ],
+    "consequent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.RestController"
+    ],
+    "label": "part. correct",
+    "distance": 3,
+    "distanceComments": [
+      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.security.access.prepost.PreAuthorize`",
+      "REMOVE 1 `RequestMapping --(hasParam)--> Param_value`",
+      "DISJOIN 1 `@RestController`, `@Controller`"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": -673691164,
+    "antecedent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.RequestMapping"
+    ],
+    "consequent": [
+      "Annotation_org.springframework.web.bind.annotation.RequestMapping --(hasParam)--> Param_value:java.lang.String"
+    ],
+    "label": "not a rule",
+    "sameAs": 0
+  },
+  {
+    "id": 804255941,
+    "antecedent": [
+      "Method --(hasParam)--> Param_javax.sql.DataSource",
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean",
+      "Class --(annotatedWith)--> Annotation_org.springframework.transaction.annotation.EnableTransactionManagement",
+      "Class --(annotatedWith)--> Annotation_org.springframework.data.jpa.repository.config.EnableJpaRepositories",
+      "Annotation_org.springframework.data.jpa.repository.config.EnableJpaRepositories --(hasParam)--> Param_entityManagerFactoryRef:java.lang.String",
+      "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration",
+      "Method --(hasParam)--> Param_org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder",
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Primary"
+    ],
+    "consequent": [
+      "Method --(hasReturnType)--> org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+    ],
+    "label": "part. correct",
+    "distance": 8,
+    "distanceComments": [
+      "REMOVE 1 `Method --(hasParam)--> Param_javax.sql.DataSource`",
+      "REMOVE 1 `@EnableJpaRepositories --(hasParam)--> Param_entityManagerFactoryRef`",
+      "REMOVE 1 `Method --(hasParam)--> Param_org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder`",
+      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean`",
+      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Primary`",
+      "REMOVE 1 `Method --(hasReturnType)--> org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean`",
+      "MOVE 1 `@Configuration` to cons",
+      "DISJOIN 1 `@EnableTransactionManagement`, `@EnableJpaRepositories`"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": -1050614376,
+    "antecedent": [
+      "Annotation_org.springframework.security.access.prepost.PreAuthorize --(hasParam)--> Param_value:java.lang.String",
+      "Method --(annotatedWith)--> Annotation_org.springframework.security.access.prepost.PreAuthorize"
+    ],
+    "consequent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.RestController"
+    ],
+    "label": "not a rule",
+    "sameAs": 0
+  },
+  {
+    "id": -675057631,
+    "antecedent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.retry.annotation.EnableRetry",
+      "Annotation_org.springframework.retry.annotation.Retryable --(hasParam)--> Param_maxAttempts:int",
+      "Annotation_org.springframework.retry.annotation.Retryable --(hasParam)--> Param_backoff:",
+      "Method --(hasReturnType)--> void",
+      "Method --(annotatedWith)--> Annotation_org.springframework.retry.annotation.Retryable",
+      "Annotation_org.springframework.retry.annotation.Retryable --(hasParam)--> Param_value:java.lang.Class<java.lang.Exception>",
+      "Class --(annotatedWith)--> Annotation_org.springframework.stereotype.Component"
+    ],
+    "consequent": [
+      "Method --(hasParam)--> Param_com.intsmaze.flink.base.bean.FlowData"
+    ],
+    "label": "part. correct",
+    "distance": 6,
+    "distanceComments": [
+      "REMOVE 1 `Retryable --(hasParam)--> Param_maxAttempts`",
+      "REMOVE 1 `Retryable --(hasParam)--> Param_backoff`",
+      "REMOVE 1 `Retryable --(hasParam)--> Param_value`",
+      "REMOVE 1 `Method --(hasParam)--> Param_com.intsmaze.flink.base.bean.FlowData`",
+      "REMOVE 1 `Method --(hasReturnType)--> void`",
+      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.retry.annotation.EnableRetry` to cons"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": -1022826848,
+    "antecedent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.retry.annotation.EnableRetry",
+      "Field --(hasType)--> com.intsmaze.flink.base.service.DataService",
+      "Class --(annotatedWith)--> Annotation_org.springframework.stereotype.Component"
+    ],
+    "consequent": [
+      "Field --(annotatedWith)--> Annotation_org.springframework.beans.factory.annotation.Autowired"
+    ],
+    "label": "part. correct",
+    "distance": 3,
+    "distanceComments": [
+      "MOVE 1 `Field --(annotatedWith)--> Annotation_org.springframework.beans.factory.annotation.Autowired` to ante",
+      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.stereotype.Component` to cons",
+      "REMOVE 1 `Field --(hasType)--> com.intsmaze.flink.base.service.DataService`",
+      "REMOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.retry.annotation.EnableRetry`"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": -12516674,
+    "antecedent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration",
+      "Method --(hasReturnType)--> org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+    ],
+    "consequent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean"
+    ],
+    "label": "part. correct",
+    "distance": 3,
+    "distanceComments": [
+      "REMOVE 1 `Method --(hasReturnType)--> org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator`",
+      "MOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean` to ante",
+      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration` to cons",
+      "ADD 1 `Class --(annotatedWith)--> @Component` to cons",
+      "DISJOIN 1 `Class --(annotatedWith)--> @Component`, `Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration`"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": -1453979529,
+    "antecedent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean",
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean",
+      "Class --(annotatedWith)--> Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnClass",
+      "Class --(annotatedWith)--> Annotation_org.springframework.boot.context.properties.EnableConfigurationProperties",
+      "Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnClass --(hasParam)--> Param_value:java.lang.Class",
+      "Annotation_org.springframework.boot.context.properties.EnableConfigurationProperties --(hasParam)--> Param_value:java.lang.Class",
+      "Method --(hasReturnType)--> org.springframework.ldap.core.support.LdapContextSource"
+    ],
+    "consequent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration"
+    ],
+    "label": "part. correct",
+    "distance": 7,
+    "distanceComments": [
+      "REMOVE 1 `ConditionalOnClass --(hasParam)--> Param_value`",
+      "REMOVE 1 `EnableConfigurationProperties --(hasParam)--> Param_value`",
+      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean`",
+      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean`",
+      "REMOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnClass`",
+      "REMOVE 1 `Method --(hasReturnType)--> org.springframework.ldap.core.support.LdapContextSource`",
+      "ADD 1 `Class --(annotatedWith)--> @Component` to cons",
+      "DISJOIN 1 `Class --(annotatedWith)--> @Component`, `Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration`"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": -840076872,
+    "antecedent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.security.config.annotation.web.configuration.EnableWebSecurity",
+      "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration"
+    ],
+    "consequent": [
+      "Class --(extends)--> Class_org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter"
+    ],
+    "label": "correct",
+    "distance": 0,
+    "distanceComments": [],
+    "sameAs": 0
+  },
+  {
+    "id": -1610566851,
+    "antecedent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean",
+      "Class --(annotatedWith)--> Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnClass"
+    ],
+    "consequent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration"
+    ],
+    "label": "part. correct",
+    "distance": 2,
+    "distanceComments": [
+      "REMOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnClass`",
+      "ADD 1 `Class --(annotatedWith)--> @Component` to cons",
+      "DISJOIN 1 `Class --(annotatedWith)--> @Component`, `Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration`"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": 1659423995,
+    "antecedent": [
+      "Field --(annotatedWith)--> Annotation_org.springframework.ldap.odm.annotations.Id",
+      "Field --(hasType)--> javax.naming.Name",
+      "Class --(annotatedWith)--> Annotation_org.springframework.ldap.odm.annotations.Entry"
+    ],
+    "consequent": [
+      "Annotation_org.springframework.ldap.odm.annotations.Entry --(hasParam)--> Param_objectClasses:"
+    ],
+    "label": "part. correct",
+    "distance": 3,
+    "distanceComments": [
+      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.ldap.odm.annotations.Entry` to cons",
+      "REMOVE 1 `Entry --(hasParam)--> Param_objectClasses`",
+      "ADD 1 `Field --(mustNotBeAnnWith)--> @Attribute` to cons"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": -200422579,
+    "antecedent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.core.annotation.Order"
+    ],
+    "consequent": [
+      "Annotation_org.springframework.core.annotation.Order --(hasParam)--> Param_value:java.lang.Integer"
+    ],
+    "label": "not a rule",
+    "sameAs": 0
+  },
+  {
+    "id": 1591128880,
+    "antecedent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.GetMapping",
+      "Class --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.RequestMapping",
+      "Annotation_org.springframework.web.bind.annotation.RequestMapping --(hasParam)--> Param_value:java.lang.String"
+    ],
+    "consequent": [
+      "Method --(hasReturnType)--> org.springframework.http.ResponseEntity"
+    ],
+    "label": "not a rule",
+    "sameAs": 0
+  },
+  {
+    "id": 2032424632,
+    "antecedent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean",
+      "Method --(hasReturnType)--> org.springframework.remoting.caucho.HessianServiceExporter",
+      "Class --(annotatedWith)--> Annotation_io.prometheus.client.spring.boot.EnablePrometheusEndpoint",
+      "Annotation_org.springframework.context.annotation.Bean --(hasParam)--> Param_name:java.lang.String",
+      "Class --(annotatedWith)--> Annotation_org.springframework.boot.autoconfigure.SpringBootApplication"
+    ],
+    "consequent": [
+      "Method --(hasParam)--> Param_com.innoq.mploed.ddd.scoring.shared.ScoringService"
+    ],
+    "label": "part. correct",
+    "distance": 6,
+    "distanceComments": [
+      "REMOVE 1 `@Bean --(hasParam)--> Param_name`",
+      "REMOVE 1 `Method --(hasParam)--> Param_com.innoq.mploed.ddd.scoring.shared.ScoringService`",
+      "REMOVE 1 `Method --(hasReturnType)--> org.springframework.remoting.caucho.HessianServiceExporter`",
+      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean`",
+      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.boot.autoconfigure.SpringBootApplication` to cons",
+      "ADD 1 `Class --(annotatedWith)--> @Component` to cons",
+      "DISJOIN 1 `Class --(annotatedWith)--> @Component`, `Class --(annotatedWith)--> Annotation_org.springframework.boot.autoconfigure.SpringBootApplication`"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": 1872243030,
+    "antecedent": [
+      "Annotation_org.springframework.retry.annotation.Retryable --(hasParam)--> Param_maxAttempts:int",
+      "Annotation_org.springframework.retry.annotation.Retryable --(hasParam)--> Param_backoff:",
+      "Method --(hasReturnType)--> void",
+      "Method --(annotatedWith)--> Annotation_org.springframework.retry.annotation.Retryable",
+      "Class --(annotatedWith)--> Annotation_org.springframework.stereotype.Service"
+    ],
+    "consequent": [
+      "Annotation_org.springframework.retry.annotation.Retryable --(hasParam)--> Param_value:"
+    ],
+    "label": "part. correct",
+    "distance": 5,
+    "distanceComments": [
+      "REMOVE 1 `Retryable --(hasParam)--> Param_maxAttempts`",
+      "REMOVE 1 `Retryable --(hasParam)--> Param_backoff`",
+      "REMOVE 1 `Retryable --(hasParam)--> Param_value`",
+      "REMOVE 1 `Method --(hasReturnType)--> void`",
+      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.stereotype.Service` to cons"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": 1386194678,
+    "antecedent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.stereotype.Service"
+    ],
+    "consequent": [
+      "Field --(annotatedWith)--> Annotation_org.springframework.beans.factory.annotation.Autowired"
+    ],
+    "label": "part. correct",
+    "distance": 1,
+    "distanceComments": [
+      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.stereotype.Service` to cons",
+      "MOVE 1 `Field --(annotatedWith)--> Annotation_org.springframework.beans.factory.annotation.Autowired` to ante"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": -394274965,
+    "antecedent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.PostMapping",
+      "Class --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.RestController",
+      "Class --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.RequestMapping"
+    ],
+    "consequent": [
+      "Method --(hasReturnType)--> org.springframework.http.ResponseEntity"
+    ],
+    "label": "part. correct",
+    "distance": 4,
+    "distanceComments": [
+      "REMOVE 1 `Method --(hasReturnType)--> org.springframework.http.ResponseEntity`",
+      "DISJOIN 1 `Method --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.PostMapping`, `Class --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.RequestMapping`",
+      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.RestController` to cons",
+      "ADD 1 `Class --(annotatedWith)--> @Controller` to cons",
+      "DISJOIN 1 `Class --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.RestController`, `Class --(annotatedWith)--> @Controller`"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": 1277377606,
+    "antecedent": [
+      "Method --(hasParam)--> Param_javax.sql.DataSource",
+      "Annotation_org.springframework.data.jpa.repository.config.EnableJpaRepositories --(hasParam)--> Param_transactionManagerRef:java.lang.String",
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean",
+      "Class --(annotatedWith)--> Annotation_org.springframework.transaction.annotation.EnableTransactionManagement",
+      "Annotation_org.springframework.data.jpa.repository.config.EnableJpaRepositories --(hasParam)--> Param_basePackages:java.lang.String",
+      "Class --(annotatedWith)--> Annotation_org.springframework.data.jpa.repository.config.EnableJpaRepositories",
+      "Annotation_org.springframework.data.jpa.repository.config.EnableJpaRepositories --(hasParam)--> Param_entityManagerFactoryRef:java.lang.String",
+      "Method --(hasParam)--> Param_org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder",
+      "Method --(hasReturnType)--> org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+    ],
+    "consequent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration"
+    ],
+    "label": "part. correct",
+    "distance": 8,
+    "distanceComments": [
+      "REMOVE 1 `Method --(hasParam)--> Param_javax.sql.DataSource`",
+      "REMOVE 1 `EnableJpaRepositories --(hasParam)--> Param_transactionManagerRef`",
+      "REMOVE 1 `EnableJpaRepositories --(hasParam)--> Param_basePackages`",
+      "REMOVE 1 `EnableJpaRepositories --(hasParam)--> Param_entityManagerFactoryRef`",
+      "REMOVE 1 `Method --(hasParam)--> Param_org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder`",
+      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean`",
+      "REMOVE 1 `Method --(hasReturnType)--> org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean`",
+      "DISJOIN 1 `Class --(annotatedWith)--> Annotation_org.springframework.data.jpa.repository.config.EnableJpaRepositories`, `Class --(annotatedWith)--> Annotation_org.springframework.transaction.annotation.EnableTransactionManagement`"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": -1130444200,
+    "antecedent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean"
+    ],
+    "consequent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean"
+    ],
+    "label": "part. correct",
+    "distance": 1,
+    "distanceComments": [
+      "MOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean` to cons",
+      "MOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean` to ante"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": -1570544571,
+    "antecedent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.DependsOn",
+      "Method --(hasReturnType)--> org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+    ],
+    "consequent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean"
+    ],
+    "label": "part. correct",
+    "distance": 1,
+    "distanceComments": [
+      "REMOVE 1 `Method --(hasReturnType)--> org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator`"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": 480068951,
+    "antecedent": [
+      "Annotation_org.springframework.boot.autoconfigure.AutoConfigureBefore --(hasParam)--> Param_value:java.lang.Class",
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean",
+      "Annotation_org.springframework.context.annotation.DependsOn --(hasParam)--> Param_value:java.lang.String",
+      "Class --(annotatedWith)--> Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnClass",
+      "Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnClass --(hasParam)--> Param_value:java.lang.Class",
+      "Method --(hasReturnType)--> org.springframework.ldap.core.support.LdapContextSource",
+      "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration",
+      "Method --(annotatedWith)--> Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean",
+      "Class --(annotatedWith)--> Annotation_org.springframework.boot.autoconfigure.AutoConfigureBefore",
+      "Annotation_org.springframework.context.annotation.Conditional --(hasParam)--> Param_value:java.lang.Class",
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.DependsOn",
+      "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Conditional"
+    ],
+    "consequent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.boot.context.properties.EnableConfigurationProperties"
+    ],
+    "label": "part. correct",
+    "distance": 12,
+    "distanceComments": [
+      "REMOVE 1 `AutoConfigureBefore --(hasParam)--> Param_value`",
+      "REMOVE 1 `DependsOn --(hasParam)--> Param_value`",
+      "REMOVE 1 `ConditionalOnClass --(hasParam)--> Param_value`",
+      "REMOVE 1 `Conditional --(hasParam)--> Param_value`",
+      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean`",
+      "REMOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnClass`",
+      "REMOVE 1 `Method --(hasReturnType)--> org.springframework.ldap.core.support.LdapContextSource`",
+      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean`",
+      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.DependsOn`",
+      "REMOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Conditional`",
+      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration` to cons",
+      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.boot.context.properties.EnableConfigurationProperties` to ante"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": -1333580771,
+    "antecedent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnProperty"
+    ],
+    "consequent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration"
+    ],
+    "label": "not a rule",
+    "sameAs": 0
+  },
+  {
+    "id": 546914918,
+    "antecedent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean",
+      "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration"
+    ],
+    "consequent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean"
+    ],
+    "label": "part. correct",
+    "distance": 1,
+    "distanceComments": [
+      "REMOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration`"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": 736144311,
+    "antecedent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.RestController"
+    ],
+    "consequent": [
+      "Field --(annotatedWith)--> Annotation_org.springframework.beans.factory.annotation.Autowired"
+    ],
+    "label": "not a rule",
+    "sameAs": 0
+  },
+  {
+    "id": -1848840712,
+    "antecedent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration",
+      "Method --(hasReturnType)--> org.springframework.jdbc.core.JdbcTemplate"
+    ],
+    "consequent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean"
+    ],
+    "label": "part. correct",
+    "distance": 2,
+    "distanceComments": [
+      "REMOVE 1 `Method --(hasReturnType)--> org.springframework.jdbc.core.JdbcTemplate`",
+      "MOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean` to ante",
+      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration` to cons"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": -637563003,
+    "antecedent": [
+      "Field --(annotatedWith)--> Annotation_org.springframework.beans.factory.annotation.Autowired",
+      "Class --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.RequestMapping"
+    ],
+    "consequent": [
+      "Annotation_org.springframework.web.bind.annotation.RequestMapping --(hasParam)--> Param_value:java.lang.String"
+    ],
+    "label": "not a rule",
+    "sameAs": 0
+  },
+  {
+    "id": 1138631632,
+    "antecedent": [
+      "Method --(hasReturnType)--> void",
+      "Method --(annotatedWith)--> Annotation_org.springframework.retry.annotation.Recover",
+      "Class --(annotatedWith)--> Annotation_org.springframework.stereotype.Service"
+    ],
+    "consequent": [
+      "Method --(hasParam)--> Param_org.springframework.remoting.RemoteAccessException"
+    ],
+    "label": "part. correct",
+    "distance": 3,
+    "distanceComments": [
+      "REMOVE 1 `Method --(hasReturnType)--> void`",
+      "REMOVE 1 `Method --(hasParam)--> Param_org.springframework.remoting.RemoteAccessException`",
+      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.stereotype.Service` to cons"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": 2047750484,
+    "antecedent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.GetMapping"
+    ],
+    "consequent": [
+      "Annotation_org.springframework.web.bind.annotation.GetMapping --(hasParam)--> Param_value:java.lang.String"
+    ],
+    "label": "not a rule",
+    "sameAs": 0
+  },
+  {
+    "id": -2094694713,
+    "antecedent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.messaging.handler.annotation.MessageMapping"
+    ],
+    "consequent": [
+      "Annotation_org.springframework.messaging.handler.annotation.MessageMapping --(hasParam)--> Param_value:java.lang.String"
+    ],
+    "label": "not a rule",
+    "sameAs": 0
+  },
+  {
+    "id": -73985836,
+    "antecedent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.RestController",
+      "Class --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.RequestMapping"
+    ],
+    "consequent": [
+      "Annotation_org.springframework.web.bind.annotation.RequestMapping --(hasParam)--> Param_value:java.lang.String"
+    ],
+    "label": "part. correct",
+    "distance": 3,
+    "distanceComments": [
+      "REMOVE 1 `RequestMapping --(hasParam)--> Param_value`",
+      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.RestController` to cons",
+      "ADD 1 `Class --(annotatedWith)--> @Controller` to cons",
+      "DISJOIN 1 `Class --(annotatedWith)--> @RestController`, `Class --(annotatedWith)--> @Controller`"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": -191313631,
+    "antecedent": [
+      "Method --(hasReturnType)--> org.springframework.http.ResponseEntity",
+      "Method --(annotatedWith)--> Annotation_org.springframework.security.access.prepost.PreAuthorize",
+      "Class --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.RequestMapping",
+      "Annotation_org.springframework.web.bind.annotation.RequestMapping --(hasParam)--> Param_value:java.lang.String"
+    ],
+    "consequent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.RestController"
+    ],
+    "label": "part. correct",
+    "distance": 4,
+    "distanceComments": [
+      "REMOVE 1 `Method --(hasReturnType)--> org.springframework.http.ResponseEntity`",
+      "REMOVE 1 `RequestMapping --(hasParam)--> Param_value`",
+      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.security.access.prepost.PreAuthorize`",
+      "ADD 1 `Class --(annotatedWith)--> @Controller` to cons",
+      "DISJOIN 1 `Class --(annotatedWith)--> @RestController`, `Class --(annotatedWith)--> @Controller`"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": 1910701819,
+    "antecedent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean",
+      "Class --(annotatedWith)--> Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnProperty",
+      "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration",
+      "Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnProperty --(hasParam)--> Param_value:java.lang.String"
+    ],
+    "consequent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.jms.annotation.EnableJms"
+    ],
+    "label": "part. correct",
+    "distance": 4,
+    "distanceComments": [
+      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean`",
+      "REMOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnProperty`",
+      "REMOVE 1 `ConditionalOnProperty --(hasParam)--> Param_value`",
+      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.jms.annotation.EnableJms` to ante",
+      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration` to cons"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": 246715368,
+    "antecedent": [
+      "Field --(hasType)--> org.springframework.jdbc.core.JdbcTemplate"
+    ],
+    "consequent": [
+      "Field --(annotatedWith)--> Annotation_org.springframework.beans.factory.annotation.Autowired"
+    ],
+    "label": "not a rule",
+    "sameAs": 0
+  },
+  {
+    "id": 46219275,
+    "antecedent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration"
+    ],
+    "consequent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.core.annotation.Order"
+    ],
+    "label": "part. correct",
+    "distance": 2,
+    "distanceComments": [
+      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.core.annotation.Order` to ante",
+      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration` to cons",
+      "ADD 1 `Class --(annotatedWith)--> @Component`",
+      "DISJOIN 1 `@Configuration`, `@Component`"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": -68190700,
+    "antecedent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.boot.context.properties.EnableConfigurationProperties",
+      "Annotation_org.springframework.boot.context.properties.EnableConfigurationProperties --(hasParam)--> Param_value:java.lang.Class"
+    ],
+    "consequent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean"
+    ],
+    "label": "not a rule",
+    "sameAs": 0
+  },
+  {
+    "id": 552851846,
+    "antecedent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean"
+    ],
+    "consequent": [
+      "Class --(extends)--> Class_org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter"
+    ],
+    "label": "not a rule",
+    "sameAs": 0
+  },
+  {
+    "id": 598776484,
+    "antecedent": [
+      "Field --(hasType)--> java.lang.String",
+      "Field --(annotatedWith)--> Annotation_org.springframework.ldap.odm.annotations.Attribute",
+      "Annotation_org.springframework.ldap.odm.annotations.Entry --(hasParam)--> Param_objectClasses:",
+      "Class --(annotatedWith)--> Annotation_org.springframework.ldap.odm.annotations.Entry"
+    ],
+    "consequent": [
+      "Annotation_org.springframework.ldap.odm.annotations.Attribute --(hasParam)--> Param_name:java.lang.String"
+    ],
+    "label": "part. correct",
+    "distance": 4,
+    "distanceComments": [
+      "REMOVE 1 `Entry --(hasParam)--> Param_objectClasses`",
+      "REMOVE 1 `Attribute --(hasParam)--> Param_name`",
+      "REMOVE 1 `Field --(hasType)--> java.lang.String`",
+      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.ldap.odm.annotations.Entry` to cons"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": 1001764133,
+    "antecedent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean",
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean",
+      "Class --(annotatedWith)--> Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnClass",
+      "Class --(annotatedWith)--> Annotation_org.springframework.boot.context.properties.EnableConfigurationProperties",
+      "Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnClass --(hasParam)--> Param_value:java.lang.Class",
+      "Annotation_org.springframework.boot.context.properties.EnableConfigurationProperties --(hasParam)--> Param_value:java.lang.Class",
+      "Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean --(hasParam)--> Param_value:java.lang.Class",
+      "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration",
+      "Method --(hasParam)--> Param_org.springframework.ldap.core.ContextSource"
+    ],
+    "consequent": [
+      "Method --(hasReturnType)--> org.springframework.ldap.core.LdapTemplate"
+    ],
+    "label": "part. correct",
+    "distance": 9,
+    "distanceComments": [
+      "REMOVE 4 `ConditionalOnClass --(hasParam)--> Param_value`",
+      "REMOVE 4 `EnableConfigurationProperties --(hasParam)--> Param_value`",
+      "REMOVE 4 `ConditionalOnMissingBean --(hasParam)--> Param_value`",
+      "REMOVE 4 `Method --(hasParam)--> Param_org.springframework.ldap.core.ContextSource`",
+      "REMOVE 1 `Method --(hasReturnType)--> org.springframework.ldap.core.LdapTemplate`",
+      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean`",
+      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean`",
+      "REMOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnClass`",
+      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration` to cons"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": -1253836543,
+    "antecedent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.PostMapping",
+      "Class --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.RequestMapping",
+      "Annotation_org.springframework.web.bind.annotation.RequestMapping --(hasParam)--> Param_value:java.lang.String"
+    ],
+    "consequent": [
+      "Method --(hasReturnType)--> org.springframework.http.ResponseEntity"
+    ],
+    "label": "not a rule",
+    "sameAs": 0
+  },
+  {
+    "id": 123181769,
+    "antecedent": [
+      "Class --(annotatedWith)--> Annotation_lombok.extern.slf4j.Slf4j",
+      "Method --(hasParam)--> Param_java.lang.String",
+      "Method --(annotatedWith)--> Annotation_java.lang.SuppressWarnings",
+      "Class --(annotatedWith)--> Annotation_lombok.experimental.UtilityClass",
+      "Method --(hasReturnType)--> Mono",
+      "Annotation_java.lang.SuppressWarnings --(hasParam)--> Param_value:java.lang.String"
+    ],
+    "consequent": [
+      "Method --(hasParam)--> Param_org.springframework.expression.EvaluationContext"
+    ],
+    "label": "not a rule",
+    "sameAs": 0
+  },
+  {
+    "id": -294085142,
+    "antecedent": [
+      "Annotation_org.springframework.data.jpa.repository.config.EnableJpaRepositories --(hasParam)--> Param_transactionManagerRef:java.lang.String",
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean",
+      "Class --(annotatedWith)--> Annotation_org.springframework.transaction.annotation.EnableTransactionManagement",
+      "Class --(annotatedWith)--> Annotation_org.springframework.data.jpa.repository.config.EnableJpaRepositories",
+      "Annotation_org.springframework.data.jpa.repository.config.EnableJpaRepositories --(hasParam)--> Param_entityManagerFactoryRef:java.lang.String",
+      "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration",
+      "Method --(hasParam)--> Param_org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder",
+      "Annotation_org.springframework.context.annotation.Bean --(hasParam)--> Param_name:java.lang.String",
+      "Method --(hasReturnType)--> org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+    ],
+    "consequent": [
+      "Annotation_org.springframework.data.jpa.repository.config.EnableJpaRepositories --(hasParam)--> Param_basePackages:"
+    ],
+    "label": "part. correct",
+    "distance": 9,
+    "distanceComments": [
+      "REMOVE 1 `@EnableJpaRepositories --(hasParam)--> Param_transactionManagerRef`",
+      "REMOVE 1 `@EnableJpaRepositories --(hasParam)--> Param_entityManagerFactoryRef`",
+      "REMOVE 1 `Method --(hasParam)--> Param_org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder`",
+      "REMOVE 1 `@Bean --(hasParam)--> Param_name`",
+      "REMOVE 1 `EnableJpaRepositories --(hasParam)--> Param_basePackages`",
+      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean`",
+      "REMOVE 1 `Method --(hasReturnType)--> org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean`",
+      "DISJOIN 1 `Class --(annotatedWith)--> Annotation_org.springframework.transaction.annotation.EnableTransactionManagement`, `Class --(annotatedWith)--> Annotation_org.springframework.data.jpa.repository.config.EnableJpaRepositories`",
+      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration` to cons"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": 820624458,
+    "antecedent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean",
+      "Class --(annotatedWith)--> Annotation_org.springframework.boot.context.properties.EnableConfigurationProperties"
+    ],
+    "consequent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration"
+    ],
+    "label": "part. correct",
+    "distance": 1,
+    "distanceComments": [
+      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean`"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": -872097868,
+    "antecedent": [
+      "Annotation_org.springframework.data.jpa.repository.config.EnableJpaRepositories --(hasParam)--> Param_transactionManagerRef:java.lang.String",
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean",
+      "Class --(annotatedWith)--> Annotation_org.springframework.transaction.annotation.EnableTransactionManagement",
+      "Class --(annotatedWith)--> Annotation_org.springframework.data.jpa.repository.config.EnableJpaRepositories",
+      "Annotation_org.springframework.data.jpa.repository.config.EnableJpaRepositories --(hasParam)--> Param_entityManagerFactoryRef:java.lang.String",
+      "Method --(hasParam)--> Param_org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder",
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Primary",
+      "Method --(hasReturnType)--> org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+    ],
+    "consequent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration"
+    ],
+    "label": "part. correct",
+    "distance": 8,
+    "distanceComments": [
+      "REMOVE 3 `EnableJpaRepositories --(hasParam)--> Param_transactionManagerRef`",
+      "REMOVE 3 `EnableJpaRepositories --(hasParam)--> Param_entityManagerFactoryRef`",
+      "REMOVE 3 `Method --(hasParam)--> Param_org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder`",
+      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean`",
+      "REMOVE 1 `Method --(hasParam)--> Param_org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder`",
+      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Primary`",
+      "REMOVE 1 `Method --(hasReturnType)--> org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean`",
+      "DISJOIN 1 `Class --(annotatedWith)--> Annotation_org.springframework.transaction.annotation.EnableTransactionManagement`, `Class --(annotatedWith)--> Annotation_org.springframework.data.jpa.repository.config.EnableJpaRepositories`"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": -1996748575,
+    "antecedent": [
+      "Class --(annotatedWith)--> Annotation_lombok.extern.slf4j.Slf4j",
+      "Method --(annotatedWith)--> Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean",
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean",
+      "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration",
+      "Annotation_org.springframework.context.annotation.Configuration --(hasParam)--> Param_proxyBeanMethods:boolean",
+      "Method --(hasReturnType)--> org.springframework.retry.interceptor.RetryOperationsInterceptor"
+    ],
+    "consequent": [
+      "Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean --(hasParam)--> Param_name:java.lang.String"
+    ],
+    "label": "part. correct",
+    "distance": 6,
+    "distanceComments": [
+      "REMOVE 1 `Configuration --(hasParam)--> Param_proxyBeanMethods`",
+      "REMOVE 1 `ConditionalOnMissingBean --(hasParam)--> Param_name`",
+      "REMOVE 1 `Class --(annotatedWith)--> Annotation_lombok.extern.slf4j.Slf4j`",
+      "REMOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration`",
+      "REMOVE 1 `Method --(hasReturnType)--> org.springframework.retry.interceptor.RetryOperationsInterceptor`",
+      "MOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean` to cons"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": -478602432,
+    "antecedent": [
+      "Class --(annotatedWith)--> Annotation_lombok.extern.slf4j.Slf4j"
+    ],
+    "consequent": [
+      "Class --(annotatedWith)--> Annotation_org.springframework.core.annotation.Order"
+    ],
+    "label": "not a rule",
+    "sameAs": 0
+  },
+  {
+    "id": 626679726,
+    "antecedent": [
+      "Method --(hasReturnType)--> org.springframework.remoting.caucho.HessianProxyFactoryBean",
+      "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration"
+    ],
+    "consequent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean"
+    ],
+    "label": "part. correct",
+    "distance": 3,
+    "distanceComments": [
+      "REMOVE 1 `Method --(hasReturnType)--> org.springframework.remoting.caucho.HessianProxyFactoryBean`",
+      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration` to cons",
+      "MOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean` to ante",
+      "ADD 1 `Class --(annotatedWith)--> @Component`",
+      "DISJOIN 1 `@Configuration`, `@Component`"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": -1652674578,
+    "antecedent": [
+      "Annotation_org.springframework.cache.annotation.Cacheable --(hasParam)--> Param_key:java.lang.String",
+      "Class --(annotatedWith)--> Annotation_org.springframework.retry.annotation.EnableRetry",
+      "Method --(annotatedWith)--> Annotation_org.springframework.cache.annotation.Cacheable",
+      "Annotation_org.springframework.retry.annotation.Retryable --(hasParam)--> Param_maxAttempts:int",
+      "Annotation_org.springframework.retry.annotation.Retryable --(hasParam)--> Param_backoff:",
+      "Method --(annotatedWith)--> Annotation_org.springframework.retry.annotation.Retryable",
+      "Method --(hasReturnType)--> java.lang.String",
+      "Annotation_org.springframework.cache.annotation.Cacheable --(hasParam)--> Param_value:java.lang.String",
+      "Annotation_org.springframework.retry.annotation.Retryable --(hasParam)--> Param_value:java.lang.Class<java.lang.Exception>",
+      "Class --(annotatedWith)--> Annotation_org.springframework.stereotype.Component"
+    ],
+    "consequent": [
+      "Method --(hasParam)--> Param_com.intsmaze.flink.base.bean.FlowData"
+    ],
+    "label": "part. correct",
+    "distance": 10,
+    "distanceComments": [
+      "REMOVE 1 `Cacheable --(hasParam)--> Param_key`",
+      "REMOVE 1 `Retryable --(hasParam)--> Param_maxAttempts`",
+      "REMOVE 1 `Retryable --(hasParam)--> Param_backoff`",
+      "REMOVE 1 `Cacheable --(hasParam)--> Param_value`",
+      "REMOVE 1 `Retryable --(hasParam)--> Param_value`",
+      "REMOVE 1 `Method --(hasParam)--> Param_com.intsmaze.flink.base.bean.FlowData`",
+      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.cache.annotation.Cacheable`",
+      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.retry.annotation.Retryable`",
+      "REMOVE 1 `Method --(hasReturnType)--> java.lang.String`",
+      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.stereotype.Component` to cons"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": 335969294,
+    "antecedent": [
+      "Method --(hasReturnType)--> void",
+      "Method --(annotatedWith)--> Annotation_org.springframework.jms.annotation.JmsListener"
+    ],
+    "consequent": [
+      "Annotation_org.springframework.jms.annotation.JmsListener --(hasParam)--> Param_destination:java.lang.String"
+    ],
+    "label": "not a rule",
+    "sameAs": 0
+  },
+  {
+    "id": -718572622,
+    "antecedent": [
+      "Method --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.GetMapping",
+      "Class --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.RestController",
+      "Class --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.RequestMapping"
+    ],
+    "consequent": [
+      "Method --(hasReturnType)--> org.springframework.http.ResponseEntity"
+    ],
+    "label": "part. correct",
+    "distance": 4,
+    "distanceComments": [
+      "REMOVE 1 `Method --(hasReturnType)--> org.springframework.http.ResponseEntity`",
+      "DISJOIN 1 `Method --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.GetMapping`, `Class --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.RequestMapping`",
+      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.RestController` to cons",
+      "ADD 1 `Class --(annotatedWith)--> @Controller` to cons",
+      "DISJOIN 1 `Class --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.RestController`, `Class --(annotatedWith)--> @Controller`"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": -75530929,
+    "antecedent": [
+      "Method --(hasParam)--> Param_javax.sql.DataSource",
+      "Annotation_org.springframework.data.jpa.repository.config.EnableJpaRepositories --(hasParam)--> Param_transactionManagerRef:java.lang.String",
+      "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean",
+      "Class --(annotatedWith)--> Annotation_org.springframework.transaction.annotation.EnableTransactionManagement",
+      "Param_javax.sql.DataSource --(annotatedWith)--> Annotation_org.springframework.beans.factory.annotation.Qualifier",
+      "Class --(annotatedWith)--> Annotation_org.springframework.data.jpa.repository.config.EnableJpaRepositories",
+      "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration",
+      "Method --(hasParam)--> Param_org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder",
+      "Annotation_org.springframework.beans.factory.annotation.Qualifier --(hasParam)--> Param_value:java.lang.String",
+      "Method --(hasReturnType)--> org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+    ],
+    "consequent": [
+      "Annotation_org.springframework.data.jpa.repository.config.EnableJpaRepositories --(hasParam)--> Param_entityManagerFactoryRef:java.lang.String"
+    ],
+    "label": "part. correct",
+    "distance": 10,
+    "distanceComments": [
+      "REMOVE 1 `Method --(hasParam)--> Param_javax.sql.DataSource`",
+      "REMOVE 1 `EnableJpaRepositories --(hasParam)--> Param_transactionManagerRef`",
+      "REMOVE 1 `Method --(hasParam)--> Param_org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder`",
+      "REMOVE 1 `Qualifier --(hasParam)--> Param_value`",
+      "REMOVE 1 `EnableJpaRepositories --(hasParam)--> Param_entityManagerFactoryRef`",
+      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean`",
+      "REMOVE 1 `Param_javax.sql.DataSource --(annotatedWith)--> Annotation_org.springframework.beans.factory.annotation.Qualifier`",
+      "REMOVE 1 `Method --(hasReturnType)--> org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean`",
+      "DISJOIN 1 `Class --(annotatedWith)--> Annotation_org.springframework.transaction.annotation.EnableTransactionManagement`, `Class --(annotatedWith)--> Annotation_org.springframework.data.jpa.repository.config.EnableJpaRepositories`",
+      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration` to cons"
+    ],
+    "sameAs": 0
+  }
+]
