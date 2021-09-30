@@ -1,0 +1,15 @@
+# this is not a csv, 
+# just txt, 
+# but looks like csv, 
+# but it is not
+
+Link,Rule
+https://stackoverflow.com/a/68324385/,@Entity <==> @Id (goes both ways)
+https://stackoverflow.com/questions/43015344/requestmapping-stopped-working-after-adding-db-and-security-features/43016849#43016849,@RequestMapping ==> @RestController || @Controller
+https://stackoverflow.com/a/40587746/,@RequestMapping ==> @RestController || @Controller
+https://stackoverflow.com/questions/29160424/how-to-load-java-based-securityconfig-in-xml-based-spring-config-file/29160555#29160555,@EnableWebSecurity ==> @Configuration
+https://stackoverflow.com/questions/43031951/service-component-object-is-not-loaded-in-spring-batch-processor/43032177#43032177,@Autowired ==> @Component
+https://stackoverflow.com/questions/31082281/why-spring-retryable-does-not-provide-retry/31082415#31082415,@EnableRetry ==> @Configuration
+https://stackoverflow.com/a/38256766/,@EnableRetry ==> @Configuration
+https://stackoverflow.com/a/58509790/,@EnableRetry ==> @Configuration
+https://stackoverflow.com/a/31082415/,@EnableRetry ==> @Configuration
