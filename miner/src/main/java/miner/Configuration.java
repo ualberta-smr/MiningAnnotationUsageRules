@@ -124,9 +124,9 @@ public class Configuration {
     public static boolean mineBySubApi = true;
 
 
-    /*-------------------------- LOGS --------------------------- */
-    public static boolean dumpFrequentItemsets = true;
-    public static boolean dumpCandidateRules = true;
-    public static boolean dumpInputItemsets = true;
+    /* -------- Additional dumps from intermediate steps (input & freq itemsets) -------- */
+    public static boolean dumpFrequentItemsets = false;
+    public static boolean dumpCandidateRules = false;
+    public static boolean dumpInputItemsets = false;
 
 }
