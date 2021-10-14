@@ -9,8 +9,9 @@ As well as results (i.e., generated and confirmed candidate rules for both Micro
 
 #### Artifacts
 
-- 15 usage rules manually extracted from documentation and developers' forums  are
-  [here](./artifacts/manually-extracted-rules.xlsx).
+- 15 usage rules manually extracted from documentation and developers' forums are [here](./artifacts/manually-extracted-rules.xlsx).
+- Violations in the commit history of [MicroProfile](./artifacts/MicroProfile_ClientProjectsViolations.csv) client projects, as well as in the latest commit of [Spring Boot](./artifacts/SpringBoot_ClientProjectsViolations.csv) projects.
+
 - Manifestations of violations of 9 Spring Boot rules are [here](./artifacts/spring-boot-questions-on-so.txt). **Note** that we discuss the manifestations of violations in the thesis only (which is more expansive). Ignore this artifact if you come here from our article/paper.
 
 ## Reproducing Results
