@@ -9,9 +9,9 @@ As well as results (i.e., generated and confirmed candidate rules for both Micro
 
 #### Artifacts
 
-- 15 explicit and implicit usage rules extracted from questions are
+- 15 usage rules manually extracted from documentation and developers' forums  are
   [here](./artifacts/manually-extracted-rules.xlsx).
-- Manifestations of violations of 9 Spring Boot rules are [here](./artifacts/spring-boot-questions-on-so.txt).
+- Manifestations of violations of 9 Spring Boot rules are [here](./artifacts/spring-boot-questions-on-so.txt). **Note** that we discuss the manifestations of violations in the thesis only (which is more expansive). Ignore this artifact if you come here from our article/paper.
 
 ## Reproducing Results
 
@@ -29,8 +29,8 @@ Steps:
    Boot](./miner/clientProjects_mining_SpringBoot.txt) client projects.
 4. Set correct project paths in
    [Configuration.java](./miner/src/main/java/miner/Configuration.java). If you
-   decide to run Spring Boot (or MicroProfile), make sure to select
-   MicroProfile-specific configs and comment out the Spring Boot ones (or vice
+   decide to run Spring Boot, make sure to select
+   Spring-Boot-specific configs and comment out the MicroProfile ones (or vice
    versa).
 5. Run (press green left arrow on the class definition of `Runner` in
    [Runner.java](./miner/src/main/java/parser/Runner.java).
@@ -42,9 +42,10 @@ The static analysis tool that encodes all rules scans one program at a time
 [here](./checkers/src/main/java/parser/rules).
 
 Note that the output results may slightly vary due to proprietary projects being removed.
+Also, we use different (disjoint) sets of Spring Boot projects for [scanning](./miner/clientProjects_scanning_SpringBoot.txt) and [mining](./miner/clientProjects_mining_SpringBoot.txt),
+respectively.
 
-Steps (might need to skip some steps if you have already went through steps for
-**Mining**):
+Steps (skip Step 1 if you have already cloned this repository):
 
 1. Clone this repository.
 2. Go into `/checkers` directory: 
