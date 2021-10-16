@@ -32,7 +32,7 @@ Rules:
 - **Mined rules:** Mined rules for [MicroProfile](https://github.com/ualberta-smr/MiningAnnotationUsageRules/blob/main/results/rules/minedRules_MicroProfile.json) and [Spring Boot](https://github.com/ualberta-smr/MiningAnnotationUsageRules/blob/main/results/rules/minedRules_SpringBoot.json) along with edit distance comments.
 - **Unique confirmed rules:** Confirmed (unique) rules for [MicroProfile](https://github.com/ualberta-smr/MiningAnnotationUsageRules/blob/main/results/rules/uniqueMinedAndConfirmedRules_MicroProfile.json) and [Spring Boot](https://github.com/ualberta-smr/MiningAnnotationUsageRules/blob/main/results/rules/uniqueMinedAndConfirmedRules_SpringBoot.json).
 
-You can also see [this spreadsheet](TODO) that contains all mined rules, their labels (rule or not), as well as distance comments to the actual (underlying) rules.
+You can also see [this spreadsheet](./artifacts/all-mined-rules.xlsx) that contains all mined rules for both APIs, their labels (whether a candidate rule is actually a usage rule or not), as well as distance comments to the actual (underlying) rules.
 
 Violations:
 
