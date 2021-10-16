@@ -1,28 +1,34 @@
 # MiningAnnotationUsageRules
 
-The artifact repo for the paper titled *Mining Annotation Usage Rules: A Case
-Study with MicroProfile* by Batyr Nuryyev, Ajay Kumar Jha, Sarah Nadi, Yee-Kang
-Chang, Vijay Sundaresan, Emily Jiang. In this paper, we investigate whether
+The artifact repo for the paper titled:
+
+> *Mining Annotation Usage Rules: A Case
+Study with MicroProfile*. Batyr Nuryyev, Ajay Kumar Jha, Sarah Nadi, Yee-Kang
+Chang, Vijay Sundaresan, Emily Jiang. 
+
+In this paper, we investigate whether
 the idea of pattern-based discovery of rules can be applied to annotation-based
 API usages in the industrial case study of MicroProfile (an open source Java
 microservices framework).
 
-The repo contains two tools:
+## Contents
 
-- Annotation mining tool that generates candidate rules (located in `/miner`
-  directory),
-- Static checkers (located in `/checkers` directory). Note that the static
-  checkers encode only MicroProfile and Spring Boot rules (i.e., usage rules
-  for any other library must be encoded/added manually).
+#### Tools
 
-As well as results (i.e., generated and confirmed candidate rules for both MicroProfile and Spring Boot) placed in `/results` directory.
+- **The miner:** Annotation mining tool that generates candidate rules (located in `/miner`
+  directory).
+- **The scanner/checkers:** Confirmed mined rules encoded into a program that leverages JavaParser to find violations of the rules (located in `/checkers` directory). Note that the static checkers encode only MicroProfile and Spring Boot rules (i.e., usage rules for any other library must be encoded/added manually separately).
 
-#### Artifacts
+#### Input data
 
-- 15 usage rules manually extracted from documentation and developers' forums are [here](./artifacts/manually-extracted-rules.xlsx).
-- Violations in the commit history of [MicroProfile](./artifacts/MicroProfile_ClientProjectsViolations.csv) client projects, as well as in the latest commit of [Spring Boot](./artifacts/SpringBoot_ClientProjectsViolations.csv) projects.
+- **Manually extracted usage rules:** 15 usage rules manually extracted from documentation and developers' forums are [here](./artifacts/manually-extracted-rules.xlsx).
+- **MicroProfile client projects:** The list of projects used for mining and scanning for violations is available [here](https://github.com/ualberta-smr/MiningAnnotationUsageRules/blob/main/miner/clientProjects_MicroProfile.txt) (same list of projects for both tasks).
+- **Spring Boot client projects:** The list of projects used for mining is available [here](https://github.com/ualberta-smr/MiningAnnotationUsageRules/blob/main/miner/clientProjects_mining_SpringBoot.txt). The list of projects used for scanning for violations is available [here](https://github.com/ualberta-smr/MiningAnnotationUsageRules/blob/main/miner/clientProjects_scanning_SpringBoot.txt).
 
-- Manifestations of violations of 9 Spring Boot rules are [here](./artifacts/spring-boot-questions-on-so.txt). **Note** that we discuss the manifestations of violations in the thesis only (which is more expansive). Ignore this artifact if you come here from our article/paper.
+#### Output data (results)
+
+- **Detected violations:** Violations in the commit history of [MicroProfile](./artifacts/MicroProfile_ClientProjectsViolations.csv) client projects, as well as in the latest commit of [Spring Boot](./artifacts/SpringBoot_ClientProjectsViolations.csv) projects.
+- **Spring Boot violations in Stack Overflow:** Manifestations of violations of 9 Spring Boot rules are [here](./artifacts/spring-boot-questions-on-so.txt). **Note** that we discuss the manifestations of violations in the thesis only (which is more expansive). Ignore this artifact if you come here from our article/paper.
 
 ## Reproducing Results
 
@@ -61,23 +67,23 @@ respectively.
 
 Steps (skip Step 1 if you have already cloned this repository):
 
-1. Clone this repository.
-2. Go into `/checkers` directory: 
+1. **Clone the repo:** download this repository.
+2. **Compile:** Go into `/checkers` directory: 
 
 ```bash
 cd checkers/
 ```
 
-3. Create the static analysis checker jar:
+Create the static analysis checker fat jar:
 
 ```bash
 mvn clean compile package
 ```
 
-4. Run checkers on the desired project to scan for violations:
+4. **Run:** Run checkers on the desired project to scan for violations:
 
 ```bash
-java -jar target/rules-checker-1.0-SNAPSHOT-jar-with-dependencies.jar path/to/scan
+java -jar target/rules-checker-1.0-SNAPSHOT-jar-with-dependencies.jar path/to/scan/
 ```
 
 ## General Usage
