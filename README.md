@@ -27,6 +27,8 @@ microservices framework).
 
 #### Output data (results)
 
+- TODO: Mined rules (MP + SB)
+- TODO: Unique confirmed rules (MP + SB)
 - **Detected violations:** Violations in the commit history of [MicroProfile](./artifacts/MicroProfile_ClientProjectsViolations.csv) client projects, as well as in the latest commit of [Spring Boot](./artifacts/SpringBoot_ClientProjectsViolations.csv) projects.
 - **Spring Boot violations in Stack Overflow:** Manifestations of violations of 9 Spring Boot rules are [here](./artifacts/spring-boot-questions-on-so.txt). **Note** that we discuss the manifestations of violations in the thesis only (which is more expansive). Ignore this artifact if you come here from our article/paper.
 
