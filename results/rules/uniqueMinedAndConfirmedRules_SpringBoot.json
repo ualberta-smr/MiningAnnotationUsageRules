@@ -1,0 +1,175 @@
+[
+    {
+        "id": 1,
+        "antecedent": [
+            "Class --(annotatedWith)--> Annotation_org.springframework.boot.context.properties.EnableConfigurationProperties"
+        ],
+        "consequent": [
+            "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration"
+        ],
+        "ifViolated": "Faulty behavior without explicit error (class is not registered as bean, annotation ignored)"
+    },
+    {
+        "id": 2,
+        "antecedent": [
+            "Class --(annotatedWith)--> (Annotation_org.springframework.transaction.annotation.EnableTransactionManagement || Annotation_org.springframework.data.jpa.repository.config.EnableJpaRepositories)"
+        ],
+        "consequent": [
+            "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration"
+        ],
+        "ifViolated": "Faulty behavior without explicit error (class is not registered as bean, annotation ignored)"
+    },
+    {
+        "id": 3,
+        "antecedent": [
+            "Class --(annotatedWith)--> Annotation_org.springframework.web.bind.annotation.RequestMapping"
+        ],
+        "consequent": [
+            "Class --(annotatedWith)--> Annotation_org.springframework.stereotype.Controller"
+        ],
+        "ifViolated": "Faulty behavior without explicit error (class is not registered as bean, annotation ignored)"
+    },
+    {
+        "id": 4,
+        "antecedent": [
+            "Class --(annotatedWith)--> Annotation_org.springframework.retry.annotation.EnableRetry"
+        ],
+        "consequent": [
+            "Class --(annotatedWith)--> Annotation_org.springframework.stereotype.Component"
+        ],
+        "ifViolated": "Faulty behavior without explicit error (class is not registered as bean, annotation ignored)"
+    },
+    {
+        "id": 5,
+        "antecedent": [
+            "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean"
+        ],
+        "consequent": [
+            "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration"
+        ],
+        "ifViolated": "Faulty behavior without explicit error (class is not registered as bean, annotation ignored)"
+    },
+    {
+        "id": 6,
+        "antecedent": [
+            "Class --(annotatedWith)--> Annotation_org.springframework.boot.context.properties.EnableConfigurationProperties"
+        ],
+        "consequent": [
+            "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration"
+        ],
+        "ifViolated": "Faulty behavior without explicit error (class is not registered as bean, annotation ignored)"
+    },
+    {
+        "id": 7,
+        "antecedent": [
+            "Class --(annotatedWith)--> Annotation_org.springframework.security.config.annotation.web.configuration.EnableWebSecurity",
+            "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration"
+        ],
+        "consequent": [
+            "Class --(extends)--> Class_org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter"
+        ],
+        "ifViolated": "Runtime exception (IllegalStateException)"
+    },
+    {
+        "id": 8,
+        "antecedent": [
+            "Field --(annotatedWith)--> Annotation_org.springframework.ldap.odm.annotations.Id"
+            
+        ],
+        "consequent": [
+            "Class --(annotatedWith)--> Annotation_org.springframework.ldap.odm.annotations.Entry",
+            "Field --(mustNotBeAnnWith)--> Annotation_org.springframework.ldap.odm.annotations.Attribute"
+        ],
+        "ifViolated": "Runtime exception (IllegalStateException)"
+    },
+    {
+        "id": 9,
+        "antecedent": [
+            "Class --(annotatedWith)--> Annotation_io.prometheus.client.spring.boot.EnablePrometheusEndpoint"
+        ],
+        "consequent": [
+            "Class --(annotatedWith)--> (Annotation_org.springframework.stereotype.Component || Annotation_org.springframework.boot.autoconfigure.SpringBootApplication)"
+        ],
+        "ifViolated": "Faulty behavior without explicit error (class is not registered as bean, annotation ignored)"
+    },
+    {
+        "id": 10,
+        "antecedent": [
+            "Method --(annotatedWith)--> Annotation_org.springframework.retry.annotation.Retryable"
+        ],
+        "consequent": [
+            "Class --(annotatedWith)--> Annotation_org.springframework.stereotype.Service"
+        ],
+        "ifViolated": "Faulty behavior without explicit error (class is not registered as bean, annotation ignored)"
+    },
+    {
+        "id": 11,
+        "antecedent": [
+            "Field --(annotatedWith)--> Annotation_org.springframework.beans.factory.annotation.Autowired"
+        ],
+        "consequent": [
+            "Class --(annotatedWith)--> Annotation_org.springframework.stereotype.Service"
+        ],
+        "ifViolated": "Faulty behavior without explicit error (class is not registered as bean, annotation ignored)"
+    },
+    {
+        "id": 12,
+        "antecedent": [
+            "Method --(annotatedWith)--> Annotation_org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean"
+        ],
+        "consequent": [
+            "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean"
+        ],
+        "ifViolated": "Faulty behavior without explicit error (class is not registered as bean, annotation ignored)"
+    },
+    {
+        "id": 13,
+        "antecedent": [
+            "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.DependsOn"
+        ],
+        "consequent": [
+            "Method --(annotatedWith)--> Annotation_org.springframework.context.annotation.Bean"
+        ],
+        "ifViolated": "Faulty behavior without explicit error (class is not registered as bean, annotation ignored)"
+    },
+    {
+        "id": 14,
+        "antecedent": [
+            "Method --(annotatedWith)--> Annotation_org.springframework.retry.annotation.Recover"
+        ],
+        "consequent": [
+            "Class --(annotatedWith)--> Annotation_org.springframework.stereotype.Service"
+        ],
+        "ifViolated": "Faulty behavior without explicit error (class is not registered as bean, annotation ignored)"
+    },
+    {
+        "id": 15,
+        "antecedent": [
+            "Class --(annotatedWith)--> Annotation_org.springframework.jms.annotation.EnableJms"
+        ],
+        "consequent": [
+            "Class --(annotatedWith)--> Annotation_org.springframework.context.annotation.Configuration"
+        ],
+        "ifViolated": "Faulty behavior without explicit error (class is not registered as bean, annotation ignored)"
+    },
+    {
+        "id": 16,
+        "antecedent": [
+            "Class --(annotatedWith)--> Annotation_org.springframework.core.annotation.Order"
+        ],
+        "consequent": [
+            "Class --(annotatedWith)--> Annotation_org.springframework.stereotype.Component"
+        ],
+        "ifViolated": "Faulty behavior without explicit error (class is not registered as bean, annotation ignored)"
+    },
+    {
+        "id": 17,
+        "antecedent": [
+            "Field --(annotatedWith)--> Annotation_org.springframework.ldap.odm.annotations.Attribute"
+        ],
+        "consequent": [
+            "Class --(annotatedWith)--> Annotation_org.springframework.ldap.odm.annotations.Entry"
+        ],
+        "ifViolated": "Faulty behavior without explicit error (class is not registered as bean, annotation ignored)"
+    }
+]

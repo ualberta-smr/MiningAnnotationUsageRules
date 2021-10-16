@@ -1,0 +1,144 @@
+[
+    {
+        "id": 1,
+        "antecedent": [
+            "Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.config.inject.ConfigProperty"
+        ],
+        "consequent": [
+            "Field --(annotatedWith)--> Annotation_javax.inject.Inject"
+        ],
+        "ifViolated": "NullPointerException (which leads to Internal Server Error 500)"
+    },
+    {
+        "id": 2,
+        "antecedent": [
+            "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.rest.client.inject.RegisterRestClient"
+        ],
+        "consequent": [
+            "(Method || Class) --(annotatedWith)--> Annotation_javax.ws.rs.Path"
+        ],
+        "ifViolated": "Faulty behavior without explicit error (HTTP 404 Not Found)"
+    },
+    {
+        "id": 3,
+        "antecedent": [
+            "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.reactive.messaging.Incoming"
+        ],
+        "consequent": [
+            "(Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped) || (Class --(definedIn)--> server.xml)"
+        ],
+        "ifViolated": "Faulty behavior without explicit error (empty list instead of list with objects)"
+    },
+    {
+        "id": 4,
+        "antecedent": [
+            "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.reactive.messaging.Outgoing"
+        ],
+        "consequent": [
+            "(Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped) || (Class --(definedIn)--> server.xml)"
+        ],
+        "ifViolated": "Faulty behavior without explicit error (empty list instead of list with objects)"
+    },
+    {
+        "id": 5,
+        "antecedent": [
+            "Method --(hasParam)--> Param_T",
+            "Param_T --(annotatedWith)--> Annotation_javax.ws.rs.PathParam"
+        ],
+        "consequent": [
+            "(Method || Class) --(annotatedWith)--> Annotation_javax.ws.rs.Path"
+        ],
+        "ifViolated": "Faulty behavior without explicit error (simply gets ignored or causes 404)"
+    },
+    {
+        "id": 6,
+        "antecedent": [
+            "Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.jwt.Claim"
+        ],
+        "consequent": [
+            "Field --(annotatedWith)--> Annotation_javax.inject.Inject"
+        ],
+        "ifViolated": "NullPointerException (which leads to Internal Server Error 500)"
+    },
+    {
+        "id": 7,
+        "antecedent": [
+            "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.graphql.Query"
+        ],
+        "consequent": [
+            "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.graphql.GraphQLApi"
+        ],
+        "ifViolated": "Faulty behavior without explicit error (GraphQL interface on `/graphql` is not accessible, 404)"
+    },
+    {
+        "id": 8,
+        "antecedent": [
+            "Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.config.inject.ConfigProperty",
+            "Annotation_org.eclipse.microprofile.config.inject.ConfigProperty --(hasParam)--> Param_name:java.lang.String"
+        ],
+        "consequent": [
+            "Param_name:java.lang.String --(definedIn)--> ConfigFile_microprofile-config.properties"
+        ],
+        "ifViolated": "DeploymentException (which leads to Internal Server Error 500)"
+    },
+    {
+        "id": 9,
+        "antecedent": [
+            "Method --(annotatedWith)--> (Annotation_javax.ws.rs.GET || PUT || POST || UPDATE || DELETE)"
+        ],
+        "consequent": [
+            "(Method || Class) --(annotatedWith)--> Annotation_javax.ws.rs.Path"
+        ],
+        "ifViolated": "Faulty behavior without explicit error (HTTP 404 Not Found)"
+    },
+    {
+        "id": 10,
+        "antecedent": [
+            "Field --(hasType)--> org.eclipse.microprofile.jwt.JsonWebToken"
+        ],
+        "consequent": [
+            "Field --(annotatedWith)--> Annotation_javax.inject.Inject"
+        ],
+        "ifViolated": "NullPointerException (which leads to Internal Server Error 500)"
+    },
+    {
+        "id": 11,
+        "antecedent": [
+            "Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.rest.client.inject.RestClient"
+        ],
+        "consequent": [
+            "Field --(annotatedWith)--> Annotation_javax.inject.Inject"
+        ],
+        "ifViolated": "Faulty behavior without explicit error (HTTP 404 Not Found)"
+    },
+    {
+        "id": 12,
+        "antecedent": [
+            "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.health.Health"
+        ],
+        "consequent": [
+            "Class --(implements)--> Interface_org.eclipse.microprofile.health.HealthCheck"
+        ],
+        "ifViolated": "Faulty behavior without explicit error (missing liveness feature/metric, 404)"
+    },
+    {
+        "id": 13,
+        "antecedent": [
+            "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.health.Liveness"
+        ],
+        "consequent": [
+            "Class --(implements)--> Interface_org.eclipse.microprofile.health.HealthCheck"
+        ],
+        "ifViolated": "Faulty behavior without explicit error (missing liveness feature/metric, 404)"
+    },
+    {
+        "id": 14,
+        "antecedent": [
+            "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.health.Readiness"
+        ],
+        "consequent": [
+            "Class --(implements)--> Interface_org.eclipse.microprofile.health.HealthCheck"
+        ],
+        "ifViolated": "Faulty behavior without explicit error (missing liveness feature/metric, 404)"
+    }
+]
