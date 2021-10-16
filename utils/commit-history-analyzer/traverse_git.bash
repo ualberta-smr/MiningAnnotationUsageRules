@@ -9,6 +9,7 @@ CURR_DIR="$(pwd)"
 if [ $# -eq 0 ]
 then
     echo "No arguments supplied! Need a path to the jar file."
+    exit 1
 fi
 
 for d in *
