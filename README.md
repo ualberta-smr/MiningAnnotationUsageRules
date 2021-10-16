@@ -27,8 +27,15 @@ microservices framework).
 
 #### Output data (results)
 
-- TODO: Mined rules (MP + SB)
-- TODO: Unique confirmed rules (MP + SB)
+Rules:
+
+- **Mined rules:** Mined rules for [MicroProfile](https://github.com/ualberta-smr/MiningAnnotationUsageRules/blob/main/results/rules/minedRules_MicroProfile.json) and [Spring Boot](https://github.com/ualberta-smr/MiningAnnotationUsageRules/blob/main/results/rules/minedRules_SpringBoot.json) along with edit distance comments.
+- **Unique confirmed rules:** Confirmed (unique) rules for [MicroProfile](https://github.com/ualberta-smr/MiningAnnotationUsageRules/blob/main/results/rules/uniqueMinedAndConfirmedRules_MicroProfile.json) and [Spring Boot](https://github.com/ualberta-smr/MiningAnnotationUsageRules/blob/main/results/rules/uniqueMinedAndConfirmedRules_SpringBoot.json).
+
+You can also see [this spreadsheet](TODO) that contains all mined rules, their labels (rule or not), as well as distance comments to the actual (underlying) rules.
+
+Violations:
+
 - **Detected violations:** Violations in the commit history of [MicroProfile](./artifacts/MicroProfile_ClientProjectsViolations.csv) client projects, as well as in the latest commit of [Spring Boot](./artifacts/SpringBoot_ClientProjectsViolations.csv) projects.
 - **Spring Boot violations in Stack Overflow:** Manifestations of violations of 9 Spring Boot rules are [here](./artifacts/spring-boot-questions-on-so.txt). **Note** that we discuss the manifestations of violations in the thesis only (which is more expansive). Ignore this artifact if you come here from our article/paper.
 
