@@ -54,7 +54,14 @@ Steps:
 1. **Clone the repo:** download this repository.
 2. **Fetch client projects to mine from**: In another directory elsewhere (e.g., `X/Y/Z/projs`), clone all the
    [MicroProfile](./miner/clientProjects_MicroProfile.txt) and [Spring
-   Boot](./miner/clientProjects_mining_SpringBoot.txt) client projects.
+   Boot](./miner/clientProjects_mining_SpringBoot.txt) client projects. The txt files contain project URLs as well as commit hashes (for the commits that were latest at the time we cloned and mined/analyzed them). You can use the `clone_projects.py` [script](./utils/clone_projects.py) to clone client projects from GitHub. **Note** that not all projects may be available, so the end result may not be quite the same as the results in the paper or in the thesis. For example, if you want to clone MicroProfile client projects along with checking out commits that were the latest at the time (i.e., the repos may have been updated), run the following:
+
+```bash
+python3 utils/clone_projects.py miner/clientProjects_MicroProfile.txt <where-to-clone>
+```
+
+Make sure you have `gitpython` installed. See installation instructions at the top of the `clone_projects.py` file.
+
 3. **Configure the settings:** Set correct project paths (should be absolute, not relative) in
    [Configuration.java](./miner/src/main/java/miner/Configuration.java). If you
    decide to run Spring Boot, make sure to select
@@ -74,7 +81,7 @@ Note that the output results may slightly vary due to proprietary projects being
 Also, we use different (disjoint) sets of Spring Boot projects for [scanning](./miner/clientProjects_scanning_SpringBoot.txt) and [mining](./miner/clientProjects_mining_SpringBoot.txt),
 respectively.
 
-Steps (skip Step 1 if you have already cloned this repository):
+Steps (given that you have already cloned this repository):
 
 1. **Clone the repo:** download this repository.
 2. **Compile:** Go into `/checkers` directory: 
