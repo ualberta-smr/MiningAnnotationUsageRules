@@ -41,9 +41,7 @@ Violations:
 
 ## Reproducing Results
 
-### Step 1: Fetching client projects
-
-### Step 2: Mining candidate usage rules
+### Mining candidate usage rules
 
 Note that the output results may slightly vary due to proprietary projects
 being removed. The steps below describe how to mine API usages only for 1
@@ -66,7 +64,7 @@ Steps:
 5. **Run:** Run the fat jar: `java -jar target/annotation-parser-1.0-SNAPSHOT.jar`.
 
 
-### Step 3 (optional): Scanning for violations in client projects
+### Scanning for violations in client projects
 
 The static analysis tool that encodes all rules scans one program at a time.
 The rules that we mined are already encoded
