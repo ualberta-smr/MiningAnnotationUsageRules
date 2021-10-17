@@ -55,7 +55,7 @@ Steps:
 2. **Fetch client projects to mine from**: In another directory elsewhere (e.g., `X/Y/Z/projs`), clone all the
    [MicroProfile](./miner/clientProjects_MicroProfile.txt) and [Spring
    Boot](./miner/clientProjects_mining_SpringBoot.txt) client projects.
-3. **Configure the settings:** Set correct project paths in
+3. **Configure the settings:** Set correct project paths (should be absolute, not relative) in
    [Configuration.java](./miner/src/main/java/miner/Configuration.java). If you
    decide to run Spring Boot, make sure to select
    Spring-Boot-specific configs and comment out the MicroProfile ones (or vice
@@ -94,22 +94,28 @@ This creates a fat jar in the `/target` directory. Look for the one that says `.
 3. **Run:** Run checkers on the desired (one) project to scan for violations:
 
 ```bash
-java -jar target/rules-checker-1.0-SNAPSHOT-jar-with-dependencies.jar path/to/scan/
+java -jar target/rules-checker-1.0-SNAPSHOT-jar-with-dependencies.jar /absolute/path/to/scan/
 ```
 
 If you would like to run the checkers **through a commit history** of client projects, follow these steps (after doing Step 2 above). This assumes that you already have a directory with all client projects inside (say, `/home/foo/projects` for example):
 
 1. **Copy commit analyzer (script):** Copy the contents of the directory [here](./utils/commit-history-analyzer) to the directory that contains all your projects you want to scan (e.g., `/home/foo/projects`). The directory includes the `traverse_git.bash` script that runs through commit history of some project. Note that we do not run checkers on all commits (albeit that is too time-consuming and ineffective). So we focus only on *relevant* commits, i.e., the commits whose content (diff) matches any keyword in the `dictionary.txt` file. The txt file contains keywords from the encoded usage rules (such annotation names and types that are part of usage rules).
-2. **Run the script:** Assuming that you packaged the checkers' fat jar, use the path to the jar when you run the script as follows:
 
 ```bash
-bash traverse_git.bash /correct/path/rules-checker-1.0-SNAPSHOT-jar-with-dependencies.jar
+cp utils/commit-history-analyzer/* <dir-with-projects>
+```
+
+2. **Run the script:** Assuming that you packaged the checkers' fat jar, use the **absolute** path to the jar when you run the checkers script. If you want to analyze commit history (e.g., in case of MicroProfile):
+
+```bash
+cd <dir-with-projects>
+bash traverse_git.bash /correct/absolute/path/rules-checker-1.0-SNAPSHOT-jar-with-dependencies.jar
 ```
 
 It might take time and easily overflow your terminal with lots of output. So you can use the redirection operation, i.e.:
 
 ```
-bash traverse_git.bash <path> > output.txt
+bash traverse_git.bash <absolute-path> > output.txt
 ```
 
 and the `output.txt` file will contain all the output. Violations will be marked as `[VIOLATION DETECTED]` so you can use that to search through the humongous output file.
@@ -118,6 +124,16 @@ The script basically goes through all projects: for a given project, it checks
 out all relevant commits and for each commit, runs a jar, keeps the output,
 checks back out to `master` or `main`.
 
+In case you want to run checkers only on the latest commit of each project, run the following:
+
+```bash
+cp utils/run_checkers.bash <dir-with-projects>
+bash run_checkers.bash /correct/absolute/path/rules-checker-1.0-SNAPSHOT-jar-with-dependencies.jar
+```
+
+The script just runs the jar file for each cloned project. Also works if it is
+not a git repository (while the `traverse_git.bash` requires git repo to access its commit history).
+
 ## General Usage
 
 If you would like to use the miner to mine usages for a library of your choice
@@ -125,12 +141,12 @@ If you would like to use the miner to mine usages for a library of your choice
 steps:
 
 1. Find client projects that use your library. Clone all of them into some
-   directory.  Then, specify the path to that directory
+   directory.  Then, specify the absolute path to that directory
    [here](https://github.com/ualberta-smr/MiningAnnotationUsageRules/blob/6affc29cb05e8d0e4dde3d32e363e9e2693e6f87/miner/src/main/java/miner/Configuration.java#L19).
 2. Specify the correct package (API) prefix for your library
    [here](https://github.com/ualberta-smr/MiningAnnotationUsageRules/blob/6affc29cb05e8d0e4dde3d32e363e9e2693e6f87/miner/src/main/java/miner/Configuration.java#L27-L28).
 3. Find your library source code. This is needed to resolve fully-qualified
-   names of types provided by the library. Specify the path to the library
+   names of types provided by the library. Specify the absolute path to the library
    sources
    [here](https://github.com/ualberta-smr/MiningAnnotationUsageRules/blob/6affc29cb05e8d0e4dde3d32e363e9e2693e6f87/miner/src/main/java/miner/Configuration.java#L32)
    (should be stored in one directory).
