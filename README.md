@@ -2,9 +2,7 @@
 
 The artifact repo for the paper titled:
 
-> *Mining Annotation Usage Rules: A Case
-Study with MicroProfile*. Batyr Nuryyev, Ajay Kumar Jha, Sarah Nadi, Yee-Kang
-Chang, Vijay Sundaresan, Emily Jiang. 
+> *Mining Annotation Usage Rules: A Case Study with MicroProfile*. Batyr Nuryyev, Ajay Kumar Jha, Sarah Nadi, Yee-Kang Chang, Vijay Sundaresan, Emily Jiang. ICSE'22: Software Engineering in Practice (SEIP) Track. Status: submitted (in review).
 
 In this paper, we investigate whether
 the idea of pattern-based discovery of rules can be applied to annotation-based
