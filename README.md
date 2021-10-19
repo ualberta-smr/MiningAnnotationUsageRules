@@ -39,6 +39,11 @@ Violations:
 
 ## Reproducing Results
 
+**!!! Disclaimer !!!:** The following instructions (including for the General
+Usage) have only been tested on Linux OS. I have not tested whether the
+instructions on Windows or Mac OS. Use them at your own discretion.
+
+
 ### Mining candidate usage rules
 
 Note that the output results may slightly vary due to proprietary projects
