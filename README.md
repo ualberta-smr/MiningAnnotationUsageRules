@@ -183,6 +183,6 @@ directory and then combine configuration of all these libraries
 [here](https://github.com/ualberta-smr/MiningAnnotationUsageRules/blob/main/miner/src/main/java/miner/Configuration.java).
 
 
-## Contributors (artifacts)
+## Contributors to this repo
 
-Batyr Nuryyev and Ajay Kumar Jha.
+Batyr Nuryyev (Main developer) and Ajay Kumar Jha.
