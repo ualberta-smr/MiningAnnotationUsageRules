@@ -77,7 +77,7 @@
             "Annotation_org.eclipse.microprofile.config.inject.ConfigProperty --(hasParam)--> Param_name:java.lang.String"
         ],
         "consequent": [
-            "Param_name:java.lang.String --(definedIn)--> ConfigFile_microprofile-config.properties"
+            "Param_name:java.lang.String --(definedIn)--> (ConfigFile_microprofile-config.properties || SystemProperties || EnvironmentProperties || org.eclipse.microprofile.config.spi.ConfigSource)"
         ],
         "ifViolated": "DeploymentException (which leads to Internal Server Error 500)"
     },
