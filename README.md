@@ -9,6 +9,10 @@ the idea of pattern-based discovery of rules can be applied to annotation-based
 API usages in the industrial case study of MicroProfile (an open source Java
 microservices framework).
 
+## ICSE 2022 Submission
+
+**NOTE:** For the results in the ICSE 2022 submission, please check the [`ICSE2022_Submission`](https://github.com/ualberta-smr/MiningAnnotationUsageRules/releases/tag/ICSE2022_Submission) tag.
+
 ## Contents
 
 #### Tools
