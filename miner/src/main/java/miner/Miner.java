@@ -314,11 +314,10 @@ public class Miner {
         JavaRDD<Set<String>> transactions = sc.parallelize(usages);
 
         // Run FPGrowth model
-
-//        System.out.println("[fitItemsets()] Relative support is " + this.minSupp / this.datasetSize);
-//        FPGrowth fpg = new FPGrowth().setMinSupport(this.minSupp / this.datasetSize);
-        System.out.println("[fitItemsets()] Relative support is " + this.minSupp);
-        FPGrowth fpg = new FPGrowth().setMinSupport(this.minSupp);
+        assert this.minSupp >= 5 : "[generateItemsets()] Absolute minimum support should at least be 5 items";
+        System.out.println("[generateItemsets()] Absolute support is " + this.minSupp);
+        System.out.println("[generateItemsets()] Relative support is " + (this.minSupp / usages.size()));
+        FPGrowth fpg = new FPGrowth().setMinSupport(this.minSupp / usages.size());
 
         FPGrowthModel<String> model = fpg.run(transactions);
 

@@ -5,8 +5,8 @@
 /home/rahatly/Desktop/projects/MiningAnnotationUsageRules/miner/src/main/java/sideprocessing/Annotation.java
 /home/rahatly/Desktop/projects/MiningAnnotationUsageRules/miner/src/main/java/graph/Location.java
 /home/rahatly/Desktop/projects/MiningAnnotationUsageRules/miner/src/main/java/graph/nodes/ParamTypeDeclNode.java
-/home/rahatly/Desktop/projects/MiningAnnotationUsageRules/miner/src/main/java/graph/edges/ReturnsEdge.java
 /home/rahatly/Desktop/projects/MiningAnnotationUsageRules/miner/src/main/java/graph/edges/DefinedInConfigEdge.java
+/home/rahatly/Desktop/projects/MiningAnnotationUsageRules/miner/src/main/java/graph/edges/ReturnsEdge.java
 /home/rahatly/Desktop/projects/MiningAnnotationUsageRules/miner/src/main/java/graph/nodes/TypeDeclNode.java
 /home/rahatly/Desktop/projects/MiningAnnotationUsageRules/miner/src/main/java/util/ResultPrinter.java
 /home/rahatly/Desktop/projects/MiningAnnotationUsageRules/miner/src/main/java/graph/nodes/BaseNode.java
@@ -23,8 +23,8 @@
 /home/rahatly/Desktop/projects/MiningAnnotationUsageRules/miner/src/main/java/parser/Runner.java
 /home/rahatly/Desktop/projects/MiningAnnotationUsageRules/miner/src/main/java/graph/edges/HasParamEdge.java
 /home/rahatly/Desktop/projects/MiningAnnotationUsageRules/miner/src/main/java/graph/edges/ExtendsEdge.java
-/home/rahatly/Desktop/projects/MiningAnnotationUsageRules/miner/src/main/java/graph/nodes/ClassOrInterfaceNode.java
 /home/rahatly/Desktop/projects/MiningAnnotationUsageRules/miner/src/main/java/visitors/NodeVisitor.java
+/home/rahatly/Desktop/projects/MiningAnnotationUsageRules/miner/src/main/java/graph/nodes/ClassOrInterfaceNode.java
 /home/rahatly/Desktop/projects/MiningAnnotationUsageRules/miner/src/main/java/graph/edges/DeclaredInBeansEdge.java
 /home/rahatly/Desktop/projects/MiningAnnotationUsageRules/miner/src/main/java/graph/nodes/FieldTypeDeclNode.java
 /home/rahatly/Desktop/projects/MiningAnnotationUsageRules/miner/src/main/java/util/labeler/LabelAfterMining.java

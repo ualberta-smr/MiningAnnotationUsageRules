@@ -7,16 +7,16 @@ public class Configuration {
     /**
      * All projects (collective) strategy configs
      */
-    public static double minSupp = 0.15;
+    public static double minSupp = 10; // absolute support, should be at least >= 5
     public static double minConf = 0.5;
 
     /**
      * Version of the tool currently being run (can be any value; used just for convenience)
      */
-    public final static String version = "v0.0.10_final";
+    public final static String version = "v0.0.10_wo_maximal";
 
     /** Projects directory - specify the absolute path to dir that contains client projects to mine */
-    public final static String projectsDir = "/home/...";
+    public final static String projectsDir = "/home/rahatly/Desktop/projects/MiningAnnotationUsageRules/clientProjectsMP";
 
     /** Library prefixes/regexes - uncomment one or the other */
 
