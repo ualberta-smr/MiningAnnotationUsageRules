@@ -7,7 +7,7 @@ public class Configuration {
     /**
      * All projects (collective) strategy configs
      */
-    public static double minSupp = 0.15;
+    public static double minSupp = 0.5;
     public static double minConf = 0.5;
 
     /**
@@ -21,10 +21,10 @@ public class Configuration {
     /** Library prefixes/regexes - uncomment one or the other */
 
     // Spring
-//    public final static String libSubApiRegex = "org\\.springframework\\.\\w+";
+//    public final static String libSubApiRegex = "Annotation_org\\.springframework[\\w,\\.]+";
 //    public final static String libPref = "org.springframework";
     // Microprofile
-    public final static String libSubApiRegex = "org\\.eclipse\\.microprofile\\.\\w+";
+    public final static String libSubApiRegex = "Annotation_org\\.eclipse\\.microprofile[\\w,\\.]+";
     public final static String libPref = "org.eclipse.microprofile";
 
     /** Target library (or libraries) directory */

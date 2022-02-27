@@ -39,12 +39,12 @@ public class Runner {
         // TODO: Comes with v0.0.6
         List<Itemset> usagesWithoutProjectDuplicates = takeOneItemsetFromEachProject(builder.getUsagesAsMap());
         System.out.println("There are " + usagesWithoutProjectDuplicates.size() + " usages (without duplicates in projects!)");
-        HashMap<String, List<Itemset>> usagesBySubApi = divideIntoSubApis(Configuration.libSubApiRegex, usagesWithoutProjectDuplicates);
-        getFrequencyDist(usagesBySubApi);
+        HashMap<String, List<Itemset>> usagesByAnnotations = divideUsagesByAnnotations(Configuration.libSubApiRegex, usagesWithoutProjectDuplicates);
+        getFrequencyDist(usagesByAnnotations);
 
         int itemsets = 0;
-        for (Map.Entry<String, List<Itemset>> entry : usagesBySubApi.entrySet()) {
-            System.out.println("Sub-API " + entry.getKey() + " has " + entry.getValue().size() + " usages");
+        for (Map.Entry<String, List<Itemset>> entry : usagesByAnnotations.entrySet()) {
+            System.out.println("Annotation " + entry.getKey() + " appears in " + entry.getValue().size() + " transactions (usages).");
             itemsets += entry.getValue().size();
         }
         System.out.println("There are " + itemsets + " itemsets with at least 1 MP element");
@@ -53,7 +53,7 @@ public class Runner {
          * Association rule mining using FP-Growth algorithm
          */
         if (Configuration.mineBySubApi) {
-            mineBySubApi(usagesBySubApi);
+            mineByAnnotations(usagesByAnnotations);
         } else {
             System.out.println("Mining all projects is deprecated.");
         }
@@ -167,26 +167,27 @@ public class Runner {
         return allUsages;
     }
 
-    private static void mineBySubApi(HashMap<String, List<Itemset>> usagesBySubApi) throws FileNotFoundException {
+    private static void mineByAnnotations(HashMap<String, List<Itemset>> usagesBySubApi) throws FileNotFoundException {
         Miner miner = new Miner(
                 Configuration.minSupp,
                 Configuration.minConf,
                 -1
         );
 
-        // Remove non-target sub-APIs
-        HashMap<String, List<Itemset>> relevantUsagesBySubApi = new HashMap<>();
+        // 1. We do not want to mine patterns of usages of annotations that appear very little,
+        //    In other words, they should appear in at least X transactions.
+        // 2. Remove usages that have non-target sub-APIs.
+        HashMap<String, List<Itemset>> relevantUsages = new HashMap<>();
         usagesBySubApi.entrySet()
             .stream()
-            .filter(entry -> Configuration.subApiLibPrefixes.contains(entry.getKey()))
-            .forEach(entry -> relevantUsagesBySubApi.put(entry.getKey(), entry.getValue()));
+            .filter(entry -> entry.getValue().size() >= 10)
+            .filter(entry -> Configuration.subApiLibPrefixes.stream().anyMatch(subApi -> entry.getKey().contains(subApi)))
+            .forEach(entry -> relevantUsages.put(entry.getKey(), entry.getValue()));
 
         // Mine
         long startMiningTime = System.currentTimeMillis();
-        HashMap<String, CombinedResult> results = miner.trainPerSubApi(relevantUsagesBySubApi);
+        HashMap<String, CombinedResult> results = miner.trainPerAnnotation(relevantUsages);
         long endMiningTime = System.currentTimeMillis();
-
-        results.remove("org.eclipse.microprofile.auth");
 
         // TODO: comes in 0.0.7
         // Remove rules where rule does not contain at least 1 element of sub-API (target sub-API element)
@@ -309,27 +310,37 @@ public class Runner {
         System.out.println("\tAssociation rules = " + uniqueRules.size());
     }
 
-    private static HashMap<String, List<Itemset>> divideIntoSubApis(String libSubApiRegex, List<Itemset> allUsages) {
-        HashMap<String, List<Itemset>> usagesBySubApi = new HashMap<>();
+    private static HashMap<String, List<Itemset>> divideUsagesByAnnotations(String libSubApiRegex, List<Itemset> allUsages) {
+        /*
+         * Given list of usages as sets of items, e.g.:
+         *     [{ A, B, C }, { A,D }]
+         *
+         * We want to distribute those into buckets of "@A -> list of usages where @A appears", e.g.:
+         *     A : [{ A, B, C }, {A, D}]
+         *     B : [{ A, B, C }]
+         *     C : [{ A, B, C }]
+         *     D : [{ A, D }]
+         */
+        HashMap<String, List<Itemset>> usagesByAnnotation = new HashMap<>();
         Pattern pattern = Pattern.compile(libSubApiRegex);
         for (Itemset itemset : allUsages) {
             Set<String> items = itemset.getItems();
-            Set<String> subApis = new HashSet<>();
+            Set<String> annotations = new HashSet<>();
             for (String item : items) {
                 if (item.contains(Configuration.libPref)) {
                     Matcher matcher = pattern.matcher(item);
                     while (matcher.find()) {
-                        subApis.add(matcher.group(0));
+                        annotations.add(matcher.group(0));
                     }
                 }
             }
 
-            for (String subApi : subApis) {
-                List<Itemset> subApiUsages = usagesBySubApi.computeIfAbsent(subApi, t -> new ArrayList<>());
-                subApiUsages.add(itemset);
+            for (String annotation : annotations) {
+                List<Itemset> annotationUsages = usagesByAnnotation.computeIfAbsent(annotation, t -> new ArrayList<>());
+                annotationUsages.add(itemset);
             }
         }
-        return usagesBySubApi;
+        return usagesByAnnotation;
     }
 
     private static double jaccardSimilarity(Set<String> r1, Set<String> r2) {
