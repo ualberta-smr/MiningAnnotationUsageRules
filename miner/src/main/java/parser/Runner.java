@@ -204,12 +204,13 @@ public class Runner {
             resultForSubAPI.getValue().getFrequentItemsets().retainAll(freqItemsetsSubApi);
         }
 
-        // Merge all frequent itemsets rules together
+        // Merge all frequent itemsets rules together & run maximality filter over the union
         List<FrequentItemset> allFrequentItemsets = results.values()
             .stream()
             .map(CombinedResult::getFrequentItemsets)
             .flatMap(List::stream)
             .collect(Collectors.toList());
+        allFrequentItemsets = Miner.getMaximalFreqItemsetsLocal(allFrequentItemsets);
 
         int totalNumOfFreqItemsets = allFrequentItemsets.size();
         System.out.println("... Total number of frequent itemsets -> " + totalNumOfFreqItemsets);

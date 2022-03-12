@@ -257,6 +257,41 @@ public class Miner {
         return new ArrayList<>(oneRulePerItemset.values());
     }
 
+    public static List<FrequentItemset> getMaximalFreqItemsetsLocal(List<FrequentItemset> input) {
+        List<FrequentItemset> originals = new ArrayList<>(input);
+        List<FrequentItemset> toDelete = new ArrayList<>();
+        HashSet<Integer> marked = new HashSet<>();
+
+        for (int i = 0; i < originals.size(); ++i) {
+            FrequentItemset I1 = originals.get(i);
+            if (marked.contains(i)) {
+                continue;
+            }
+
+            for (int j = i + 1; j < originals.size(); ++j) {
+                FrequentItemset I2 = originals.get(j);
+                if (marked.contains(j) || i == j) {
+                    continue;
+                }
+
+                // Check if R1 is superset of R2
+                if (I1.getItems().containsAll(I2.getItems())) {
+                    toDelete.add(I2);
+                    marked.add(j);
+                }
+                else if (I2.getItems().containsAll(I1.getItems())) {
+                    toDelete.add(I1);
+                    marked.add(i);
+                    break;
+                }
+            }
+        }
+
+        originals.removeAll(toDelete);
+
+        return originals;
+    }
+
     private List<FPGrowth.FreqItemset<String>> getMaximalFreqItemsets(List<FPGrowth.FreqItemset<String>> input) {
         List<FPGrowth.FreqItemset<String>> originals = new ArrayList<>(input);
         List<FPGrowth.FreqItemset<String>> toDelete = new ArrayList<>();
