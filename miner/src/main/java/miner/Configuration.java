@@ -16,7 +16,7 @@ public class Configuration {
     public final static String version = "v0.0.10_final";
 
     /** Projects directory - specify the absolute path to dir that contains client projects to mine */
-    public final static String projectsDir = "/home/rahatly/Desktop/projects/MiningAnnotationUsageRules/clientProjectsMP";
+    public final static String projectsDir = "/home/...";
 
     /** Library prefixes/regexes - uncomment one or the other */
 
