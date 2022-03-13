@@ -1,0 +1,171 @@
+//
+// Copyright (c) 2020 Contributors to the Eclipse Foundation
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+[[scalars]]
+=== Scalars
+
+According to the https://graphql.github.io/graphql-spec/draft/#sec-Scalars[GraphQL documentation] a scalar has no
+sub-fields, and all GraphQL implementations are expected to handle the following scalar types:
+
+* `Int` - which maps to a Java:
+** `int`/`Integer`
+** `short`/`Short`
+** `byte`/`Byte`
+* `Float` - which maps to a Java:
+** `float`/`Float`
+** `double`/`Double`
+* `String` - which maps to a Java:
+** `String`
+** `char`/`Character`
+* `Boolean` - which maps to a Java:
+** `boolean`/`Boolean`
+* `ID` - which is a specialized type serialized like a `String`. Usually, ID types are not intended to be human-readable.
+
+NOTE: An ID scalar must map to a Java `String`, numerical primitive `long` and `int` or their
+object equivalents (`Long`, `Integer`), or a `java.util.UUID` - anything else is considered a
+deployment error.
+
+WARNING: Primitive types are marked as not null (!) in the schema by default. This might not be what you want. 
+We suggest to prefer the Object equivalents or to be a very conscious when using primitives.
+
+GraphQL allows implementations to define additional scalars. MicroProfile GraphQL implementations are required to
+handle the following additional scalar types:
+
+* `BigInteger` - which maps to a Java:
+** `BigInteger`
+** `long`/`Long`
+* `BigDecimal` - which maps to a Java:
+** `BigDecimal`
+* `Date` - which maps to a Java:
+** `java.time.LocalDate`
+* `Time` - which maps to a Java:
+** `java.time.LocalTime`
+** `java.time.OffsetTime`
+* `DateTime` - which maps to a Java:
+** `java.time.LocalDateTime`
+** `java.time.OffsetDateTime`
+** `java.time.ZonedDateTime`
+
+Implementations may define additional custom scalars / mappings beyond those listed above.
+
+WARNING: Custom scalars might be very Java specific and clients/tooling might not be able to deal with them in any meaningful way.
+
+NOTE: A possible future feature of the GraphQL Specification (see https://github.com/graphql/graphql-spec/issues/635) will solve the above concern and 
+provide a way to specify custom scalars in a standard way.
+
+==== Numbers
+All number scalars (Int, Float, BigInteger and BigDecimal) can be formatted
+using the `@NumberFormat` or alternatively the JSON-B annotation `@JsonbNumberFormat` (except that `@JsonbNumberFormat` is not valid on `TYPE_USE`)
+
+In the case that a property has both `@NumberFormat` and `@JsonbNumberFormat`, the GraphQL annotation (`@NumberFormat`) takes priority.
+
+When formatting is added to a number type, the formatted result will be of type String. The type in the schema could be defined as String or another Custom Scalar to
+indicate the formatting.
+
+Example:
+[source,java,numbered]
+----
+@JsonbNumberFormat(value = "¤000",locale = "en-ZA")
+private Short formattedShortObject;
+----
+
+will result in a formatted amount (South African Rand) in the result:
+[source,json,numbered]
+----
+{
+    "data": {
+        "testScalarsInPojo": {        
+            "formattedShortObject": "R123"
+        }
+    }
+}
+----
+
+List example:
+[source,java,numbered]
+----
+@Mutation
+public SuperHero trackHeroLongLat(@Name("name") String name,
+                                 @Name("coordinates") List<List<@NumberFormat("00.0000000 'longlat'") BigDecimal>> coordinates) throws UnknownHeroException {
+    // Here add the tracking
+    return superHero;
+}
+----
+
+The formatting annotations can also be placed on a `Query` or `Mutation` that returns a number, example:
+
+[source,java,numbered]
+----
+@Mutation
+@NumberFormat(value = "number #", locale = "en-GB")
+public Integer transformedNumber(Integer input){
+    return input;
+}
+----
+
+This will format the input and return the formatted result, example when executing with `345` as input number:
+
+[source,json,numbered]
+----
+{
+  "data": {
+    "transformedNumber": "number 345"
+  }
+}
+----
+
+==== Dates
+By default the date related scalars (DateTime, Date, and Time) will use an ISO-8601 format.
+
+- `yyyy-MM-dd\'T\'HH:mm:ss` for DateTime
+- `yyyy-MM-dd\'T\'HH:mm:ssZ` for OffsetDateTime
+- `yyyy-MM-dd\'T\'HH:mm:ssZ'['VV']'` for ZonedDateTime
+- `yyyy-MM-dd` for Date
+- `HH:mm:ss` for Time 
+- `HH:mm:ssZ` for OffsetTime 
+
+By adding the `@DateFormat` annotation, or alternatively JSON-B annotation `@JsonbDateFormat`, a user can change the format. However, `@JsonbDateFormat` does not 
+support usage on `TYPE_USE`.
+
+In the case that a property has both `@DateFormat` and `@JsonbDateFormat`, the GraphQL annotation (`@DateFormat`) takes priority.
+
+When formatting is added to a date type, the formatted result will be of type String. The type in the schema could be defined as String or another Custom Scalar to
+indicate the formatting.
+
+The formatting annotations can also be placed on a `Query` or `Mutation` that returns a date-like object, example:
+
+[source,java,numbered]
+----
+@Query
+@DateFormat(value = "dd MMM yyyy")
+public LocalDate transformedDate(){
+    return LocalDate.parse("2016-08-16");
+}
+----
+
+This will format the input and return the formatted result:
+
+[source,json,numbered]
+----
+{
+  "data": {
+    "transformedDate": "16 Aug 2016"
+  }
+}
+----
+
+// ==== Custom user defined scalars (v1.1)
+// @TODO: Define how to create your own scalar.

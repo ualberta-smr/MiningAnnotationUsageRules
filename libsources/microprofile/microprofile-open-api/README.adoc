@@ -1,0 +1,48 @@
+//
+// Copyright (c) 2019 Contributors to the Eclipse Foundation
+//
+// See the NOTICE file(s) distributed with this work for additional
+// information regarding copyright ownership.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+= Eclipse MicroProfile OpenAPI
+
+image:https://github.com/eclipse/microprofile-open-api/workflows/Build/badge.svg?branch=master[link=https://github.com/eclipse/microprofile-open-api/actions]
+
+This MicroProfile specification aims at providing a unified Java API for the link:++https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md++[OpenAPI v3 specification],
+that all application developers can use to expose their API documentation.
+
+* The link:++https://github.com/eclipse/microprofile-open-api/tree/master/api/src/main/java/org/eclipse/microprofile/openapi++[spec APIs] are composed of annotations, models, and programming interfaces.
+* The link:++https://github.com/eclipse/microprofile-open-api/blob/master/spec/src/main/asciidoc/microprofile-openapi-spec.asciidoc++[spec documentation] outlines the rules and boundaries of the spec.
+* To chat or ask questions about the spec, join the discussion on Gitter: image:https://badges.gitter.im/eclipse/microprofile-open-api.svg[link=https://gitter.im/eclipse/microprofile-open-api]
+* For announcements, visit the link:++https://groups.google.com/forum/#!forum/microprofile++[MicroProfile Google Group].
+* Extended examples that supplement the spec can be found link:++https://github.com/eclipse/microprofile-open-api/wiki++[here].
+* Eclipse release information and further logistics about the project can be found link:++https://wiki.eclipse.org/MicroProfile/OpenAPI++[here].
+
+== How to contribute
+
+Do you want to contribute to this project? Here is what you can do:
+
+* Fork the repository, make changes, then do a pull request.
+** Remember to https://help.github.com/articles/signing-commits/[sign your commits]
+** Make sure you have signed the https://www.eclipse.org/legal/ECA.php[Eclipse Contributor Agreement]
+* https://github.com/eclipse/microprofile-open-api/issues[Create or fix an issue].
+* https://gitter.im/eclipse/microprofile-open-api[Join us on Gitter to discuss this project].
+* Join our weekly meeting (https://calendar.google.com/calendar/u/0/embed?src=gbnbc373ga40n0tvbl88nkc3r4%40group.calendar.google.com&ctz=UTC[UTC] / https://calendar.google.com/calendar/u/0/embed?src=gbnbc373ga40n0tvbl88nkc3r4%40group.calendar.google.com&ctz=America/New_York[US Eastern time]) every Monday.
+** https://docs.google.com/document/d/1lwrGcNTGnML4Aof0FyGVZCPaaNDBOoKLa5jivlVY1D8/edit?usp=sharing[Minutes and Agenda].
+* Join the discussions on the https://groups.google.com/forum/#!forum/microprofile[MicroProfile Google Group]
+* https://microprofile.io/blog/[Contribute a blog post].
+
+Also see the https://wiki.eclipse.org/MicroProfile/ContributingGuidelines[MicroProfile Contributing Guidelines] on the https://wiki.eclipse.org/MicroProfile[Eclipse MicroProfile wiki page] and the link:CONTRIBUTING.adoc[CONTRIBUTING] page.

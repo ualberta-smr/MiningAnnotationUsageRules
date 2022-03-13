@@ -1,0 +1,68 @@
+//
+// Copyright (c) 2016-2021 Eclipse Microprofile Contributors:
+// See overview.adoc
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+= MicroProfile Health
+
+== Rationale
+
+The Eclipse MicroProfile Health specification defines a single container runtime mechanism for validating
+the availability and status of a MicroProfile implementation. This is primarily intended as a machine to machine (M2M)
+mechanism for use in containerized environments like cloud providers. Example of
+existing specifications from those environments include https://docs.cloudfoundry.org/devguide/deploy-apps/healthchecks.html[Cloud Foundry Health Checks] and
+https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes[Kubernetes Liveness, Readiness and Startup Probes].
+
+In this scenario health checks are used to determine if a computing node needs to be discarded (terminated, shutdown) and eventually replaced by another (healthy) instance.
+
+The MicroProfile Health architecture consists of three `/health/ready`, `/health/live` and `/health/started` endpoints in a MicroProfile runtime that respectively represent the readiness, the liveness and the startup health of the entire runtime.
+These endpoints are linked to health check procedures defined with specifications API and annotated respectively with `@Readiness`, `@Liveness` and `@Startup` annotations.
+
+A 4th endpoint `/health` is also available and can be used to provide a combination of the previous endpoints.
+
+These endpoints are expected to be associated with a configurable context, such as a web application deployment, that can be configured with settings such as port, virtual-host, security, etc.
+Further, MicroProfile Health defines the notion of a procedure that represents the health of a particular subcomponent of an application.
+
+In an application, there can be zero or more procedures bound to a given health endpoint.
+The overall application health for a given endpoint is the logical AND of all of the procedures bound to it.
+
+The current version of the MicroProfile Health specification does not define how the defined endpoints may be partitioned in the event
+that the MicroProfile runtime supports deployment of multiple applications. If an implementation wishes to
+support multiple applications within a MicroProfile runtime, the semantics of individual endpoints are
+expected to be the logical AND of all the application in the runtime. The exact details of this are deferred to
+a future version of the MicroProfile Health specification.
+
+== Proposed solution
+
+The proposed solution breaks down into two parts:
+
+- A Java API to implement health check procedures
+- A health checks protocol and wireformat
+
+== Contributors
+
+- John Ament
+- Heiko Braun
+- Clément Escoffier
+- Emily Jiang
+- Werner Keil
+- Jeff Mesnil
+- Andrew Pielage
+- Heiko Rupp
+- Antoine Sabot-Durand
+- Scott Stark
+- Martin Stefanko
+- Kevin Sutter
+

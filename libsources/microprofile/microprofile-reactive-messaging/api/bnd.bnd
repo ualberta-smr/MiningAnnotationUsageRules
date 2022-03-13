@@ -1,0 +1,9 @@
+-exportcontents: \
+    org.eclipse.microprofile.*
+
+Import-Package: \
+    *
+
+Bundle-SymbolicName: org.eclipse.microprofile.reactive.messaging
+Bundle-Name: MicroProfile Reactive Messaging Bundle
+Bundle-License: Apache License, Version 2.0

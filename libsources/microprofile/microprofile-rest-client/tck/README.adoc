@@ -1,0 +1,193 @@
+//
+// Copyright (c) 2016-2017 Contributors to the Eclipse Foundation
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+= Running the Microprofile Rest Client TCK
+
+Any Microprofile 1.3 and higher release must pass this test suite.
+The TCK uses `testng`
+
+== TCK Architecture
+
+The TCK leverages http://wiremock.org/[WireMock] to launch a standalone HTTP server that will receive and respond to HTTP commands.  The server must be
+accessible from where the tests are run as well as the server that the deployments are sent to.  The hostname and port must match in all of these components.
+
+The TestNG suite will invoke the admin API of WireMock to setup the stubs for a test, as well as reset container state.  The application deployed to
+your MicroProfile runtime will invoke the actual API calls to this server.  The TestNG tests, while using Arquillian, are all run as client tests to
+avoid any direct dependency on WireMock in your runtime.
+
+== Dependencies
+
+To enable the tests in your project you need to add the following dependency to your build:
+
+[source, xml]
+----
+<properties>
+   <microprofile.rest.client.version>3.0</microprofile.rest.client.version>
+</properties>
+
+<dependency>
+    <groupId>org.eclipse.microprofile.rest.client</groupId>
+    <artifactId>microprofile-rest-client-api</artifactId>
+    <version>${microprofile.rest.client.version}</version>
+</dependency>
+
+<dependency>
+    <groupId>org.eclipse.microprofile.rest.client</groupId>
+    <artifactId>microprofile-rest-client-tck</artifactId>
+    <version>${microprofile.rest.client.version}</version>
+    <scope>test</scope>
+</dependency>
+<dependency>
+    <groupId>org.testng</groupId>
+    <artifactId>testng</artifactId>
+    <version>7.4.0</version>
+    <scope>test</scope>
+</dependency>
+<dependency>
+    <groupId>com.github.tomakehurst</groupId>
+    <artifactId>wiremock</artifactId>
+    <version>2.27.2</version>
+    <scope>test</scope>
+</dependency>
+----
+
+== Setting up WireMock via Plugin
+
+WireMock can be run as a maven plugin.  Below is one example configuration:
+
+[source, xml]
+----
+<plugin>
+    <groupId>uk.co.deliverymind</groupId>
+    <artifactId>wiremock-maven-plugin</artifactId>
+    <version>2.7.0</version>
+    <executions>
+        <execution>
+            <phase>generate-test-sources</phase>
+            <goals>
+                <goal>run</goal>
+            </goals>
+            <configuration>
+                <dir>target/classes</dir>
+                <params>--port=8765 --verbose</params>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+----
+
+=== WireMock Configuration
+The TCK exposes the following system properties for you to override if needed to point to your WireMock instance
+
+|=======
+|Property|Description|Default Value|
+|wiremock.server.host|The host where WireMock is running|localhost|
+|wiremock.server.port|The port where WireMock is running|8765|
+|wiremock.server.scheme|The TCP scheme to use when connecting to WireMock (valid values: http, https)|http|
+|wiremock.server.context|The context (URI) that the server is running against|/|
+|=======
+
+=== Adding WireMock to your servers
+
+The TCK does not ship a pre-built way to load WireMock, to avoid any expectation on how to run WireMock in the test suite.  You may want to run it standalone, inside a servlet container.  Please review their integration guides to setup anything that may be missing.
+
+==== WireMock as a Servlet
+
+WireMock ships with Jetty integration as its servlet runtime.  When running standalone this is how it starts, however there are examples of how to use it as a servlet runtime as well, https://github.com/tomakehurst/wiremock/tree/master/sample-war[WireMock Sample WAR]
+
+==== Shading Dependencies
+
+WireMock (and its dependencies) can be shaded into any WAR file if you need them to be.  You can use an Arquillian `ApplicationArchiveProcessor` and a `LoadableExtension` to register the processor.  Below is one example, but you could also use ShrinkWrap resolver to bring in the JAR and any other dependency (below example would be for a servlet runtime).
+
+[source, java]
+----
+public class WiremockArchiveProcessor implements ApplicationArchiveProcessor {
+    @Override
+    public void process(Archive<?> archive, TestClass testClass) {
+        if(archive instanceof WebArchive) {
+            JavaArchive wiremock = ShrinkWrap.create(JavaArchive.class, "wiremock.jar")
+                .addPackages(true, "com.github.tomakehurst.wiremock");
+            archive.as(WebArchive.class).addAsLibrary(wiremock);
+        }
+    }
+}
+
+----
+
+== Declaring the Tests to run
+
+You also need to specify which tests you want to run, e.g. create a file `tck-suite.xml` in your project which contains the following content:
+[source, xml]
+----
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="microprofile-rest-client-TCK" verbose="2" configfailurepolicy="continue" >
+
+    <test name="microprofile-rest-client TCK">
+        <packages>
+            <package name="org.eclipse.microprofile.rest.client.tck.*">
+            </package>
+        </packages>
+    </test>
+
+</suite>
+----
+
+== Configuration in Apache Maven pom.xml
+
+If you use Apache Maven then the tests are run via the `maven-surefire-plugin`
+[source, xml]
+----
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.19.1</version>
+            <configuration>
+                <suiteXmlFiles>
+                    <suiteXmlFile>tck-suite.xml</suiteXmlFile>
+                </suiteXmlFiles>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+----
+
+== Using Surefire
+
+If you don't want to use a tck-suite.xml file, you can also just use in line surefire configuration
+
+[source, xml]
+----
+<plugin>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-surefire-plugin</artifactId>
+    <configuration>
+        <dependenciesToScan>
+            <dependency>org.eclipse.microprofile.rest.client:microprofile-rest-client-tck</dependency>
+        </dependenciesToScan>
+    </configuration>
+</plugin>
+----
+
+== Deploying additional Implementation Artifacts
+
+TBD.
+
+== Example Implementation Using the TCK
+
+TBD.

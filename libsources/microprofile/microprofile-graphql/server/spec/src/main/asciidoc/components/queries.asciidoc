@@ -1,0 +1,125 @@
+//
+// Copyright (c) 2020 Contributors to the Eclipse Foundation
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+=== Queries
+
+[[queries]]
+Queries allows a user to ask for all or specific fields on an object or collection of objects.
+
+==== API Annotation
+For classes that are annotated with `@GraphQLApi`, implementations must create a query in the schema for every method
+that is annotated with `@Query`.
+
+The query's name can be specified in the value parameter of the `@Query` annotation, or is generated from the method name if no annotation value is provided.
+
+==== Basic POJO Example
+
+.Example
+[source,java,numbered]
+----
+@Query
+public SuperHero superHero(@Name("name") String name) {
+    return heroDB.getHero(name);
+}
+----
+
+Note that generic types other than subtypes of `java.util.Collection` (such as `java.util.List` or `java.util.Set`) are
+not allowed to be specified as query return types. Implementations may allow additional types (such as `java.util.Map`),
+but the behavior for these return types are undefined.
+
+==== Entity fields are also queries
+
+In the previous example, an explicitly defined query named "superHero" returns a `SuperHero` entity. The fields on that
+entity class are also implicitly defined as queries. It is possible to define fields as queries explicitly by using the
+`@Source` annotation on a parameter to the query method. More information on this is available in the
+<<fields>> section. 
+
+==== Name
+
+The name of a query in the schema is obtained using the following order:
+
+* if the method is annotated with a `@Query` annotation containing a non-empty String for it's value, that String value
+is used as the query name.
+* if the method is annotated with a `@Name` annotation containing a non-empty String for it's value, that String value
+is used as the query name.
+* if the method is annotated with a `@JsonbProperty` annotation containing a non-empty String for it's value, that String
+value is used as the query name.
+* if no other name can be determined, the Java method name is used as the query name. (with the get/is removed if the method
+name matches the rules for a getter. e.g. `^get[A-Z].\*` or `^is[A-Z].*`)
+
+Note that it is considered a deployment error if more than one query method has the same name with the same arguments.
+
+==== Description
+
+Queries may be documented with descriptions in the schema by adding a `@Description` annotation with documentation text as the
+annotation value to the query method. For example:
+
+.DescriptionExample
+[source,java,numbered]
+----
+@Query
+@Description("Returns the super hero with the specified name")
+public SuperHero superHero(@Name("name") String name) {
+    return heroDB.getHero(name);
+}
+----
+
+This would generate a schema that would include:
+
+.DescriptionSchemaExample
+[source,numbered]
+----
+type Query {
+  ...
+  "Returns the super hero with the specified name"
+  superHero(name: String): SuperHero 
+  #...
+----
+
+The `@Description` annotation can also be placed on parameters of a query method to provide documentation for the
+arguments. For example:
+
+.ArgumentDescriptionExample
+[source,java,numbered]
+----
+@Query
+@Description("Returns the super hero with the specified name")
+public SuperHero superHero(@Name("name") @Description("Super hero name, not real name") String name) {
+    return heroDB.getHero(name);
+}
+----
+
+This would generate a schema that would include:
+
+.ArgumentDescriptionSchemaExample
+[source,numbered]
+----
+type Query {
+  ...
+  "Returns the super hero with the specified name"
+  superHero(
+  "Super hero name, not real name"
+  name: String
+  ): SuperHero 
+  #...
+----
+
+==== Void Queries
+
+By it's very nature, query methods must return some value, thus it is considered a deployment error for a method with a
+`void` return type to be annotated with `@Query`. If a void method is annotated with the `@Query` annotation, the
+implementation must prevent the application from starting and should provide a log message indicating that this is not
+allowed.

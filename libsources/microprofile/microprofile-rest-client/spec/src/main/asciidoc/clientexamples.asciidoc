@@ -1,0 +1,284 @@
+//
+// Copyright (c) 2017-2021 Contributors to the Eclipse Foundation
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+[[clientexamples]]
+== MicroProfile Rest Client Definition Examples
+
+MicroProfile TypeSafe Rest Clients are defined as Java interfaces.
+
+=== Sample Definitions
+
+[source, java]
+----
+public interface MyServiceClient {
+    @GET
+    @Path("/greet")
+    Response greet();
+}
+----
+
+This simple API exposes one API call, located at `/greet` from the base URL of the client.  Invoking this endpoint returns a `jakarta.ws.rs.core.Response` object that represents the raw response from invoking the API.  Below is a more comprehensive example of a client.
+
+[source, java]
+----
+@Path("/users")
+@Produces("application/json")
+@Consumes("application/json")
+public interface UsersClient {
+    @OPTIONS
+    Response options();
+
+    @HEAD
+    Response head();
+
+    @GET
+    List<User> getUsers();
+
+    @GET
+    @Path("/{userId}")
+    User getUser(@PathParam("userId") String userId);
+
+    @HEAD
+    @Path("/{userId}")
+    Response headUser(@PathParam("userId") String userId);
+
+    @POST
+    Response createUser(@HeaderParam("Authorization") String authorization,
+                                                      User user);
+
+    @PUT
+    @Path("/{userId}")
+    Response updateUser(@BeanParam PutUser putUser, User user);
+
+    @DELETE
+    @Path("/{userId}")
+    Response deleteUser(@CookieParam("AuthToken") String authorization,
+                        @PathParam("userId") String userId);
+}
+
+public class PutUser {
+    @HeaderParam("Authorization")
+    private String authorization;
+    @PathParam("userId")
+    private String userId;
+    // getters, setters, constructors omitted
+}
+----
+
+All built in HTTP methods are supported by the client API.  Likewise, all base parameter types (query, cookie, matrix, path, form and bean) are supported.  If you only need to inspect the body, you can provide a POJO can be processed by the underlying `MessageBodyReader` or `MessageBodyWriter`.  Otherwise, you can receive the entire `Response` object for parsing the body and header information from the server invocation.
+
+Users may specify the media (MIME) type of the outbound request using the `@Consumes` annotation (this determine the `Content-Type` HTTP header), and the expected media type(s) of the response by using the `@Produces` annotation (the `Accept` HTTP header).  This indicates that the client interface expects that the remote _service_ consumes/produces the specified types. If no `@Consumes` or `@Produces` annotation is
+specified for a given request, it will default to `jakarta.ws.rs.core.MediaType.APPLICATION_JSON` ("application/json").
+
+=== Specifying Additional Client Headers
+
+While it is always possible to add a `@HeaderParam`-annotated method argument to specify headers, some times that does not make sense within the context of the application. For example, you may want to specify a username/password in the `Authorization` header to a secure remote service, but you may not want to have a `String authHeader` parameter in the client interface method.
+The `@ClientHeaderParam` annotation can allow users to specify HTTP headers that should be sent without altering the client interface method signature.
+
+The annotation contains three attributes: `name`, `value`. and `required`.  The `name` attribute is used to specify the header name. The `value` attribute is used to specify the value(s) of the header. The value can be specified explicitly
+or it can reference a method that would compute the value of the header - in this latter case, the compute method name must be surrounded by curly braces. The compute method must be either a default method on the interface or a public static method that is accessible to the interface, must return a `String` or `String[]` and must either contain no arguments or contain a single `String`
+argument - the implementation will use this `String` argument to pass the name of the header. When specifying a compute method as the value attribute, only one method may be specified - if more than one string is specified as the value attribute, and one of the strings is a compute method (surrounded by curly braces), then the implementation will throw a RestClientDefinitionException.
+The `required` attribute determines what should happen in the event that the compute method throws an exception. **Note: If the required attribute is set to true (default), then the client request will fail if the compute method throws an exception.**  If it is set to false and the compute method throws an exception, then the client request will continue, but without sending the HTTP header.
+
+Note that if a `@ClientHeaderParam` annotation on a method specifies the same header name as an annotation on the client interface, the annotation on the method will take precedence. Likewise, if the same header name is used in a `@HeaderParam` annotation on a client interface method parameter or in a bean class when a `@BeanParam` annotation is on a client interface method
+parameter, the value of the `@HeaderParam` annotation takes precedence over any value specified in the `@ClientHeaderParam`. It is invalid for the same header name to be specified in two different `@ClientHeaderParam` annotations on the same target - in this case, the implementation will throw a `RestClientDefinitionException.`
+
+Here are a few examples:
+
+[source, java]
+----
+@Path("/somePath")
+public interface MyClient {
+
+    @POST
+    @ClientHeaderParam(name="X-Http-Method-Override", value="PUT")
+    Response sentPUTviaPOST(MyEntity entity);
+
+    @POST
+    @ClientHeaderParam(name="X-Request-ID", value="{generateRequestId}")
+    Response postWithRequestId(MyEntity entity);
+
+    @GET
+    @ClientHeaderParam(name="CustomHeader",
+                       value="{some.pkg.MyHeaderGenerator.generateCustomHeader}",
+                       required=false)
+    Response getWithoutCustomHeader();
+
+    default String generateRequestId() {
+        return UUID.randomUUID().toString();
+    }
+}
+
+public class MyHeaderGenerator {
+    public static String generateCustomHeader(String headerName) {
+        if ("CustomHeader".equals(headerName)) {
+            throw UnsupportedOperationException();
+        }
+        return "SomeValue";
+    }
+}
+
+@Path("/someOtherPath")
+@ClientHeaderParam(name="CustomHeader", value="value1")
+@ClientHeaderParam(name="CustomHeader", value="{generateCustomHeader}")
+// will throw a RestClientDefinitionException at build time
+public interface MyInvalidClient {
+...
+}
+----
+
+It is also possible to add or propagate headers en masse using a `ClientHeadersFactory`. This interface has a single method and takes two read-only `MultivaluedMap` parameters: The first map represents headers for the incoming request - if the client is executing in a JAX-RS environment then this map will contain headers from the inbound JAX-RS request. The second map represents the headers to be sent,
+and it contains headers that have been specified via `@ClientHeaderParam`, `@HeaderParam`, `@BeanParam`, etc. The method should return a `MultivaluedMap` containing the "final" map of headers to be sent to the outbound processing flow. Providers such as filters, interceptors, message body writers, etc. could still modify the final map of headers prior to
+sending the HTTP request.
+
+By default, no `ClientHeadersFactory` implementation is used. To enable a `ClientHeadersFactory`, the client interface must be annotated with the `@RegisterClientHeaders` annotation. If this annotation specifies a value, the client implementation must invoke an instance of the specified `ClientHeadersFactory` implementation class. If no value is specified, then the client
+implementation must invoke the `DefaultClientHeadersFactoryImpl`. This default factory will propagate specified headers from the inbound JAX-RS request to the outbound request - these headers are specified with a comma-separated list using the following MicroProfile Config property:
+
+`org.eclipse.microprofile.rest.client.propagateHeaders`
+
+=== Following Redirect Responses
+
+By default, a Rest Client instance will not automatically follow redirect responses. Redirect responses are typically responses with status codes in the 300 range and include `Location` header that indicates the URL of the redirected resource.
+
+To enable a client instance to automatically follow redirect responses, the builder must be configured using the `followRedirects(true)` method. For example:
+
+[source, java]
+----
+RedirectClient client = RestClientBuilder.newBuilder()
+                                         .baseUri(someUri)
+                                         .followRedirects(true)
+                                         .build(RedirectClient.class);
+----
+
+Alternatively, if the client is instantiated and injected using CDI, then it can be configured to follow redirect responses using the `<client_interface_name>/mp-rest/followRedirects` MP Config property. See <<cdi.asciidoc#mpconfig>> for more details.
+
+=== Using HTTP Proxy Servers
+
+In some environments it may be necessary to route requests through a HTTP proxy server to reach the REST endpoint. Users may configure the proxy server's address (hostname and port) using the `proxyAddress` method on `RestClientBuilder`. For example:
+
+[source, java]
+----
+ProxiedClient client = RestClientBuilder.newBuilder()
+                                        .baseUri(someUri)
+                                        .proxyAddress("myproxy.mycompany.com", 8080)
+                                        .build(ProxiedClient.class);
+----
+
+Alternatively, if the client is instantiated and injected using CDI, then the proxy address can be configured using the `<client_interface_name>/mp-rest/proxyAddress` MP Config property. See <<cdi.asciidoc#mpconfig>> for more details.
+
+=== Specifying Query Parameter Style for multi-valued parameters
+
+Different RESTful services may require different styles of query parameters when handling multiple values for the same
+query parameter. For example, some servers will require query parameters to be expanded into multiple key/value pairs
+such as `key=value1&key=value2&key=value3`. Others will require parameters to be separated by comma with a single
+key/value pair such as `key=value1,value2,value3`. Still others will require an array-like syntax using multiple
+key/value pairs such as `key[]=value1&key[]=value2&key[]=value3`.
+
+The `queryParamStyle(...)` method in the `RestClientBuilder` can be used to specify the desired format of query
+parameters when multiple values are sent for the same parameter. This method uses the `QueryParamStyle` enum. Here is
+an example:
+
+[source, java]
+----
+public interface QueryClient {
+    Response sendMultiValues(@QueryParam("myParam") List<String> values);
+}
+----
+[source, java]
+----
+QueryClient client = RestClientBuilder.newBuilder()
+                                      .baseUri(someUri)
+                                      .queryParamStyle(QueryParamStyle.COMMA_SEPARATED)
+                                      .build(QueryClient.class);
+Response response = client.sendMultiValues(Collections.asList("abc", "mno", "xyz"));
+----
+
+This should send a request with a query segment of `myParam=abc,mno,xyz`.
+
+Alternatively, if the client is instantiated and injected using CDI, then the query parameter style can be configured
+using the `<client_interface_name>/mp-rest/queryParamStyle` MP Config property. See <<cdi.asciidoc#mpconfig>> for more
+details.
+
+=== Invalid Client Interface Examples
+
+Invalid client interfaces will result in a RestClientDefinitionException (which may be wrapped in a `DefinitionException` if using CDI).  Invalid interfaces can include:
+
+* Using multiple HTTP method annotations on the same method
+
+A client interface method may contain, at most, one HTTP method annotation (such as `jakarta.ws.rs.GET`, `jakarta.ws.rs.PUT`, `jakarta.ws.rs.OPTIONS`, etc.).  If a method is annotated with more than one HTTP method, the implementation must throw a `RestClientDefinitionException`.
+
+[source, java]
+----
+public interface MultipleVerbsClient {
+    @GET
+    @DELETE
+    Response ambiguousClientMethod()
+}
+----
+
+* Invalid URI templates
+
+A client interface that accepts parameters based on the URI path must ensure that the path parameter is defined correctly in the `@Path` annotation.  For example:
+
+[source, java]
+----
+@Path("/somePath/{someParam}")
+public interface GoodInterfaceOne {
+    @DELETE
+    public Response deleteEntry(@PathParam("someParam") String entryNameToDelete);
+}
+
+@Path("/someOtherPath")
+public interface GoodInterfaceTwo {
+    @HEAD
+    @Path("/{someOtherParam}")
+    public Response quickCheck(@PathParam("someOtherParam") String entryNameToCheck);
+}
+----
+
+Both of these interfaces show valid usage of the `@PathParam` annotation.  In `GoodInterfaceOne`, the URI template is specified at the class-level `@Path` annotation; in `GoodInterfaceTwo`, the template is specified at the method-level.
+
+Implementations must throw a RestClientDefinitionException if a `@Path` annotation specifies an unresolved URI template or if a `@PathParam` annotations specifies a template that is not specified in a `@Path` annotation on the enclosing method or interface.  For example, the following three interfaces will result in a RestClientDefinitionException:
+
+[source, java]
+----
+@Path("/somePath/{someParam}")
+public interface BadInterfaceOne {
+    @DELETE
+    public Response deleteEntry();
+}
+
+@Path("/someOtherPath")
+public interface BadInterfaceTwo {
+    @HEAD
+    @Path("/abc")
+    public Response quickCheck(@PathParam("someOtherParam") String entryNameToCheck);
+}
+
+@Path("/yetAnotherPath")
+public interface BadInterfaceThree {
+    @GET
+    @Path("/{someOtherParam}")
+    public Response quickCheck(@PathParam("notTheSameParam") String entryNameToCheck);
+}
+----
+
+`BadInterfaceOne` declares a URI template named "someParam" but the `deleteEntry` method does not specify a `@PathParam("someParam")` annotation.
+`BadInterfaceTwo` does not declare a URI template, but the `quickCheck` method specifies a `@PathParam` annotation on a parameter.
+`BadInterfaceThree` has a mismatch.  The `@Path` annotation declares a URI template named "someOtherParam" but the `@PathParam` annotation specifies a template named "notTheSameParam".
+All three interfaces will result in a RestClientDefinitionException.
+
+As previously mentioned, specifying the same header name in multiple `@ClientHeaderParam` annotations on the same target will result in a RestClientDefinitionException. Likewise, specifying multiple compute methods in the `@ClientHeaderParam` value attribute will result in a RestClientDefinitionException.

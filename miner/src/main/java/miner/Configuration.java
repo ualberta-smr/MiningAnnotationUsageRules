@@ -16,7 +16,7 @@ public class Configuration {
     public final static String version = "v0.0.10_final";
 
     /** Projects directory - specify the absolute path to dir that contains client projects to mine */
-    public final static String projectsDir = "/home/...";
+    public final static String projectsDir = "/home/rahatly/Desktop/projects/MiningAnnotationUsageRules/testMPHealthcheck";
 
     /** Library prefixes/regexes - uncomment one or the other */
 
@@ -50,16 +50,16 @@ public class Configuration {
 //        "../../libsources/spring-boot/spring-ws",
 
         // microprofile
-        "../../libsources/microprofile/microprofile-config",
-        "../../libsources/microprofile/microprofile-jwt-auth",
-        "../../libsources/microprofile/microprofile-fault-tolerance",
-        "../../libsources/microprofile/microprofile-graphql",
-        "../../libsources/microprofile/microprofile-health",
-        "../../libsources/microprofile/microprofile-metrics",
-        "../../libsources/microprofile/microprofile-open-api",
-        "../../libsources/microprofile/microprofile-opentracing",
-        "../../libsources/microprofile/microprofile-reactive-streams-operators",
-        "../../libsources/microprofile/microprofile-rest-client",
+        "../libsources/microprofile/microprofile-config",
+        "../libsources/microprofile/microprofile-jwt-auth",
+        "../libsources/microprofile/microprofile-fault-tolerance",
+        "../libsources/microprofile/microprofile-graphql",
+        "../libsources/microprofile/microprofile-health",
+        "../libsources/microprofile/microprofile-metrics",
+        "../libsources/microprofile/microprofile-open-api",
+        "../libsources/microprofile/microprofile-opentracing",
+        "../libsources/microprofile/microprofile-reactive-streams-operators",
+        "../libsources/microprofile/microprofile-rest-client",
     };
 
     public final static List<String> subApiLibPrefixes = new ArrayList<String>() {{

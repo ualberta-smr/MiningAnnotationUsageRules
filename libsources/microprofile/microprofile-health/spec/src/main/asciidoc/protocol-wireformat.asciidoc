@@ -1,0 +1,436 @@
+//
+// Copyright (c) 2016-2021 Eclipse Microprofile Contributors:
+// See overview.adoc
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+= Protocol and Wireformat
+
+== Abstract
+This document defines the protocol to be used by components that need to ensure a compatible wireformat, agreed upon semantics and possible forms of interactions between system components that need to determine the “liveliness” or "readiness" of computing nodes in a bigger system.
+
+=== Guidelines
+
+Note that the force of these words is modified by the requirement level of the document in which they are used.
+
+1. MUST   This word, or the terms "REQUIRED" or "SHALL", mean that the
+  definition is an absolute requirement of the specification.
+
+2. MUST NOT   This phrase, or the phrase "SHALL NOT", mean that the
+  definition is an absolute prohibition of the specification.
+
+3. SHOULD   This word, or the adjective "RECOMMENDED", mean that there
+  may exist valid reasons in particular circumstances to ignore a
+  particular item, but the full implications must be understood and
+  carefully weighed before choosing a different course.
+
+4. SHOULD NOT   This phrase, or the phrase "NOT RECOMMENDED" mean that
+  there may exist valid reasons in particular circumstances when the
+  particular behavior is acceptable or even useful, but the full
+  implications should be understood and the case carefully weighed
+  before implementing any behavior described with this label.
+
+
+5. MAY – This word, or the adjective “OPTIONAL”, mean that an item is truly discretionary.
+
+
+== Goals
+* MUST be compatibility with well known cloud platforms (i.e. http://kubernetes.io/docs/user-guide/liveness/)
+* MUST be appropriate for machine-to-machine communication
+* SHOULD give enough information for a human administrator
+
+
+== Terms used
+
+|===
+| Term       | Description
+| Producer
+| The service/application that is checked
+
+| Consumer
+| The probing end, usually a machine, that needs to verify the liveness or readiness of a Producer
+
+| Health Check Procedure
+| The code executed to determine the liveliness of a Producer
+
+| Producer status
+| The overall status, determined by considering all health check procedure results
+
+| Health check procedure result
+| The result of single check
+|===
+
+== Protocol Overview
+
+1. Consumer invokes the health check of a Producer through any of the supported protocols
+2. Producer enforces security constraints on the invocation (i.e. authentication)
+3. Producer executes a set of Health check procedures (could be a set with one element)
+4. Producer determines the overall status
+5. The status is mapped to outermost protocol (i.e. HTTP status codes)
+6. The payload is written to the response stream
+7. The consumer reads the response
+8. The consumer determines the overall status
+
+=== Protocol Specifics
+This section describes the specifics of the HTTP protocol usage.
+
+==== Interacting with producers
+How are the health checks accessed and invoked ?
+We don’t make any assumptions about this, except for the wire format and protocol.
+
+==== Protocol Mappings
+
+Health checks (innermost) can and should be mapped to the actual invocation protocol (outermost). This section described some of guidelines and rules for these mappings.
+
+* Producers MAY support a variety of protocols but the information items in the response payload MUST remain the same.
+* Producers SHOULD define a well known default context to perform checks
+* Each response SHOULD integrate with the outermost protocol whenever it makes sense (i.e. using HTTP status codes to
+signal the overall status)
+* Inner protocol information items MUST NOT be replaced by outer protocol information items, rather kept redundantly.
+* The inner protocol response MUST be self-contained, that is carrying all information needed to reason about the producer status
+
+=== Mandatory and optional protocol types
+
+==== REST/HTTP interaction
+
+* Producer MUST provide a HTTP endpoint that follows the REST interface specifications described in Appendix A.
+
+==== Protocol Adaptor
+
+Each provider MUST provide the REST/HTTP interaction, but MAY provide other protocols such as TCP or JMX. When possible, the output MUST be the JSON output returned by the equivalent HTTP calls (Appendix B). The request is protocol specific.
+
+== Healthcheck Response information
+
+* The primary information MUST be boolean, it needs to be consumed by other machines. Anything between available/unavailable doesn’t make sense or would increase the complexity on the side of the consumer processing that information.
+* The response information MAY contain an additional information holder
+* Consumers MAY process the additional information holder or simply decide to ignore it
+* The response information MUST contain the boolean `status` of each check
+* The response information MUST contain the name of each check
+
+=== Wireformats
+
+* Producer MUST  support JSON encoded payload with simple UP/DOWN statuses
+* Producers MAY  support an additional information holder with key/value pairs to provide further context (i.e. disk.free.space=120mb).
+* The JSON response payload MUST be compatible with the one described in Appendix B
+* The JSON response MUST contain the `name` entry specifying the name of the check, to support protocols that support external identifier (i.e. URI)
+* The JSON response MUST contain the `status` entry specifying the status as String: “UP” or “DOWN”
+* The JSON MAY support an additional information holder to carry key value pairs that provide additional context
+
+[[health-check-procedures]]
+== Health Check Procedures
+* A producer MUST support custom, application level health check procedures
+* A producer SHOULD support reasonable out-of-the-box procedures
+
+* A producer with no liveness procedures expected or installed MUST return positive overall status (i.e. HTTP 200)
+* A producer with no readiness procedures expected or installed MUST return positive overall status (i.e. HTTP 200)
+* A producer with no startup procedures expected or installed MUST return positive overall status (i.e. HTTP 200)
+
+* A producer with liveness procedures expected but not yet installed MUST return positive overall status (i.e. HTTP 200)
+* A producer with readiness procedures expected but not yet installed MUST return negative overall status (i.e. HTTP 503)
+* A producer with startup procedures expected but not yet installed MUST return negative overall status (i.e. HTTP 503)
+
+A producer with no procedures expected or installed can be for instance
+an application server without any deployments (focusing on some different function).
+
+A producer with procedures expected but not yet installed can be for instance a
+standalone runtime packaged with the user application, or
+an application server with already deployed user applications. User defined health
+check procedures thus can be expected but they do not have to be already processed
+when the first invocations of `/health/*` endpoints are received. See also
+the <<empty-readiness-and-startup, Empty default readiness and startup health check responses>> section.
+
+=== Policies to determine the overall status
+
+When multiple procedures are installed all procedures MUST be executed and the overall status needs to be determined.
+
+* Consumers MUST support a logical conjunction policy to determine the status
+* Consumers MUST use the logical conjunction policy by default to determine the status
+* Consumers MAY support custom policies to determine the status
+
+[[empty-readiness-and-startup]]
+== Empty default readiness and startup health check responses
+
+As readiness determines whether the container may consume requests, the container
+is <<health-check-procedures, required to return negative overall status>>
+until the user defined readiness checks can be executed. However, in some cases
+(e.g., the containers allowing multiple deployments) the container itself may be
+required to become ready before user defined readiness procedures can be deployed.
+This means that the container cannot know whether some procedures will be expected.
+For this reason, users are allowed to specify
+https://github.com/eclipse/microprofile-config[MicroProfile Config] configuration
+value `mp.health.default.readiness.empty.response` to `UP` to give the container
+a hint that it can become ready.
+
+The property `mp.health.default.readiness.empty.response` which defaults to `DOWN` (if not configured) should only be taken into account,
+when the user defined readiness check procedures are not processed or deployed yet. In other words, if the container is still starting up, the
+overall default readiness check status will reflect the `mp.health.default.readiness.empty.response` property status, with an empty
+payload response. Once the container has started up, the overall readiness check status and the payload response will reflect the processed readiness check
+procedures that are defined by the user. If there are not any readiness check procedures defined by the user, after the container has started,
+the overall default readiness check status MUST return a positive `UP` overall status (i.e. HTTP 200).
+
+Similarly, for the startup health check, the users can additionally define
+`mp.health.default.startup.empty.response` to `UP` to achieve the same effect for the
+startup probes.
+
+=== Executing procedures
+
+When executing health check procedures a producer MUST handle any unchecked exceptions and synthesize a substitute response.
+
+* The synthesized response MUST contain a `status` entry with a value of "DOWN".
+* The synthesized response MUST contain a `name` entry with a value set to the runtime class name of the failing check.
+* The synthesized response MAY contain additional information about the failure (i.e. exception message or stack trace)
+
+=== Disabling default vendor procedures
+
+An implementation is allowed to supply a reasonable default (out-of-the-box) procedures as
+defined in the <<health-check-procedures,Health Check Procedures>> section. To disable
+all default vendor procedures users can specify a
+https://github.com/eclipse/microprofile-config[MicroProfile Config] configuration property
+`mp.health.disable-default-procedures` to `true`. This allows the application to process and
+display only the user-defined health check procedures.
+
+
+== Security
+
+Aspects regarding the secure access of health check information.
+
+* A producer MAY support security on all health check invocations (i.e. authentication)
+* A producer MUST NOT enforce security by default, it SHOULD be an opt-in feature (i.e. configuration change)
+
+== Appendix A: REST interfaces specifications
+
+
+|===
+| Context       | Verb          | Status Code  | Kind of procedure called |Response
+| /health/live
+| GET
+| 200, 500, 503
+| Liveness
+| See Appendix B
+
+| /health/ready
+| GET
+| 200, 500, 503
+| Readiness
+| See Appendix B
+
+| /health/started
+| GET
+| 200, 500, 503
+| Startup
+| See Appendix B
+
+| /health
+| GET
+| 200, 500, 503
+| Liveness + Readiness + Startup
+| See Appendix B
+|===
+
+=== Status Codes:
+
+* 200 for a health check with a positive status (`UP`)
+* 503 in case the overall status is negative (`DOWN`)
+* 500 in case the producer wasn’t able to process the health check request (i.e. error in procedure)
+
+
+== Appendix B: JSON payload specification
+
+=== Response Codes and status mappings
+
+The following table gives valid health check responses for all kinds of health checks:
+
+|===
+| Request | HTTP Status       | JSON Payload         | Status  | Comment
+| /health/live
+  /health/ready
+  /health/started
+  /health
+| 200
+| Yes
+| UP
+| Check with payload. See <<With procedures installed into the runtime>>.
+
+| /health/live
+  /health/ready
+  /health/started
+  /health
+| 200
+| Yes
+| UP
+| Check with no procedures expected or installed. See <<With no procedures expected or installed into the runtime>>
+
+| /health/live
+  /health/ready
+  /health/started
+  /health
+| 503
+| Yes
+| Down
+| Check failed
+
+| /health/live
+  /health/ready
+  /health/started
+  /health
+| 503
+| Yes
+| Down
+| Check with procedures expected but not yet installed. See <<With procedures expected but not yet installed into the runtime>>
+
+| /health/live
+  /health/ready
+  /health/started
+  /health
+| 500
+| No
+| Undetermined
+| Request processing failed (i.e. error in procedure)
+|===
+
+=== JSON Schema:
+
+```
+{
+ "$schema": "http://json-schema.org/draft-04/schema#",
+ "type": "object",
+ "properties": {
+   "status": {
+     "type": "string"
+   },
+   "checks": {
+     "type": "array",
+     "items": {
+       "type": "object",
+       "properties": {
+         "name": {
+           "type": "string"
+         },
+         "status": {
+           "type": "string"
+         },
+         "data": {
+           "type": "object",
+           "patternProperties": {
+             "[a-zA-Z_]*": {
+               "type": [
+                 "string",
+                 "boolean",
+                 "number"
+               ]
+             }
+           },
+           "additionalProperties": false
+         }
+       },
+       "required": [
+         "name",
+         "status"
+       ]
+     }
+   }
+ },
+ "required": [
+   "status",
+   "checks"
+ ],
+ "additionalProperties": false
+}
+```
+(See http://jsonschema.net/#/)
+
+== Example response payloads
+
+=== With procedures installed into the runtime
+Status `200` and the following payload:
+
+```
+{
+  "status": "UP",
+  "checks": [
+    {
+      "name": "myCheck",
+      "status": "UP",
+      "data": {
+        "key": "value",
+        "foo": "bar"
+      }
+    }
+  ]
+}
+```
+
+Status `503` and the following payload:
+
+```
+{
+  "status": "DOWN",
+  "checks": [
+    {
+      "name": "firstCheck",
+      "status": "DOWN",
+      "data": {
+        "key": "value",
+        "foo": "bar"
+      }
+    },
+    {
+      "name": "secondCheck",
+      "status": "UP"
+    }
+  ]
+}
+```
+
+Status 500
+```
+{
+  "status": "DOWN",
+  "checks": [
+    {
+      "name": "example.health.FirstCheck",
+      "status": "DOWN",
+      "data": {
+        "rootCause": "timed out waiting for available connection"
+      }
+    },
+    {
+      "name": "secondCheck",
+      "status": "UP"
+    }
+  ]
+}
+```
+
+=== With no procedures expected or installed into the runtime
+
+Status `200` and the following payload:
+
+```
+{
+  "status": "UP",
+  "checks": []
+}
+```
+
+=== With procedures expected but not yet installed into the runtime
+
+Status `503` and the following payload:
+
+```
+{
+  "status": "DOWN",
+  "checks": []
+}
+```

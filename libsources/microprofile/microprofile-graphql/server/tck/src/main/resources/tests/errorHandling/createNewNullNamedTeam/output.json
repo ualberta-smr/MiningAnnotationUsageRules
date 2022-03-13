@@ -1,0 +1,14 @@
+{
+  "errors": [
+    {
+      "message": "Cannot return null for non-nullable type: 'String' within parent 'Team' (/team/name)",
+      "path": [
+        "team",
+        "name"
+      ]
+    }
+  ],
+  "data": {
+    "team": null
+  }
+}
