@@ -41,14 +41,17 @@ public class Runner {
 
         // Read projects
         builder = new Parser();
-        File project = new File(projectPath);
+        File path = new File(projectPath);
 
-        if (project.isDirectory()) {
-            boolean parsed = builder.checkRulesInProject(project, libs);
-            if (!parsed) {
-                System.out.println("Could not parse project " + project.getPath());
-                System.exit(1);
+        for(File project : Objects.requireNonNull(path.listFiles())){
+            if (project.isDirectory()) {
+                boolean parsed = builder.checkRulesInProject(project, libs);
+                if (!parsed) {
+                    System.out.println("Could not parse project " + project.getPath());
+                    System.exit(1);
+                }
             }
         }
+
     }
 }

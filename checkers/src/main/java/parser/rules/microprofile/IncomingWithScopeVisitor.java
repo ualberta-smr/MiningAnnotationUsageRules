@@ -9,14 +9,15 @@ import parser.Location;
 import parser.Violation;
 import parser.util.Helper;
 
-public class OutgoingAndScopeVisitor extends VoidVisitorAdapter<Object> {
+public class IncomingWithScopeVisitor extends VoidVisitorAdapter<Object> {
+
     private String projectName;
     private String filepath;
 
-    public OutgoingAndScopeVisitor(String projectName,
+    public IncomingWithScopeVisitor(String projectName,
                                    String filePath) {
         if (projectName == null || filePath == null) {
-            throw new RuntimeException("[OutgoingAndScopeVisitor] projectName, filePath, and importDecls cannot be null!");
+            throw new RuntimeException("[IncomingAndScopeVisitor] projectName, filePath, and importDecls cannot be null!");
         }
         this.projectName = projectName;
         this.filepath = filePath;
@@ -34,16 +35,16 @@ public class OutgoingAndScopeVisitor extends VoidVisitorAdapter<Object> {
         NodeList<AnnotationExpr> classAnnotations = c.getAnnotations();
 
         // Check if a method is annotated with @Outgoing or @Incoming
-        boolean hasOutgoing = false;
+        boolean hasIncoming = false;
         for (MethodDeclaration method : c.getMethods()) {
             for (AnnotationExpr annotation : method.getAnnotations()) {
-                hasOutgoing = Helper.annotationExists(annotation, "org.eclipse.microprofile.reactive.messaging.Outgoing");
+                hasIncoming = Helper.annotationExists(annotation, "org.eclipse.microprofile.reactive.messaging.Incoming");
 
-                if (hasOutgoing) {
+                if (hasIncoming) {
                     break;
                 }
             }
-            if (hasOutgoing) {
+            if (hasIncoming) {
                 break;
             }
         }
@@ -52,21 +53,21 @@ public class OutgoingAndScopeVisitor extends VoidVisitorAdapter<Object> {
         boolean hasApplicationScopedOrDependent = false;
         for (AnnotationExpr annotation : classAnnotations) {
             hasApplicationScopedOrDependent = Helper.annotationExists(annotation, "javax.enterprise.context.ApplicationScoped")
-                || Helper.annotationExists(annotation, "javax.enterprise.context.Dependent");
+                    || Helper.annotationExists(annotation, "javax.enterprise.context.Dependent");
             if (hasApplicationScopedOrDependent) {
                 break;
             }
         }
 
-        boolean antecedent = hasOutgoing;
+        boolean antecedent = hasIncoming;
         boolean consequent = hasApplicationScopedOrDependent;
 
         if (antecedent && !consequent) {
             // Report class location
             Location classLoc = new Location(
-                this.projectName, this.filepath, c.getName().getBegin().get().line
+                    this.projectName, this.filepath, c.getName().getBegin().get().line
             );
-            Violation.print("@Outgoing on method --> @ApplicationScoped | @Dependent on class", classLoc);
+            Violation.print("@Incoming on method --> @ApplicationScoped | @Dependent on class", classLoc);
         }
 
     }

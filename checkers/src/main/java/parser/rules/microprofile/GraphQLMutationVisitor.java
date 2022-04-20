@@ -9,14 +9,15 @@ import parser.Location;
 import parser.Violation;
 import parser.util.Helper;
 
-public class GraphQLQueriesVisitor extends VoidVisitorAdapter<Object> {
+public class GraphQLMutationVisitor extends VoidVisitorAdapter<Object> {
+
     private String projectName;
     private String filepath;
 
-    public GraphQLQueriesVisitor(String projectName,
+    public GraphQLMutationVisitor(String projectName,
                                  String filePath) {
         if (projectName == null || filePath == null) {
-            throw new RuntimeException("[GraphQLQueriesVisitor] projectName, filePath, and importDecls cannot be null!");
+            throw new RuntimeException("[GraphQLMutationVisitor] projectName, filePath, and importDecls cannot be null!");
         }
         this.projectName = projectName;
         this.filepath = filePath;
@@ -33,17 +34,17 @@ public class GraphQLQueriesVisitor extends VoidVisitorAdapter<Object> {
 
         NodeList<AnnotationExpr> classAnnotations = c.getAnnotations();
 
-        boolean hasQueryOnMethod = false;
+        boolean hasMutationOnMethod = false;
         for (MethodDeclaration method : c.getMethods()) {
             for (AnnotationExpr annotation : method.getAnnotations()) {
 
-                hasQueryOnMethod = Helper.annotationExists(annotation, "org.eclipse.microprofile.graphql.Query");
-                if (hasQueryOnMethod) {
+                hasMutationOnMethod = Helper.annotationExists(annotation, "org.eclipse.microprofile.graphql.Mutation");
+                if (hasMutationOnMethod) {
                     break;
                 }
             }
 
-            if (hasQueryOnMethod) break;
+            if (hasMutationOnMethod) break;
         }
 
         boolean hasGraphQLApiAnnOnClass = false;
@@ -58,7 +59,7 @@ public class GraphQLQueriesVisitor extends VoidVisitorAdapter<Object> {
         Location classLocation = new Location(this.projectName, this.filepath, c.getName().getBegin().get().line);
 
 
-        boolean antecedent = hasQueryOnMethod;
+        boolean antecedent = hasMutationOnMethod;
         boolean consequent = hasGraphQLApiAnnOnClass;
 
         // Attempt to deep scan before reporting violation
@@ -73,7 +74,7 @@ public class GraphQLQueriesVisitor extends VoidVisitorAdapter<Object> {
         }
 
         if (antecedent && !consequent) {
-            Violation.print("@Query|@Mutation --> @GraphQLApi", classLocation);
+            Violation.print("@Mutation --> @GraphQLApi", classLocation);
         }
     }
 }
