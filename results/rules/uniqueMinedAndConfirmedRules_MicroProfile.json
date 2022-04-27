@@ -42,13 +42,14 @@
     {
         "id": 5,
         "antecedent": [
-            "Method --(hasParam)--> Param_T",
-            "Param_T --(annotatedWith)--> Annotation_javax.ws.rs.PathParam"
+            "Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.metrics.annotation.RegistryType",
+            "Annotation_org.eclipse.microprofile.metrics.annotation.RegistryType --(hasParam)--> Param_type:org.eclipse.microprofile.metrics.MetricRegistry.Type",
+            "Field --(annotatedWith)--> Annotation_javax.inject.Inject"
         ],
         "consequent": [
-            "(Method || Class) --(annotatedWith)--> Annotation_javax.ws.rs.Path"
+            "Field --(hasType)--> org.eclipse.microprofile.metrics.MetricRegistry"
         ],
-        "ifViolated": "Faulty behavior without explicit error (simply gets ignored or causes 404)"
+        "ifViolated": "unknown"
     },
     {
         "id": 6,
@@ -73,36 +74,15 @@
     {
         "id": 8,
         "antecedent": [
-            "Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.config.inject.ConfigProperty",
-            "Annotation_org.eclipse.microprofile.config.inject.ConfigProperty --(hasParam)--> Param_name:java.lang.String"
+            "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.graphql.Mutation"
         ],
         "consequent": [
-            "Param_name:java.lang.String --(definedIn)--> (ConfigFile_microprofile-config.properties || SystemProperties || EnvironmentProperties || org.eclipse.microprofile.config.spi.ConfigSource)"
+            "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.graphql.GraphQLApi"
         ],
-        "ifViolated": "DeploymentException (which leads to Internal Server Error 500)"
+        "ifViolated": "Faulty behavior without explicit error (GraphQL interface on `/graphql` is not accessible, 404"
     },
     {
         "id": 9,
-        "antecedent": [
-            "Method --(annotatedWith)--> (Annotation_javax.ws.rs.GET || PUT || POST || UPDATE || DELETE)"
-        ],
-        "consequent": [
-            "(Method || Class) --(annotatedWith)--> Annotation_javax.ws.rs.Path"
-        ],
-        "ifViolated": "Faulty behavior without explicit error (HTTP 404 Not Found)"
-    },
-    {
-        "id": 10,
-        "antecedent": [
-            "Field --(hasType)--> org.eclipse.microprofile.jwt.JsonWebToken"
-        ],
-        "consequent": [
-            "Field --(annotatedWith)--> Annotation_javax.inject.Inject"
-        ],
-        "ifViolated": "NullPointerException (which leads to Internal Server Error 500)"
-    },
-    {
-        "id": 11,
         "antecedent": [
             "Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.rest.client.inject.RestClient"
         ],
@@ -112,7 +92,7 @@
         "ifViolated": "Faulty behavior without explicit error (HTTP 404 Not Found)"
     },
     {
-        "id": 12,
+        "id": 10,
         "antecedent": [
             "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.health.Health"
         ],
@@ -122,7 +102,7 @@
         "ifViolated": "Faulty behavior without explicit error (missing liveness feature/metric, 404)"
     },
     {
-        "id": 13,
+        "id": 11,
         "antecedent": [
             "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.health.Liveness"
         ],
@@ -132,7 +112,7 @@
         "ifViolated": "Faulty behavior without explicit error (missing liveness feature/metric, 404)"
     },
     {
-        "id": 14,
+        "id": 12,
         "antecedent": [
             "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.health.Readiness"
         ],
