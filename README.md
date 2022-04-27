@@ -67,7 +67,7 @@ Make sure you have `gitpython` installed. See installation instructions at the t
 
 The static analysis tool that encodes all rules scans one program at a time.
 The rules that we mined are already encoded
-[here](./checkers/src/main/java/parser/rules).
+[here](./checkers/src/main/java/parser/rules/microprofile).
 
 Note that the output results may slightly vary due to proprietary projects being removed.
 
