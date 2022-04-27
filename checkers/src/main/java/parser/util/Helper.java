@@ -67,7 +67,11 @@ public class Helper {
         }
         //System.out.println(qualifiedName);
 
-        return qualifiedName.equals(fullName);
+        String expected = fullName.substring(fullName.lastIndexOf(".")+1);
+        String actual = qualifiedName.contains(".") ? qualifiedName.substring(qualifiedName.lastIndexOf(".")+1) : qualifiedName;
+        return expected.equals(actual);
+        //below code gives false positive
+        //return qualifiedName.equals(fullName);
     }
 
     public static boolean fieldTypeExists(FieldDeclaration field, String fullName) {
@@ -264,6 +268,9 @@ public class Helper {
             extensionType = extensionType.substring(0, extensionType.indexOf("<"));
         }
 
-        return extensionType.equals(fullName);
+        String expected = fullName.substring(fullName.lastIndexOf(".")+1);
+        String actual = extensionType.contains(".") ? extensionType.substring(extensionType.lastIndexOf(".")+1) : extensionType;
+        return expected.equals(actual);
+        //return extensionType.equals(fullName);
     }
 }

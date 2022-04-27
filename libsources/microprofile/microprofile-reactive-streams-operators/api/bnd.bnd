@@ -1,0 +1,10 @@
+-exportcontents: \
+    org.eclipse.microprofile.*
+
+Import-Package: \
+    org.reactivestreams;version="[1.0.0,2)", \
+    *
+
+Bundle-SymbolicName: org.eclipse.microprofile.reactive.streams.operators
+Bundle-Name: Eclipse MicroProfile Reactive Streams Operators API Bundle
+Bundle-License: Apache License, Version 2.0

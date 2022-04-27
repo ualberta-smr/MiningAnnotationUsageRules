@@ -1,0 +1,12 @@
+{
+    "data": {
+        "createNewHero": {
+            "name": "Black Panther",
+            "primaryLocation": "Wakanda, Africa",
+            "superPowers": ["Top intellect"],
+            "realName": "T'Challa",
+            "idNumber": "ID-98701234",
+            "importantDates": ["01/01","03/07","25/12"]
+        }
+    }
+}

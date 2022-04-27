@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.eclipse.microprofile</groupId>
+        <artifactId>microprofile-parent</artifactId>
+        <version>2.1</version>
+    </parent>
+
+    <groupId>org.eclipse.microprofile.health</groupId>
+    <artifactId>microprofile-health-parent</artifactId>
+    <version>4.1-SNAPSHOT</version>
+
+    <packaging>pom</packaging>
+    <name>MicroProfile Health</name>
+    <url>https://microprofile.io/project/eclipse/microprofile-health</url>
+    <description>Eclipse MicroProfile Health - Parent POM</description>
+
+    <properties>
+        <inceptionYear>2016</inceptionYear>
+    </properties>
+
+    <licenses>
+        <license>
+            <name>Apache License, Version 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <organization>
+        <name>Eclipse Foundation</name>
+        <url>http://www.eclipse.org/</url>
+    </organization>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/eclipse/microprofile-health/issues</url>
+    </issueManagement>
+
+    <developers>
+        <developer>
+            <name>Martin Stefanko</name>
+            <email>mstefank[at]redhat.com</email>
+            <url>https://github.com/xstefank</url>
+            <organization>Red Hat</organization>
+            <organizationUrl>https://www.jboss.org</organizationUrl>
+        </developer>
+        <developer>
+            <name>Antoine Sabot-Durand</name>
+            <email>asd[at]redhat.com</email>
+            <url>https://github.com/antoinesd</url>
+            <organization>Red Hat</organization>
+            <organizationUrl>https://www.jboss.org</organizationUrl>
+        </developer>
+        <developer>
+            <name>Heiko Braun</name>
+            <url>https://github.com/heiko-braun</url>
+            <organization>Red Hat</organization>
+            <organizationUrl>https://www.jboss.org</organizationUrl>
+        </developer>
+    </developers>
+
+    <scm>
+        <connection>scm:git:https://github.com/eclipse/microprofile-health.git</connection>
+        <developerConnection>scm:git:git@github.com:eclipse/microprofile-health.git</developerConnection>
+        <url>https://github.com/eclipse/microprofile-health</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>biz.aQute.bnd</groupId>
+                <artifactId>biz.aQute.bnd.annotation</artifactId>
+                <version>5.3.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>org.osgi.service.cdi</artifactId>
+                <version>1.0.0</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.eclipse.microprofile.health</groupId>
+                <artifactId>microprofile-health-api</artifactId>
+                <version>${project.version}</version>
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <modules>
+        <module>api</module>
+        <module>tck</module>
+        <module>spec</module>
+    </modules>
+
+</project>

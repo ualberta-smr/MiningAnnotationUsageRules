@@ -1,0 +1,131 @@
+//
+// Copyright (c) 2017-2021 Contributors to the Eclipse Foundation
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+[[restcdi]]
+== MicroProfile Rest Client CDI Support
+
+Rest Client interfaces may be injected as CDI beans.  The runtime must create a CDI bean for each interface annotated with `RegisterRestClient`.  The bean created will include a qualifier `@RestClient` to differentiate the use as an API call against any other beans registered of the same type.  Based on the rules of how CDI resolves bean, you are only required to use the qualifier if you have multiple beans of the same type.  Any injection point or programmatic look up that uses the qualifier `RestClient` is expected to be resolved by the MicroProfile Rest Client runtime.  Below is an example of said interface, with its matching injection point:
+
+[source, java]
+----
+package com.mycompany.remoteServices;
+
+@RegisterRestClient(baseUri="http://someHost/someContextRoot")
+public interface MyServiceClient {
+    @GET
+    @Path("/greet")
+    Response greet();
+}
+----
+
+[source, java]
+----
+@ApplicationScoped
+public class MyService {
+    @Inject
+    @RestClient
+    private MyServiceClient client;
+}
+----
+
+Likewise, a user can perform programmatic look up of the interface.  Here is one example, but any CDI look up should work:
+
+[source, java]
+----
+@ApplicationScoped
+public class MyService {
+    public void execute() {
+        MyServiceClient client = CDI.current().select(MyServiceClient.class,
+                                                      RestClient.LITERAL).get();
+    }
+}
+----
+
+The qualifier is used to differentiate use cases of the interface that are managed by this runtime, versus use cases that may be managed by other runtimes.
+
+Interfaces are assumed to have a scope of `@Dependent` unless there is another scope defined on the interface.  Implementations are expected to support all of the built in scopes for a bean.  Support for custom registered scopes should work, but is not guaranteed.
+
+If the CDI implementation manages an instance of a registered provider class, the implementation must use that instance.
+See <<providers.asciidoc#cdiProviders>> for more details.
+
+[[mpconfig]]
+=== Support for MicroProfile Config
+
+For CDI defined interfaces, it is possible to use MicroProfile Config properties to define additional behaviors or override values specified in the `@RegisterRestClient` annotation of the rest interface.  Assuming this interface:
+
+[source, java]
+----
+package com.mycompany.remoteServices;
+
+@RegisterRestClient
+public interface MyServiceClient {
+    @GET
+    @Path("/greet")
+    Response greet();
+}
+----
+
+The values of the following properties will be provided via MicroProfile Config:
+
+- `com.mycompany.remoteServices.MyServiceClient/mp-rest/url`: The base URL to use for this service, the equivalent of the `baseUrl` method.  This property (or */mp-rest/uri) is considered required, however implementations may have other ways to define these URLs/URIs.
+- `com.mycompany.remoteServices.MyServiceClient/mp-rest/uri`: The base URI to use for this service, the equivalent of the `baseUri` method.  This property (or */mp-rest/url) is considered required, however implementations may have other ways to define these URLs/URIs. This property will override any `baseUri` value specified in the `@RegisterRestClient` annotation.
+- `com.mycompany.remoteServices.MyServiceClient/mp-rest/scope`: The fully qualified classname to a CDI scope to use for injection, defaults to `jakarta.enterprise.context.Dependent` as mentioned above.
+- `com.mycompany.remoteServices.MyServiceClient/mp-rest/providers`: A comma separated list of fully-qualified provider classnames to include in the client, the equivalent of the `register` method or the `@RegisterProvider` annotation.
+- `com.mycompany.remoteServices.MyServiceClient/mp-rest/providers/com.mycompany.MyProvider/priority` will override the priority of the provider for this interface.
+- `com.mycompany.remoteServices.MyServiceClient/mp-rest/connectTimeout`: Timeout specified in milliseconds to wait to connect to the remote endpoint.
+- `com.mycompany.remoteServices.MyServiceClient/mp-rest/readTimeout`: Timeout specified in milliseconds to wait for a response from the remote endpoint.
+- `com.mycompany.remoteServices.MyServiceClient/mp-rest/followRedirects`: A boolean value (Any value other than "true" will be interpreted as "false") used to determine whether the client should follow HTTP redirect responses.
+- `com.mycompany.remoteServices.MyServiceClient/mp-rest/proxyAddress`: A string value in the form of `<proxyHost>:<proxyPort>` that specifies the HTTP proxy server hostname (or IP address) and port for requests of this client to use.
+- `com.mycompany.remoteServices.MyServiceClient/mp-rest/queryParamStyle`: An enumerated type string value with possible values of "MULTI_PAIRS" (default), "COMMA_SEPARATED", or "ARRAY_PAIRS" that specifies the format in which multiple values for the same query parameter is used.
+
+Implementations may support other custom properties registered in similar fashions or other ways.
+
+The `url` property must resolve to a value that can be parsed by the `URL` converter required by the MicroProfile Config spec. Likewise, the `uri` property must resolve to a value that can be parsed by the `URI` converter.
+If both the `url` and `uri` properties are declared, then the `uri` property will take precedence.
+
+The `providers` property is not aggregated, the value will be read from the highest property `ConfigSource`.
+
+=== Configuration Keys
+
+It is possible to simplify configuration of client interfaces by using configuration keys. Config keys are specified in the `@RegisterRestClient` annotation and can be used in place of the fully-qualified classname in MP Config. For example, if we modify the previous example to be:
+
+[source, java]
+----
+package com.mycompany.remoteServices;
+
+@RegisterRestClient(configKey="myClient")
+public interface MyServiceClient {
+    @GET
+    @Path("/greet")
+    Response greet();
+}
+----
+
+Then config properties can be specified like:
+- `myClient/mp-rest/url`
+- `myClient/mp-rest/uri`
+- `myClient/mp-rest/scope`
+- `myClient/mp-rest/providers`
+- `myClient/mp-rest/providers/com.mycompany.MyProvider/priority`
+- `myClient/mp-rest/connectTimeout`
+- `myClient/mp-rest/readTimeout`
+- `myClient/mp-rest/followRedirects`
+- `myClient/mp-rest/proxyAddresses`
+- `myClient/mp-rest/queryParamStyle`
+
+Multiple client interfaces may have the same configKey value, which would allow many interfaces to be configured with a single MP Config property.
+
+If the same property exists for the same interface specified by both the configKey and the fully-qualified classname, the property specified by the fully-qualified classname takes precedence.

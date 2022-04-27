@@ -1,0 +1,362 @@
+//
+// Copyright (c) 2020 Contributors to the Eclipse Foundation
+//
+// See the NOTICE file(s) distributed with this work for additional
+// information regarding copyright ownership.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+= MicroProfile GraphQL Dynamic Client
+
+== Rationale
+
+MicroProfile GraphQL 1.0 has been focused on the server-side enabling to develop and expose GraphQL endpoints. The purpose of this specification is to define a so-called "dynamic" client API.
+
+"Dynamic" means close to the GraphQL specification semantic and structure. We can compare it with what JAX-RS client API is for REST.
+
+A "type-safe" client API, similar to MicroProfile RestClient, should also be proposed in another document.
+
+== Goals
+
+. *Provides full control over the MicroProfile GraphQL capabilities*: operations, arguments, variables, input types, scalars, interface, partial results, errors ...
+. *Consistency with MicroProfile GraphQL server* annotations (DateFormat, NumberFormat ...) and capabilities
+. *Consistency with MicroProfile*:
+* No dependency outside MicroProfile core
+* Configuration exclusively based on MicroProfile Config
+* Support of JSON-B format directives
+
+
+== Non goals
+
+. *Transport layer support*: the GraphQL specification is independent of transport layer.
+We propose to stay aligned with this, leaving the final implementation free to use any client network library (JAX-RS, Apache HTTPClient ...).
+. *Serialization of custom Java classes to build requests*
+. *Deserialization of responses into custom Java classes*
+
+== Java 8 support
+
+Java 8 is still widely used in the industry and we propose to stick to it for a broader adoption.
+
+== GraphQL components support
+****
+*bold*: fully supported components.
+
+*_italic bold_*: partially supported components.
+
+blank: not yet supported components.
+****
+
+* *_Document_*
+** *_Operation definition_*
+*** *_Operation type_*
+**** *Query*
+**** *Mutation*
+**** Subscription
+*** *Name*
+*** *_Variable definitions_*
+**** *Type*
+**** *Default value*
+**** Directives
+*** Directives
+*** *_Selection set_*
+**** *_Field_*
+***** Alias
+***** *Name*
+***** *Arguments*
+****** *Variable*
+****** *Int value*
+****** *Float value*
+****** *String value*
+****** *Boolean value*
+****** *Null value*
+****** *Enum value*
+****** *List value*
+****** *Object value*
+***** Directives
+**** Fragment spread
+**** Inline fragment
+** Fragment definition
+** TypeSystem definition
+** TypeSystem extension
+
+== Next steps
+
+To be studied for next releases:
+
+* Fragments, subscriptions and directives
+* Reactive API
+* https://spec.graphql.org/draft/#sec-Document[Multiple operations inside a GraphQL document]
+
+== API
+
+include::../resources/generated/api_core_class_diagram.asciidoc[]
+
+****
+IMPORTANT: *Static factory methods over constructors*
+
+In order to make writing of GraphQL requests in Java as close as possible to the original GraphQL's philosophy, *static factory methods* are the recommended way to use the API (those are the underlined methods in the diagram above).
+****
+
+== Writing a GraphQL document
+
+Instead of describing each GraphQL components as it is already done in the https://spec.graphql.org/draft/[GraphQL specification], we will simply show multiple usecases of the API.
+
+Samples are inspired by https://github.com/graphql/graphql-js/[graphql-js] tests suite.
+
+=== Basic Queries
+.GraphQL
+[source,graphql,numbered]
+----
+query HeroNameQuery {
+    hero {
+        name
+    }
+}
+----
+.Java
+[source,java,numbered]
+----
+Document gqlDoc = document(
+    operation("HeroNameQuery",
+        field("hero",
+            field("name")))
+);
+----
+
+'''
+
+.GraphQL
+[source,graphql,numbered]
+----
+query HeroNameAndFriendsQuery {
+    hero {
+        id
+        name
+        friends {
+            name
+        }
+    }
+}
+----
+.Java
+[source,java,numbered]
+----
+Document gqlDoc = document(
+    operation("HeroNameAndFriendsQuery",
+        field("hero",
+            field("id"),
+            field("name"),
+            field("friends",
+                field("name"))))
+);
+----
+
+=== Nested Queries
+.GraphQL
+[source,graphql,numbered]
+----
+query NestedQuery {
+    hero {
+        name
+        friends {
+            name
+            appearsIn
+            friends {
+                name
+            }
+        }
+    }
+}
+----
+.Java
+[source,java,numbered]
+----
+Document gqlDoc = document(
+    operation("NestedQuery",
+        field("hero",
+            field("name"),
+            field("friends",
+                field("name"),
+                field("appearsIn"),
+                field("friends",
+                    field("name")))))
+);
+----
+
+=== Queries with arguments
+.GraphQL
+[source,graphql,numbered]
+----
+query FetchLukeAndC3POQuery {
+    human(id: "1000") {
+        name
+    }
+    droid(id: "2000") {
+        name
+    }
+}
+----
+.Java
+[source,java,numbered]
+----
+Document gqlDoc = document(
+    operation("FetchLukeAndC3POQuery",
+        field("human", args(arg("id", "1000")),
+            field("name")),
+        field("droid", args(arg("id", "2000")),
+            field("name")))
+);
+----
+
+=== Queries with variables
+.GraphQL
+[source,graphql,numbered]
+----
+query FetchSomeIDQuery($someId: String!) {
+    human(id: $someId) {
+        name
+    }
+}
+----
+.Java
+[source,java,numbered]
+----
+Variable someId = var("someId", nonNull(GQL_STRING));
+
+Document gqlDoc = document(
+    operation("FetchSomeIDQuery", vars(someId),
+        field("human", args(arg("id", someId)),
+            field("name"))
+);
+----
+
+== Sending a GraphQL document
+
+Once a GraphQL document has been prepared, it can be run against a server.
+This specification proposes two abstractions for that:
+
+. **Request**: prepare a GraphQL request execution with the possibility to set variables.
+
+. **Response**: a holder for a GraphQL response including data and errors (if any).
+
+=== Client API
+include::../resources/generated/api_client_class_diagram.asciidoc[]
+
+==== Request
+===== Initialization
+
+A Request object is initialised with a GraphQL document:
+[source,Java]
+----
+Document gqlDoc = document(
+                operation("HeroNameQuery",
+                        field("hero",
+                                field("name"))));
+
+Request request = new DynaQLRequest(gqlDoc.build());
+----
+===== Setting variables
+Optional GraphQL variables can be provided fluently:
+[source,Java]
+----
+Request request = new DynaQLRequest(document)
+            .setVariable("surname", "Mike")
+            .setVariable("personId", 1001);
+----
+In order to make it reuseable for other executions, variables can also be reset:
+[source,Java]
+----
+request
+    .resetVariables()
+    .setVariable("surname", "John")
+    .setVariable("personId", 2002);
+----
+With this approach, a _Request_ object is immutable regarding the GraphQL document to send and mutable regarding the variables.
+It is the responsibility of the caller to ensure the consistency between the request and the variables.
+
+Once initialized with a document and optional variables, a _Request_ object can be sent to a GraphQL server. As mentioned in the "non-goal" paragraph, this specification is deliberatly transport agnostic. It is the responsibility of the implementation to propose a transport layer.
+
+For instance:
+
+* JAX-RS in a Jakarta EE or MicroProfile container.
+* raw HTTP using a library such as Apache HTTP client.
+
+You can lookup https://github.com/worldline/dynaql/[DynaQL] for an implementation of both.
+
+==== Response
+
+Response is a holder both for data and errors with some handy capabilities to retrieve the data directly as POJOs.
+
+****
+NOTE: *Partial results*
+
+In GraphQL you can have _partial results_, meaning you can get data for some fields and errors for some others in the same response.
+****
+
+===== Getting errors
+We can check if there is any error and access each of them:
+[source, Java]
+----
+if (response.hasError()) {
+    log.warn("GraphQL error:");
+    graphQLResponse.getErrors().forEach(e -> log.warning(e.toString()));
+}
+----
+
+The getErrors() method returns a list of _Error_ objects.
+In accordance with the specification, an _Error_ is made of:
+
+* a message
+* a list of locations
+* an array of path
+* a map of extensions
+
+It is the responsibility of the client to decide how to deal with GraphQL errors.
+
+==== Getting data
+The hasData method enables to check if there is any data:
+[source, Java]
+----
+if (response.hasData())
+    log.info("Data inside");
+----
+
+Data can be obtained in 2 ways:
+
+* *as a generic JsonObject*: using the getData method.
+* *as a POJO* (or a list of them): using the getObject (or getList) method. In that case, it is necessary to provide the expected data rootfield to be retrieved.
+
+For instance, with a UserProfile application class:
+[source, Java]
+----
+// Get the data as a generic JsonObject
+JsonObject data = response.getData();
+
+// Turn it into a UserProfile object
+JsonObject myData = data.getJsonObject("profile");
+Jsonb jsonb = JsonbBuilder.create();
+UserProfile userProfile = jsonb.fromJson(myData.toString(), Profile.class);
+
+// OR
+
+// Directly get a UserProfile object from response
+UserProfile userProfile = response.getObject(Profile.class, "profile");
+----
+
+In the same way, the getList method enables to get a list of objects:
+[source,Java]
+----
+// Get a list of Person from a response
+List<Person> people = response.getList(Person.class, "people");
+----

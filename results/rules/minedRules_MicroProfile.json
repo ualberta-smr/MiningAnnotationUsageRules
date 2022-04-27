@@ -1,662 +1,138 @@
 [
   {
-    "id": 1905933434,
+    "id": 1221320704,
     "antecedent": [
-      "Annotation_org.eclipse.microprofile.opentracing.Traced --(hasParam)--> Param_value:boolean",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.opentracing.Traced"
-    ],
-    "consequent": [
-      "Annotation_org.eclipse.microprofile.opentracing.Traced --(hasParam)--> Param_operationName:java.lang.String"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": 2121784492,
-    "antecedent": [
-      "Field --(hasType)--> java.lang.String",
-      "Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.config.inject.ConfigProperty",
-      "Field --(annotatedWith)--> Annotation_javax.inject.Inject",
-      "Annotation_org.eclipse.microprofile.config.inject.ConfigProperty --(hasParam)--> Param_defaultValue:java.lang.String"
-    ],
-    "consequent": [
-      "Annotation_org.eclipse.microprofile.config.inject.ConfigProperty --(hasParam)--> Param_name:java.lang.String"
-    ],
-    "label": "part. correct",
-    "distance": 4,
-    "distanceComments": [
-      "REMOVE `Field --(hasType)--> java.lang.String`",
-      "REMOVE `ConfigProperty --(hasParam)--> Param_defaultValue`",
-      "REMOVE `ConfigProperty --(hasParam)--> Param_name`",
-      "MOVE `Field --(annotatedWith)--> Annotation_javax.inject.Inject` to cons"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": -280442303,
-    "antecedent": [
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.metrics.annotation.Counted"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": 1319623400,
-    "antecedent": [
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.Path",
+      "Annotation_org.eclipse.microprofile.openapi.annotations.responses.APIResponse --(hasParam)--> Param_responseCode:java.lang.String",
+      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.responses.APIResponse",
       "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path",
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.GET"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.rest.client.inject.RegisterRestClient"
-    ],
-    "label": "part. correct",
-    "distance": 3,
-    "distanceComments": [
-      "DISJOIN 1 `Method --(annotatedWith)--> Annotation_javax.ws.rs.Path`, `Class --(annotatedWith)--> Annotation_javax.ws.rs.Path`",
-      "MOVE 1 `Class||Method --(annotatedWith)--> Annotation_javax.ws.rs.Path` to cons",
-      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.rest.client.inject.RegisterRestClient` to ante",
-      "DISJOIN 1 `Method --(annotatedWith)--> Annotation_javax.ws.rs.GET`, `Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.rest.client.inject.RegisterRestClient`"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": -1547388598,
-    "antecedent": [
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.faulttolerance.Retry"
-    ],
-    "consequent": [
-      "Annotation_org.eclipse.microprofile.faulttolerance.Retry --(hasParam)--> Param_maxRetries:int"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": 929132304,
-    "antecedent": [
-      "Method --(hasParam)--> Param_java.lang.String",
-      "Annotation_org.eclipse.microprofile.reactive.messaging.Incoming --(hasParam)--> Param_value:java.lang.String",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.reactive.messaging.Incoming"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped"
-    ],
-    "label": "part. correct",
-    "distance": 4,
-    "distanceComments": [
-      "REMOVE 1 `Method --(hasParam)--> Param_java.lang.String`",
-      "REMOVE 1 `Incoming --(hasParam)--> Param_value`",
-      "ADD 1 `Class --(definedIn)--> server.xml`",
-      "DISJOIN 1 `Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped`, `Class definedInBeans beans.xml`"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": -1190342139,
-    "antecedent": [
-      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.rest.client.inject.RegisterRestClient",
-      "Param_java.lang.String --(annotatedWith)--> Annotation_javax.ws.rs.PathParam",
-      "Method --(hasParam)--> Param_java.lang.String"
-    ],
-    "consequent": [
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.Path"
-    ],
-    "label": "part. correct",
-    "distance": 3,
-    "distanceComments": [
-      "DISJOIN 1 `Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.rest.client.inject.RegisterRestClient`, `Param_java.lang.String --(annotatedWith)--> Annotation_javax.ws.rs.PathParam`",
-      "ADD 1 `Class --(annotatedWith)--> Annotation_javax.ws.rs.Path`",
-      "DISJOIN 1 `Method --(annotatedWith)--> Annotation_javax.ws.rs.Path`, `Class --(annotatedWith)--> Annotation_javax.ws.rs.Path`"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": 861418868,
-    "antecedent": [
-      "Class --(annotatedWith)--> Annotation_javax.persistence.Entity",
-      "FieldTypeDecl --(annotatedWith)--> Annotation_org.eclipse.microprofile.graphql.Type",
-      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.graphql.Type",
-      "Annotation_javax.persistence.Table --(hasParam)--> Param_name:java.lang.String",
-      "Class --(annotatedWith)--> Annotation_javax.persistence.Table",
-      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.media.Schema",
-      "Annotation_javax.persistence.Table --(hasParam)--> Param_schema:java.lang.String"
-    ],
-    "consequent": [
-      "Annotation_org.eclipse.microprofile.openapi.annotations.media.Schema --(hasParam)--> Param_title:java.lang.String"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": -1877036550,
-    "antecedent": [
-      "Class --(annotatedWith)--> Annotation_javax.persistence.Entity",
-      "Class --(annotatedWith)--> Annotation_lombok.ToString",
-      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.graphql.Description",
-      "Annotation_org.eclipse.microprofile.graphql.Description --(hasParam)--> Param_value:java.lang.String"
-    ],
-    "consequent": [
-      "Annotation_lombok.ToString --(hasParam)--> Param_includeFieldNames:boolean"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": -1796661921,
-    "antecedent": [
-      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.rest.client.inject.RegisterRestClient",
-      "Method --(hasParam)--> Param_java.lang.String",
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path"
-    ],
-    "consequent": [
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.Path"
-    ],
-    "label": "part. correct",
-    "distance": 3,
-    "distanceComments": [
-      "REMOVE 1 `Method --(hasParam)--> Param_java.lang.String`",
-      "MOVE 1 `Class --(annotatedWith)--> Annotation_javax.ws.rs.Path` to cons",
-      "DISJOIN 1 `Class --(annotatedWith)--> Annotation_javax.ws.rs.Path`, `Method --(annotatedWith)--> Annotation_javax.ws.rs.Path`"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": 1760480294,
-    "antecedent": [
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path",
-      "Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.jwt.Claim",
-      "Annotation_org.eclipse.microprofile.jwt.Claim --(hasParam)--> Param_value:java.lang.String"
-    ],
-    "consequent": [
-      "Field --(annotatedWith)--> Annotation_javax.inject.Inject"
-    ],
-    "label": "part. correct",
-    "distance": 2,
-    "distanceComments": [
-      "REMOVE 1 `Claim --(hasParam)--> Param_value`",
-      "REMOVE 1 `Class --(annotatedWith)--> Annotation_javax.ws.rs.Path`"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": -356236606,
-    "antecedent": [
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.graphql.Query"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.graphql.GraphQLApi"
-    ],
-    "label": "correct",
-    "distance": 0,
-    "distanceComments": [],
-    "sameAs": 0
-  },
-  {
-    "id": -331306408,
-    "antecedent": [
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.responses.APIResponses",
-      "Annotation_org.eclipse.microprofile.openapi.annotations.Operation --(hasParam)--> Param_description:java.lang.String",
+      "Annotation_org.eclipse.microprofile.openapi.annotations.responses.APIResponse --(hasParam)--> Param_description:java.lang.String",
       "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.Operation"
     ],
     "consequent": [
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path"
+      "Annotation_javax.ws.rs.Path --(hasParam)--> Param_value:java.lang.String"
     ],
     "label": "not a rule",
     "sameAs": 0
   },
   {
-    "id": -1015250382,
+    "id": 1289748777,
     "antecedent": [
+      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.metrics.annotation.SimplyTimed",
       "Method --(hasParam)--> Param_java.lang.String"
     ],
     "consequent": [
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.opentracing.Traced"
+      "Annotation_org.eclipse.microprofile.metrics.annotation.SimplyTimed --(hasParam)--> Param_name:java.lang.String"
     ],
     "label": "not a rule",
     "sameAs": 0
   },
   {
-    "id": 570149443,
-    "antecedent": [
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.metrics.annotation.Timed"
-    ],
-    "consequent": [
-      "Annotation_org.eclipse.microprofile.metrics.annotation.Timed --(hasParam)--> Param_name:java.lang.String"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": -506975986,
-    "antecedent": [
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.faulttolerance.Fallback",
-      "Annotation_org.eclipse.microprofile.faulttolerance.Fallback --(hasParam)--> Param_fallbackMethod:java.lang.String"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": 319280042,
-    "antecedent": [
-      "Field --(hasType)--> java.lang.String",
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path",
-      "Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.config.inject.ConfigProperty",
-      "Field --(annotatedWith)--> Annotation_javax.inject.Inject"
-    ],
-    "consequent": [
-      "Annotation_org.eclipse.microprofile.config.inject.ConfigProperty --(hasParam)--> Param_name:java.lang.String"
-    ],
-    "label": "part. correct",
-    "distance": 4,
-    "distanceComments": [
-      "REMOVE 1 `Field --(hasType)--> java.lang.String`",
-      "REMOVE 1 `Class --(annotatedWith)--> Annotation_javax.ws.rs.Path`",
-      "REMOVE 1 `ConfigProperty --(hasParam)--> Param_name`",
-      "MOVE 1 `Field --(annotatedWith)--> Annotation_javax.inject.Inject` to cons"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": 1411850393,
-    "antecedent": [
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.GET",
-      "Method --(hasReturnType)--> javax.ws.rs.core.Response",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.Operation"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path"
-    ],
-    "label": "part. correct",
-    "distance": 3,
-    "distanceComments": [
-      "REMOVE 1 `Method --(hasReturnType)--> javax.ws.rs.core.Response`",
-      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.Operation`",
-      "ADD 1 `Method --(annotatedWith)--> Annotation_javax.ws.rs.Path` to cons",
-      "DISJOIN 1 `Class --(annotatedWith)--> Annotation_javax.ws.rs.Path`, `Method --(annotatedWith)--> Annotation_javax.ws.rs.Path`"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": 1102458184,
+    "id": 1304741815,
     "antecedent": [
       "Class --(annotatedWith)--> Annotation_javax.persistence.Entity",
       "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.graphql.Type",
-      "Class --(annotatedWith)--> Annotation_javax.json.bind.annotation.JsonbPropertyOrder",
-      "Annotation_javax.persistence.Table --(hasParam)--> Param_name:java.lang.String",
-      "Class --(annotatedWith)--> Annotation_javax.persistence.Table",
+      "Annotation_org.eclipse.microprofile.openapi.annotations.media.Schema --(hasParam)--> Param_name:java.lang.String",
       "Annotation_org.eclipse.microprofile.openapi.annotations.media.Schema --(hasParam)--> Param_title:java.lang.String",
       "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.media.Schema"
     ],
     "consequent": [
-      "Annotation_javax.persistence.Table --(hasParam)--> Param_schema:java.lang.String"
+      "Annotation_javax.persistence.Entity --(hasParam)--> Param_name:java.lang.String"
     ],
     "label": "not a rule",
     "sameAs": 0
   },
   {
-    "id": -442283970,
+    "id": -920189675,
     "antecedent": [
-      "Annotation_org.eclipse.microprofile.openapi.annotations.responses.APIResponses --(hasParam)--> Param_value:",
+      "Class --(annotatedWith)--> Annotation_javax.ws.rs.ApplicationPath",
+      "Annotation_org.eclipse.microprofile.auth.LoginConfig --(hasParam)--> Param_authMethod:java.lang.String",
+      "Annotation_javax.ws.rs.Path --(hasParam)--> Param_value:java.lang.String",
+      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path",
+      "Annotation_javax.ws.rs.ApplicationPath --(hasParam)--> Param_value:java.lang.String",
+      "Annotation_org.eclipse.microprofile.auth.LoginConfig --(hasParam)--> Param_realmName:java.lang.String",
+      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.auth.LoginConfig",
+      "Class --(annotatedWith)--> Annotation_javax.enterprise.context.RequestScoped"
+    ],
+    "consequent": [
+      "Class --(extends)--> Class_javax.ws.rs.core.Application"
+    ],
+    "label": "not a rule",
+    "sameAs": 0
+  },
+  {
+    "id": 1364002759,
+    "antecedent": [
+      "Annotation_javax.ws.rs.Path --(hasParam)--> Param_value:java.lang.String",
       "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.responses.APIResponses",
       "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.Operation"
     ],
     "consequent": [
-      "Annotation_org.eclipse.microprofile.openapi.annotations.Operation --(hasParam)--> Param_summary:java.lang.String"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": 616450469,
-    "antecedent": [
-      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.tags.Tag",
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path",
-      "Annotation_org.eclipse.microprofile.openapi.annotations.tags.Tag --(hasParam)--> Param_description:java.lang.String"
-    ],
-    "consequent": [
-      "Annotation_org.eclipse.microprofile.openapi.annotations.tags.Tag --(hasParam)--> Param_name:java.lang.String"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": 536667606,
-    "antecedent": [
-      "Field --(hasType)--> org.eclipse.microprofile.jwt.JsonWebToken",
-      "Class --(annotatedWith)--> Annotation_javax.ejb.Stateless",
       "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path"
     ],
-    "consequent": [
-      "Field --(annotatedWith)--> Annotation_javax.inject.Inject"
-    ],
-    "label": "part. correct",
-    "distance": 2,
-    "distanceComments": [
-      "REMOVE 1 `Class --(annotatedWith)--> Annotation_javax.ejb.Stateless`",
-      "REMOVE 1 `Class --(annotatedWith)--> Annotation_javax.ws.rs.Path`"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": 1746051526,
-    "antecedent": [
-      "Field --(hasType)--> org.eclipse.microprofile.jwt.JsonWebToken",
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path",
-      "Class --(annotatedWith)--> Annotation_javax.enterprise.context.RequestScoped"
-    ],
-    "consequent": [
-      "Field --(annotatedWith)--> Annotation_javax.inject.Inject"
-    ],
-    "label": "part. correct",
-    "distance": 2,
-    "distanceComments": [
-      "REMOVE 1 `Class --(annotatedWith)--> Annotation_javax.ws.rs.Path`",
-      "REMOVE 1 `Class --(annotatedWith)--> Annotation_javax.enterprise.context.RequestScoped`"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": 1136615845,
-    "antecedent": [
-      "Annotation_org.eclipse.microprofile.openapi.annotations.Operation --(hasParam)--> Param_summary:java.lang.String",
-      "Annotation_org.eclipse.microprofile.openapi.annotations.Operation --(hasParam)--> Param_description:java.lang.String",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.Operation"
-    ],
-    "consequent": [
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.Path"
-    ],
     "label": "not a rule",
     "sameAs": 0
   },
   {
-    "id": 1578282989,
+    "id": -491397731,
     "antecedent": [
-      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.faulttolerance.Timeout"
-    ],
-    "consequent": [
-      "Annotation_org.eclipse.microprofile.faulttolerance.Timeout --(hasParam)--> Param_value:java.lang.Integer"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": -633245319,
-    "antecedent": [
-      "Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.jwt.Claim",
-      "Annotation_org.eclipse.microprofile.jwt.Claim --(hasParam)--> Param_value:java.lang.String",
-      "Class --(annotatedWith)--> Annotation_javax.enterprise.context.RequestScoped"
-    ],
-    "consequent": [
-      "Field --(annotatedWith)--> Annotation_javax.inject.Inject"
-    ],
-    "label": "part. correct",
-    "distance": 2,
-    "distanceComments": [
-      "REMOVE 1 `Claim --(hasParam)--> Param_value`",
-      "REMOVE 1 `Class --(annotatedWith)--> Annotation_javax.enterprise.context.RequestScoped`"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": 2018317021,
-    "antecedent": [
-      "Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped",
-      "Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.config.inject.ConfigProperty",
-      "Field --(annotatedWith)--> Annotation_javax.inject.Inject",
-      "Annotation_org.eclipse.microprofile.config.inject.ConfigProperty --(hasParam)--> Param_defaultValue:java.lang.String"
-    ],
-    "consequent": [
-      "Annotation_org.eclipse.microprofile.config.inject.ConfigProperty --(hasParam)--> Param_name:java.lang.String"
-    ],
-    "label": "part. correct",
-    "distance": 4,
-    "distanceComments": [
-      "REMOVE 1 `ConfigProperty --(hasParam)--> Param_defaultValue`",
-      "REMOVE 1 `ConfigProperty --(hasParam)--> Param_name`",
-      "REMOVE 1 `Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped`",
-      "MOVE 1 `Field --(annotatedWith)--> Annotation_javax.inject.Inject` to cons"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": -1571528310,
-    "antecedent": [
-      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.rest.client.inject.RegisterRestClient"
-    ],
-    "consequent": [
-      "Annotation_org.eclipse.microprofile.rest.client.inject.RegisterRestClient --(hasParam)--> Param_configKey:java.lang.String"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": -1701148964,
-    "antecedent": [
-      "Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.reactive.messaging.Incoming",
-      "Annotation_org.eclipse.microprofile.reactive.messaging.Outgoing --(hasParam)--> Param_value:java.lang.String",
       "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.reactive.messaging.Outgoing"
     ],
     "consequent": [
-      "Annotation_org.eclipse.microprofile.reactive.messaging.Incoming --(hasParam)--> Param_value:java.lang.String"
-    ],
-    "label": "part. correct",
-    "distance": 5,
-    "distanceComments": [
-      "REMOVE `@Outgoing --(hasParam)--> Param_value`",
-      "REMOVE 1 `@Incoming --(hasParam)--> Param_value`",
-      "DISJOIN 1 `Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.reactive.messaging.Incoming`, `Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.reactive.messaging.Outgoing`",
-      "MOVE 1 `Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped` to cons",
-      "ADD 1 `Class --(definedIn)--> server.xml` to cons",
-      "DISJOIN 1 `Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped`, `Class --(definedIn)--> server.xml`"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": 309609564,
-    "antecedent": [
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.responses.APIResponses",
-      "Method --(hasReturnType)--> javax.ws.rs.core.Response"
-    ],
-    "consequent": [
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.Operation"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": 993256329,
-    "antecedent": [
-      "Annotation_org.eclipse.microprofile.openapi.annotations.responses.APIResponse --(hasParam)--> Param_responseCode:java.lang.String",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.responses.APIResponse",
-      "Method --(hasReturnType)--> javax.ws.rs.core.Response",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.Operation"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": -1366589208,
-    "antecedent": [
-      "Annotation_org.eclipse.microprofile.openapi.annotations.Operation --(hasParam)--> Param_summary:java.lang.String",
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.Path",
-      "Method --(hasReturnType)--> javax.ws.rs.core.Response",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.Operation"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": 1419841346,
-    "antecedent": [
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.Produces",
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path",
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.GET"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.rest.client.inject.RegisterRestClient"
-    ],
-    "label": "part. correct",
-    "distance": 3,
-    "distanceComments": [
-      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.rest.client.inject.RegisterRestClient` to ante",
-      "MOVE 1 `Class --(annotatedWith)--> Annotation_javax.ws.rs.Path` to cons",
-      "DISJOIN 1 `Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.rest.client.inject.RegisterRestClient`, `Method --(annotatedWith)--> Annotation_javax.ws.rs.GET`",
-      "ADD 1 `Method --(annotatedWith)--> Annotation_javax.ws.rs.Path`",
-      "DISJOIN 1 `Class --(annotatedWith)--> Annotation_javax.ws.rs.Path`, `Method --(annotatedWith)--> Annotation_javax.ws.rs.Path`"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": -34926504,
-    "antecedent": [
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.Produces",
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.Path",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.Operation"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": 1676609038,
-    "antecedent": [
-      "Annotation_org.eclipse.microprofile.openapi.annotations.Operation --(hasParam)--> Param_summary:java.lang.String",
-      "Annotation_org.eclipse.microprofile.openapi.annotations.Operation --(hasParam)--> Param_description:java.lang.String",
-      "Method --(hasReturnType)--> javax.ws.rs.core.Response",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.Operation"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": -1325930714,
-    "antecedent": [
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.faulttolerance.CircuitBreaker"
-    ],
-    "consequent": [
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.faulttolerance.Fallback"
-    ],
-    "label": "best practice",
-    "sameAs": 0
-  },
-  {
-    "id": 1943433207,
-    "antecedent": [
-      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.rest.client.inject.RegisterRestClient",
-      "Method --(hasParam)--> Param_java.lang.String",
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.Produces"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path"
-    ],
-    "label": "part. correct",
-    "distance": 3,
-    "distanceComments": [
-      "REMOVE 1 `Method --(hasParam)--> Param_java`",
-      "REMOVE 1 `Method --(annotatedWith)--> Annotation_javax.ws.rs.Produces`",
-      "ADD 1 `Method --(annotatedWith)--> Annotation_javax.ws.rs.Path` to cons",
-      "DISJOIN 1 `Method --(annotatedWith)--> Annotation_javax.ws.rs.Path`, `Class --(annotatedWith)--> Annotation_javax.ws.rs.Path`"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": 1754580627,
-    "antecedent": [
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.faulttolerance.Fallback",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.faulttolerance.Timeout"
-    ],
-    "consequent": [
       "Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped"
     ],
-    "label": "not a rule",
+    "label": "partially correct rule",
+    "distance": 1,
+    "distanceComments": [
+      "ADD 1 'Application --(hasBeans)--> beans.xml'"
+    ],
     "sameAs": 0
   },
   {
-    "id": -899951925,
+    "id": -1207560480,
     "antecedent": [
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Consumes",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.Operation"
+      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.graphql.Mutation"
     ],
     "consequent": [
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path"
+      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.graphql.GraphQLApi"
+    ],
+    "label": "rule",
+    "sameAs": 0
+  },
+  {
+    "id": 1043234021,
+    "antecedent": [
+      "Annotation_org.eclipse.microprofile.metrics.annotation.Gauge --(hasParam)--> Param_unit:java.lang.String",
+      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.metrics.annotation.Gauge"
+    ],
+    "consequent": [
+      "Annotation_org.eclipse.microprofile.metrics.annotation.Gauge --(hasParam)--> Param_name:java.lang.String"
     ],
     "label": "not a rule",
     "sameAs": 0
   },
   {
-    "id": 1352331578,
+    "id": -941711638,
     "antecedent": [
-      "Field --(hasType)--> java.lang.String",
-      "Annotation_org.eclipse.microprofile.config.inject.ConfigProperty --(hasParam)--> Param_name:java.lang.String",
-      "Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.config.inject.ConfigProperty",
+      "Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.metrics.annotation.RegistryType",
+      "Annotation_org.eclipse.microprofile.metrics.annotation.RegistryType --(hasParam)--> Param_type:org.eclipse.microprofile.metrics.MetricRegistry.Type",
+      "Field --(annotatedWith)--> Annotation_javax.inject.Inject"
+    ],
+    "consequent": [
+      "Field --(hasType)--> org.eclipse.microprofile.metrics.MetricRegistry"
+    ],
+    "label": "rule",
+    "sameAs": 0
+  },
+  {
+    "id": -2017401994,
+    "antecedent": [
+      "Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped",
+      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.health.Health"
+    ],
+    "consequent": [
       "Class --(implements)--> Interface_org.eclipse.microprofile.health.HealthCheck"
     ],
-    "consequent": [
-      "Field --(annotatedWith)--> Annotation_javax.inject.Inject"
-    ],
-    "label": "part. correct",
-    "distance": 3,
-    "distanceComments": [
-      "REMOVE 1 `Field --(hasType)--> java.lang.String`",
-      "REMOVE 1 `ConfigProperty --(hasParam)--> Param_name`",
-      "REMOVE 1 `Class --(implements)--> Interface_org.eclipse.microprofile.health.HealthCheck`"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": -468026229,
-    "antecedent": [
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.faulttolerance.Fallback",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.faulttolerance.Timeout"
-    ],
-    "consequent": [
-      "Annotation_org.eclipse.microprofile.faulttolerance.Fallback --(hasParam)--> Param_fallbackMethod:java.lang.String"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": 1837788069,
-    "antecedent": [
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.Produces",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.metrics.annotation.Timed"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": -370362379,
-    "antecedent": [
-      "Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.rest.client.inject.RestClient",
-      "Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped"
-    ],
-    "consequent": [
-      "Field --(annotatedWith)--> Annotation_javax.inject.Inject"
-    ],
-    "label": "part. correct",
+    "label": "partially correct rule",
     "distance": 1,
     "distanceComments": [
       "REMOVE 1 `Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped`"
@@ -664,562 +140,189 @@
     "sameAs": 0
   },
   {
-    "id": -2114271368,
+    "id": -359885871,
     "antecedent": [
-      "Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped",
-      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.health.Health",
-      "Field --(annotatedWith)--> Annotation_javax.inject.Inject"
-    ],
-    "consequent": [
-      "Class --(implements)--> Interface_org.eclipse.microprofile.health.HealthCheck"
-    ],
-    "label": "part. correct",
-    "distance": 2,
-    "distanceComments": [
-      "REMOVE 1 `Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped`",
-      "REMOVE 1 `Field --(annotatedWith)--> Annotation_javax.inject.Inject`"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": -379115636,
-    "antecedent": [
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.Produces",
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.Path",
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.rest.client.inject.RegisterRestClient"
-    ],
-    "label": "part. correct",
-    "distance": 3,
-    "distanceComments": [
-      "REMOVE 1 `Method --(annotatedWith)--> Annotation_javax.ws.rs.Produces`",
-      "DISJOIN 1 `Method --(annotatedWith)--> Annotation_javax.ws.rs.Path`, `Class --(annotatedWith)--> Annotation_javax.ws.rs.Path`",
-      "MOVE 1 `Method||Class --(annotatedWith)--> Annotation_javax.ws.rs.Path` to cons",
-      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.rest.client.inject.RegisterRestClient` to ante"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": -158098748,
-    "antecedent": [
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.Path",
-      "Annotation_org.eclipse.microprofile.openapi.annotations.Operation --(hasParam)--> Param_description:java.lang.String",
-      "Method --(hasReturnType)--> javax.ws.rs.core.Response",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.Operation"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": 109215332,
-    "antecedent": [
-      "Annotation_org.eclipse.microprofile.openapi.annotations.Operation --(hasParam)--> Param_summary:java.lang.String",
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.GET",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.Operation"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path"
-    ],
-    "label": "part. correct",
-    "distance": 3,
-    "distanceComments": [
-      "REMOVE 1 `@Operation --(hasParam)--> Param_summary`",
-      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.Operation`",
-      "ADD 1 `Method --(annotatedWith)--> Annotation_javax.ws.rs.Path` to cons",
-      "DISJOIN 1 `Class --(annotatedWith)--> Annotation_javax.ws.rs.Path`, `Method --(annotatedWith)--> Annotation_javax.ws.rs.Path`"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": 1216528467,
-    "antecedent": [
-      "Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped",
-      "Method --(hasReturnType)--> Flowable",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.reactive.messaging.Outgoing"
-    ],
-    "consequent": [
-      "Annotation_org.eclipse.microprofile.reactive.messaging.Outgoing --(hasParam)--> Param_value:java.lang.String"
-    ],
-    "label": "part. correct",
-    "distance": 4,
-    "distanceComments": [
-      "REMOVE 1 `@Outgoing --(hasParam)--> Param_value`",
-      "REMOVE 1 `Method --(hasReturnType)--> Flowable`",
-      "MOVE 1 `Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped` to cons",
-      "ADD 1 `Class --(definedIn)--> server.xml` to cons",
-      "DISJOIN 1 `Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped`, `Class --(definedIn)--> server.xml`"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": -1295738799,
-    "antecedent": [
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path",
-      "Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.jwt.Claim",
-      "Class --(annotatedWith)--> Annotation_javax.enterprise.context.RequestScoped"
-    ],
-    "consequent": [
-      "Field --(annotatedWith)--> Annotation_javax.inject.Inject"
-    ],
-    "label": "part. correct",
-    "distance": 2,
-    "distanceComments": [
-      "REMOVE 1 `Class --(annotatedWith)--> Annotation_javax.ws.rs.Path`",
-      "REMOVE 1 `Class --(annotatedWith)--> Annotation_javax.enterprise.context.RequestScoped`"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": 161716046,
-    "antecedent": [
-      "Method --(hasReturnType)--> void",
-      "Annotation_org.eclipse.microprofile.reactive.messaging.Incoming --(hasParam)--> Param_value:java.lang.String",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.reactive.messaging.Incoming"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped"
-    ],
-    "label": "part. correct",
-    "distance": 3,
-    "distanceComments": [
-      "REMOVE 1 `Method --(hasReturnType)--> void`",
-      "REMOVE 1 `@Incoming --(hasParam)--> Param_value`",
-      "ADD 1 `Class --(definedIn)--> server.xml` to cons",
-      "DISJOIN 1 `Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped`, `Class --(definedIn)--> server.xml`"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": 1492264726,
-    "antecedent": [
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.Produces",
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.Path",
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.opentracing.Traced"
-    ],
-    "consequent": [
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.GET"
-    ],
-    "label": "part. correct",
-    "distance": 4,
-    "distanceComments": [
-      "REMOVE 1 `Method --(annotatedWith)--> Annotation_javax.ws.rs.Produces`",
-      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.opentracing.Traced`",
-      "DISJOIN 1 `Class --(annotatedWith)--> Annotation_javax.ws.rs.Path`, `Method --(annotatedWith)--> Annotation_javax.ws.rs.Path`",
-      "MOVE 1 `Class||Method --(annotatedWith)--> Annotation_javax.ws.rs.Path` to cons",
-      "MOVE 1 `Method --(annotatedWith)--> Annotation_javax.ws.rs.GET` to ante"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": -982391086,
-    "antecedent": [
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.GET",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.opentracing.Traced",
-      "Annotation_org.eclipse.microprofile.opentracing.Traced --(hasParam)--> Param_operationName:java.lang.String"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path"
-    ],
-    "label": "part. correct",
-    "distance": 3,
-    "distanceComments": [
-      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.opentracing.Traced`",
-      "REMOVE 1 `Traced --(hasParam)--> Param_operationName`",
-      "ADD 1 `Method --(annotatedWith)--> Annotation_javax.ws.rs.Path`",
-      "DISJOIN 1 `Class --(annotatedWith)--> Annotation_javax.ws.rs.Path`, `Method --(annotatedWith)--> Annotation_javax.ws.rs.Path`"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": 971967329,
-    "antecedent": [
-      "Method --(hasParam)--> Param_java.lang.String",
-      "Method --(hasReturnType)--> void",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.reactive.messaging.Incoming"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped"
-    ],
-    "label": "part. correct",
-    "distance": 3,
-    "distanceComments": [
-      "REMOVE 1 `Method --(hasReturnType)--> void`",
-      "REMOVE 1 `Method --(hasParam)--> Param_java.lang.String`",
-      "ADD 1 `Class --(definedIn)--> server.xml` to cons",
-      "DISJOIN 1 `Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped`, `Class --(definedIn)--> server.xml`"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": -512300630,
-    "antecedent": [
-      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.rest.client.inject.RegisterRestClient",
-      "Method --(hasParam)--> Param_java.lang.String",
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.Produces"
-    ],
-    "consequent": [
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.Path"
-    ],
-    "label": "part. correct",
-    "distance": 3,
-    "distanceComments": [
-      "REMOVE 1 `Method --(hasParam)--> Param_java.lang.String`",
-      "REMOVE 1 `Method --(annotatedWith)--> Annotation_javax.ws.rs.Produces`",
-      "ADD 1 `Class --(annotatedWith)--> Annotation_javax.ws.rs.Path`",
-      "DISJOIN 1 `Class --(annotatedWith)--> Annotation_javax.ws.rs.Path`, `Method --(annotatedWith)--> Annotation_javax.ws.rs.Path`"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": 422691322,
-    "antecedent": [
-      "Annotation_org.eclipse.microprofile.openapi.annotations.Operation --(hasParam)--> Param_summary:java.lang.String",
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.Produces",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.Operation"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": -765421361,
-    "antecedent": [
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.faulttolerance.Timeout"
-    ],
-    "consequent": [
-      "Annotation_org.eclipse.microprofile.faulttolerance.Timeout --(hasParam)--> Param_value:java.lang.Integer"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": 925421870,
-    "antecedent": [
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Produces",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.Operation"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": -1014783638,
-    "antecedent": [
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.Produces",
-      "Method --(hasReturnType)--> javax.ws.rs.core.Response",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.Operation"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": -71257856,
-    "antecedent": [
-      "Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.graphql.Description",
-      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.graphql.Description"
-    ],
-    "consequent": [
-      "Annotation_org.eclipse.microprofile.graphql.Description --(hasParam)--> Param_value:java.lang.String"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": 562434800,
-    "antecedent": [
-      "Method --(hasParam)--> Param_java.lang.String",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.faulttolerance.Retry"
-    ],
-    "consequent": [
-      "Annotation_org.eclipse.microprofile.faulttolerance.Retry --(hasParam)--> Param_maxRetries:int"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": 1407095992,
-    "antecedent": [
-      "Method --(hasReturnType)--> java.lang.String"
-    ],
-    "consequent": [
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.opentracing.Traced"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": -853923241,
-    "antecedent": [
-      "Annotation_org.eclipse.microprofile.config.inject.ConfigProperty --(hasParam)--> Param_name:java.lang.String",
-      "Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.config.inject.ConfigProperty",
-      "Field --(annotatedWith)--> Annotation_javax.inject.Inject",
-      "Class --(implements)--> Interface_org.eclipse.microprofile.health.HealthCheck",
-      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.health.Liveness"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped"
-    ],
-    "label": "part. correct",
-    "distance": 5,
-    "distanceComments": [
-      "REMOVE 1 `@ConfigProperty --(hasParam)--> Param_name`",
-      "REMOVE 1 `Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.config.inject.ConfigProperty`",
-      "REMOVE 1 `Field --(annotatedWith)--> Annotation_javax.inject.Inject`",
-      "REMOVE 1 `Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped`",
-      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.health.Liveness` to cons"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": 285844039,
-    "antecedent": [
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.responses.APIResponses"
-    ],
-    "consequent": [
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.Path"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": 1680609377,
-    "antecedent": [
-      "Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.rest.client.inject.RestClient",
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path"
-    ],
-    "consequent": [
-      "Field --(annotatedWith)--> Annotation_javax.inject.Inject"
-    ],
-    "label": "part. correct",
-    "distance": 1,
-    "distanceComments": [
-      "REMOVE 1 `Class --(annotatedWith)--> Annotation_javax.ws.rs.Path`"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": 1207491319,
-    "antecedent": [
-      "Field --(hasType)--> java.lang.String",
-      "Annotation_org.eclipse.microprofile.config.inject.ConfigProperty --(hasParam)--> Param_name:java.lang.String",
       "Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.config.inject.ConfigProperty",
       "Field --(annotatedWith)--> Annotation_javax.inject.Inject"
-    ],
-    "consequent": [
-      "Param_name:java.lang.String --(definedIn)--> ConfigFile_microprofile-config.properties"
-    ],
-    "label": "part. correct",
-    "distance": 2,
-    "distanceComments": [
-      "REMOVE 1 `Field --(hasType)--> java.lang.String`",
-      "ADD 1 `Param_name:java.lang.String --(definedIn)--> <System properties>`",
-      "ADD 1 `Param_name:java.lang.String --(definedIn)--> <Environment properties>`",
-      "ADD 1 `ConfigProperty --(hasParam)--> Param_defaultValue`",
-      "DISJOIN 1 `definedIn microprofile-config.properties`,`definedIn <System properties>`",
-      "DISJOIN 1 `definedIn microprofile-config.properties`, `definedIn <Environment properties>`",
-      "DISJOIN 1 `definedIn microprofile-config.properties`, `ConfigProperty --(hasParam)--> Param_defaultValue`"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": 1542380660,
-    "antecedent": [
-      "Annotation_org.eclipse.microprofile.config.inject.ConfigProperty --(hasParam)--> Param_name:java.lang.String",
-      "Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.config.inject.ConfigProperty",
-      "Field --(annotatedWith)--> Annotation_javax.inject.Inject",
-      "Class --(implements)--> Interface_org.eclipse.microprofile.health.HealthCheck",
-      "Annotation_org.eclipse.microprofile.config.inject.ConfigProperty --(hasParam)--> Param_defaultValue:java.lang.String"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped"
-    ],
-    "label": "part. correct",
-    "distance": 6,
-    "distanceComments": [
-      "REMOVE 1 `ConfigProperty --(hasParam)--> Param_name`",
-      "REMOVE 1 `ConfigProperty --(hasParam)--> Param_defaultValue`",
-      "REMOVE 1 `Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.config.inject.ConfigProperty`",
-      "REMOVE 1 `Class --(implements)--> Interface_org.eclipse.microprofile.health.HealthCheck`",
-      "REMOVE 1 `Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped`",
-      "MOVE 1 `Field --(annotatedWith)--> Annotation_javax.inject.Inject` to cons"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": 470879715,
-    "antecedent": [
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.faulttolerance.Fallback"
-    ],
-    "consequent": [
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.faulttolerance.Retry"
-    ],
-    "label": "best practice",
-    "sameAs": 0
-  },
-  {
-    "id": -795444290,
-    "antecedent": [
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.faulttolerance.Fallback",
-      "Method --(hasParam)--> Param_boolean"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": 1063351913,
-    "antecedent": [
-      "Field --(hasType)--> java.lang.String",
-      "Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped",
-      "Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.config.inject.ConfigProperty"
     ],
     "consequent": [
       "Annotation_org.eclipse.microprofile.config.inject.ConfigProperty --(hasParam)--> Param_name:java.lang.String"
     ],
-    "label": "not a rule",
+    "label": "partially correct rule",
+    "distance": 2,
+    "distanceComments": [
+      "REMOVE 1 `Annotation_org.eclipse.microprofile.config.inject.ConfigProperty --(hasParam)--> Param_name:java.lang.String`",
+      "MOVE 1 'Field --(annotatedWith)--> Annotation_javax.inject.Inject' to cons"
+    ],
     "sameAs": 0
   },
   {
-    "id": -1989941012,
+    "id": 1447599065,
     "antecedent": [
+      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.graphql.Query"
+    ],
+    "consequent": [
+      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.graphql.GraphQLApi"
+    ],
+    "label": "rule",
+    "sameAs": 0
+  },
+  {
+    "id": -848093747,
+    "antecedent": [
+      "Annotation_org.eclipse.microprofile.openapi.annotations.responses.APIResponse --(hasParam)--> Param_responseCode:java.lang.String",
       "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.responses.APIResponse",
+      "Annotation_javax.ws.rs.Path --(hasParam)--> Param_value:java.lang.String",
       "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path",
-      "Annotation_org.eclipse.microprofile.openapi.annotations.responses.APIResponse --(hasParam)--> Param_description:java.lang.String",
       "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.Operation"
     ],
     "consequent": [
-      "Annotation_org.eclipse.microprofile.openapi.annotations.responses.APIResponse --(hasParam)--> Param_responseCode:java.lang.String"
+      "Method --(hasReturnType)--> javax.ws.rs.core.Response"
     ],
     "label": "not a rule",
     "sameAs": 0
   },
   {
-    "id": -689063307,
+    "id": -375827261,
     "antecedent": [
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.Path",
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.GET"
+      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.rest.client.inject.RegisterRestClient",
+      "Annotation_javax.ws.rs.Path --(hasParam)--> Param_value:java.lang.String",
+      "Method --(annotatedWith)--> Annotation_javax.ws.rs.Path"
     ],
     "consequent": [
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.Operation"
+      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.rest.client.annotation.RegisterClientHeaders"
     ],
-    "label": "part. correct",
-    "distance": 3,
+    "label": "partially correct rule",
+    "distance": 4,
     "distanceComments": [
-      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.Operation`",
-      "MOVE 1 `Method --(annotatedWith)--> Annotation_javax.ws.rs.Path` to cons",
-      "ADD 1 `Class --(annotatedWith)--> Annotation_javax.ws.rs.Path`",
-      "DISJOIN 1 `Method --(annotatedWith)--> Annotation_javax.ws.rs.Path`, `Class --(annotatedWith)--> Annotation_javax.ws.rs.Path`"
+      "REMOVE 1 `Annotation_javax.ws.rs.Path --(hasParam)--> Param_value:java.lang.String`",
+      "REMOVE 1 `Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.rest.client.annotation.RegisterClientHeaders`",
+      "MOVE 1 'Method --(annotatedWith)--> Annotation_javax.ws.rs.Path' to cons",
+      "ADD 1 'Class --(annotatedWith)--> Annotation_javax.ws.rs.Path'"
     ],
     "sameAs": 0
   },
   {
-    "id": 805817945,
-    "antecedent": [
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.Path",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.faulttolerance.Retry"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": -324697033,
-    "antecedent": [
-      "Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped"
-    ],
-    "consequent": [
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.opentracing.Traced"
-    ],
-    "label": "not a rule",
-    "sameAs": 0
-  },
-  {
-    "id": 92359805,
-    "antecedent": [
-      "Annotation_org.eclipse.microprofile.opentracing.Traced --(hasParam)--> Param_value:java.lang.Boolean",
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.GET",
-      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.opentracing.Traced"
-    ],
-    "consequent": [
-      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path"
-    ],
-    "label": "part. correct",
-    "distance": 3,
-    "distanceComments": [
-      "REMOVE 1 `@Traced --(hasParam)--> Param_value`",
-      "REMOVE 1 `Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.opentracing.Traced`",
-      "ADD 1 `Method --(annotatedWith)--> Annotation_javax.ws.rs.Path`",
-      "DISJOIN 1 `Class --(annotatedWith)--> Annotation_javax.ws.rs.Path`, `Method --(annotatedWith)--> Annotation_javax.ws.rs.Path`"
-    ],
-    "sameAs": 0
-  },
-  {
-    "id": -651218433,
+    "id": 2143825194,
     "antecedent": [
       "Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped",
-      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.health.Readiness",
-      "Field --(annotatedWith)--> Annotation_javax.inject.Inject"
+      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.health.Readiness"
     ],
     "consequent": [
       "Class --(implements)--> Interface_org.eclipse.microprofile.health.HealthCheck"
     ],
-    "label": "part. correct",
-    "distance": 3,
+    "label": "partially correct rule",
+    "distance": 1,
     "distanceComments": [
-      "REMOVE 1 `Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped`",
-      "REMOVE 1 `Field --(annotatedWith)--> Annotation_javax.inject.Inject`",
-      "MOVE 1 `Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.health.Readiness` to cons",
-      "MOVE 1 `Class --(implements)--> Interface_org.eclipse.microprofile.health.HealthCheck` to ante"
+      "REMOVE 1 'Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped'"
     ],
     "sameAs": 0
   },
   {
-    "id": -451206831,
+    "id": -1707152331,
     "antecedent": [
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.Produces",
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.Path",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.Operation"
+      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path",
+      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition",
+      "Annotation_org.eclipse.microprofile.openapi.annotations.OpenAPIDefinition --(hasParam)--> Param_info:"
     ],
     "consequent": [
-      "Annotation_org.eclipse.microprofile.openapi.annotations.Operation --(hasParam)--> Param_summary:java.lang.String"
+      "Annotation_javax.ws.rs.Path --(hasParam)--> Param_value:java.lang.String"
     ],
     "label": "not a rule",
     "sameAs": 0
   },
   {
-    "id": -1231526350,
+    "id": -2075306354,
     "antecedent": [
-      "Method --(annotatedWith)--> Annotation_javax.ws.rs.GET",
-      "Annotation_org.eclipse.microprofile.openapi.annotations.Operation --(hasParam)--> Param_description:java.lang.String",
-      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.Operation"
+      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.health.Liveness"
+    ],
+    "consequent": [
+      "Class --(implements)--> Interface_org.eclipse.microprofile.health.HealthCheck"
+    ],
+    "label": "rule",
+    "sameAs": 0
+  },
+  {
+    "id": -358877541,
+    "antecedent": [
+      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.tags.Tag",
+      "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path",
+      "Annotation_org.eclipse.microprofile.openapi.annotations.tags.Tag --(hasParam)--> Param_name:java.lang.String"
+    ],
+    "consequent": [
+      "Annotation_javax.ws.rs.Path --(hasParam)--> Param_value:java.lang.String"
+    ],
+    "label": "not a rule",
+    "sameAs": 0
+  },
+  {
+    "id": -655205417,
+    "antecedent": [
+      "Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.reactive.messaging.Incoming"
+    ],
+    "consequent": [
+      "Class --(annotatedWith)--> Annotation_javax.enterprise.context.ApplicationScoped"
+    ],
+    "label": "partially correct rule",
+    "distance": 1,
+    "distanceComments": [
+      "ADD 1 `Application --(hasBeans)--> beans.xml`"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": -240494216,
+    "antecedent": [
+      "Field --(annotatedWith)--> Annotation_javax.inject.Inject"
+    ],
+    "consequent": [
+      "Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.rest.client.inject.RestClient"
+    ],
+    "label": "partially correct rule",
+    "distance": 2,
+    "distanceComments": [
+      "MOVE 1 `Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.rest.client.inject.RestClient",
+      "MOVE 1 'Field --(annotatedWith)--> Annotation_javax.inject.Inject' to cons"
+    ],
+    "sameAs": 0
+  },
+  {
+    "id": 2015616826,
+    "antecedent": [
+      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.rest.client.inject.RegisterRestClient",
+      "Class --(annotatedWith)--> Annotation_org.eclipse.microprofile.rest.client.annotation.RegisterProvider"
+    ],
+    "consequent": [
+      "Annotation_org.eclipse.microprofile.rest.client.annotation.RegisterProvider --(hasParam)--> Param_value:java.lang.Class"
+    ],
+    "label": "not a rule",
+    "sameAs": 0
+  },
+  {
+    "id": -821742361,
+    "antecedent": [
+      "Field --(annotatedWith)--> Annotation_javax.inject.Inject"
+    ],
+    "consequent": [
+      "Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.metrics.annotation.Metric"
+    ],
+    "label": "not a rule",
+    "sameAs": 0
+  },
+  {
+    "id": 103768631,
+    "antecedent": [
+      "Field --(annotatedWith)--> Annotation_javax.inject.Inject",
+      "Field --(annotatedWith)--> Annotation_org.eclipse.microprofile.jwt.Claim"
     ],
     "consequent": [
       "Class --(annotatedWith)--> Annotation_javax.ws.rs.Path"
     ],
-    "label": "part. correct",
-    "distance": 3,
+    "label": "partially correct rule",
+    "distance": 2,
     "distanceComments": [
-      "REMOVE 1 `@Operation --(hasParam)--> Param_description`",
-      "REMOVE 1 `Method --(annotatedWith)--> Annotation_org.eclipse.microprofile.openapi.annotations.Operation`",
-      "ADD 1 `Method --(annotatedWith)--> Annotation_javax.ws.rs.Path`",
-      "DISJOIN 1 `Class --(annotatedWith)--> Annotation_javax.ws.rs.Path`, `Method --(annotatedWith)--> Annotation_javax.ws.rs.Path`"
+      "REMOVE 1 `Class --(annotatedWith)--> Annotation_javax.ws.rs.Path`",
+      "MOVE 1 `Field --(annotatedWith)--> Annotation_javax.inject.Inject` to cons"
     ],
     "sameAs": 0
   }

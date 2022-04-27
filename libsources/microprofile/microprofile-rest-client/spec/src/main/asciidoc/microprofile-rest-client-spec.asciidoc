@@ -1,0 +1,61 @@
+//
+// Copyright (c) 2017-2020 Contributors to the Eclipse Foundation
+//
+// See the NOTICE file(s) distributed with this work for additional
+// information regarding copyright ownership.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+= Rest Client for MicroProfile
+:authors: John D. Ament, Andy McCright, Ken Finnigan, Michal Szynkiewicz
+:email: john.d.ament@gmail.com, j.andrew.mccright@gmail.com, ken@kenfinnigan.me, michal.l.szynkiewicz@gmail.com
+:version-label!:
+:sectanchors:
+:doctype: book
+:license: Apache License v2.0
+:source-highlighter: coderay
+:toc: left
+:toclevels: 4
+:sectnumlevels: 4
+ifdef::backend-pdf[]
+:pagenums:
+endif::[]
+
+
+// == License
+:sectnums!:
+include::license-efsl.adoc[]
+
+== Microprofile Rest Client
+
+
+include::clientexamples.asciidoc[]
+
+include::programmatic_lookup.asciidoc[]
+
+include::providers.asciidoc[]
+
+include::cdi.asciidoc[]
+
+include::lifecycle.asciidoc[]
+
+include::async.asciidoc[]
+
+include::ssl.asciidoc[]
+
+include::server_sent_events.asciidoc[]
+
+include::integration.asciidoc[]
+
+include::release_notes.asciidoc[]

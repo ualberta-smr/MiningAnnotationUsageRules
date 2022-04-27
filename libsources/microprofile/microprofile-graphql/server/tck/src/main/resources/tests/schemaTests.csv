@@ -1,0 +1,116 @@
+# testIgnoreOnFieldExcludedFromInputAndOutputTypes
+1| type Item           |   powerLevel                                               |   Missing expected, un-ignored field, "powerLevel"
+2| type Item           |   !invisible                                               |   Found field "invisible" that should be ignored"
+3| input ItemInput     |   powerLevel                                               |   Missing expected, un-ignored field, "powerLevel"
+4| input ItemInput     |   !invisible                                               |   Found field "invisible" that should be ignored"
+        
+# testIgnoreOnGetterExcludedOnOutputType
+5| type Item           |   artificialIntelligenceRating                             |   Missing expected, un-ignored field, "artificialIntelligenceRating"
+6| type Item           |   !canWield                                                |   Found field "canWield" that should be ignored
+
+# testIgnoreOnSetterExcludedOnInputType
+7| input ItemInput     |   canWield                                                 |   Missing expected, un-ignored field, "canWield"
+8| input ItemInput     |   !artificialIntelligenceRating                            |   Found field "artificialIntelligenceRating" that should be ignored in input type
+    
+# testJsonbTransientOnSetterExcludedOnInputType
+9| input SuperHeroInput|   colorOfCostume                                           |   Missing expected, un-ignored field, "colorOfCostume"
+10| input SuperHeroInput|   !knownEnemies                                           |   Found field "knownEnemies" that should be ignored in input type
+11| type SuperHero      |   knownEnemies                                            |   Did not find field "knownEnemies" that should be present (only ignored in input type)
+
+# testInputTypeOnField
+12| input SuperHeroInput|   tshirtSize: ShirtSize                                   |   Missing expected field, "tshirtSize" specified in @InputField annotation
+13| input SuperHeroInput|   !sizeOfTShirt                                           |   Found field "sizeOfTShirt" that should be replaced by "tshirtSize" in input type
+14| type SuperHero      |   !tshirtSize                                             |   Found field "tshirtSize" in output type, when it should only be found in the input type
+15| type SuperHero      |   sizeOfTShirt: ShirtSize                                 |   Did not find field "sizeOfTShirt" in the output type
+    
+# testEnumAppearsInSchema
+16| enum ShirtSize      |   S                                                       |   Missing expected enum value, "S"
+17| enum ShirtSize      |   M                                                       |   Missing expected enum value, "M"
+18| enum ShirtSize      |   XL                                                      |   Missing expected enum value, "XL"
+19| enum ShirtSize      |   HULK                                                    |   Missing expected enum value, "HULK"
+    
+# testDateScalarUsedForLocalDate
+20|input SuperHeroInput|   !dateOfLastCheckin: Date                                 |   Transformed Date Scalar type in "SuperHeroInput" field "dateOfLastCheckin" should not be Date
+21|type SuperHero      |   !dateOfLastCheckin: Date                                 |   Transformed Date Scalar type in "SuperHero" field "dateOfLastCheckin" should not be Date
+22|input SuperHeroInput|   dateOfLastCheckin: String 'OR' dateOfLastCheckin:        |   Missing or incorrect Scalar type in "SuperHeroInput" field "dateOfLastCheckin"
+23|type SuperHero      |   dateOfLastCheckin: String 'OR' dateOfLastCheckin:        |   Missing or incorrect Scalar type in "SuperHero" field "dateOfLastCheckin"
+    
+# testTimeScalarUsedForLocalTime
+24|input SuperHeroInput|   !patrolStartTime: Time                                  |   Transformed Time Scalar type in "SuperHeroInput" field "patrolStartTime" should not be Time
+25|type SuperHero      |   !patrolStartTime: Time                                  |   Transformed Time Scalar type in "SuperHero" field "patrolStartTime" should not be Time
+26|input SuperHeroInput|   patrolStartTime: String 'OR' patrolStartTime:           |   Missing or incorrect Scalar type in "SuperHeroInput" field "patrolStartTime"
+27|type SuperHero      |   patrolStartTime: String 'OR' patrolStartTime:           |   Missing or incorrect Scalar type in "SuperHero" field "patrolStartTime"
+    
+# testDateTimeScalarUsedForLocalDateTime
+28|input SuperHeroInput|   !timeOfLastBattle: DateTime                             |   Transformed DateTime Scalar type in "SuperHeroInput" field "timeOfLastBattle" should not be DateTime
+29|type SuperHero      |   !timeOfLastBattle: DateTime                             |   Transformed DateTime Scalar type in "SuperHero" field "timeOfLastBattle" should not be DateTime
+30|input SuperHeroInput|   timeOfLastBattle: String 'OR' timeOfLastBattle:         |   Missing or incorrect Scalar type in "SuperHeroInput" field "timeOfLastBattle"
+31|type SuperHero      |   timeOfLastBattle: String 'OR' timeOfLastBattle:         |   Missing or incorrect Scalar type in "SuperHero" field "timeOfLastBattle"
+    
+# testSchemaContainsDescriptionForQueryMethods
+32|type Query          |   "List all super heroes in the database"                 |   Missing description on Query Method
+    
+# testSchemaContainsDescriptionForMutationMethods
+33|type Mutation       |   "Removes a hero... permanently..."                      |   Missing description on Mutation Method
+    
+# testSchemaContainsDescriptionForEntityTypes
+34|                    |   "Something of use to a super hero"                      |   Missing description on Entity type
+
+# testSchemaContainsDescriptionForInputTypes
+
+# testSchemaContainsDescriptionForArguments
+35|type Query          |   "Super hero name, not real name"                        |   Missing description on Query Argument
+
+# testSchemaContainsDescriptionForOutputTypeFields
+36|type SuperHero      |   "Super hero name/nickname"                              |   Missing description on Output Type
+37|type SuperHero      |   "Location where you are most likely to find this hero"  |   Missing description on Output Type  
+
+# testSchemaContainsDescriptionForInputTypeFields
+38|input SuperHeroInput|   "Super hero name/nickname"                              |   Missing description on Input Type
+39|input SuperHeroInput|   "Powers that make this hero super"                      |   Missing description on Input Type
+
+# testSchemaOutputTypeFieldsContainsDescriptionFromJsonbDateFormat
+40|type SuperHero      |   "MM/dd/yyyy"                                            |   Missing Date Format description on Output Type
+41|type SuperHero      |   "HH:mm"                                                 |   Missing Time Format description on Output Type
+42|type SuperHero      |   "HH:mm:ss dd-MM-yyyy"                                   |   Missing DateTime Format description on Output Type
+  
+# testSchemaInputTypeFieldsContainsDescriptionFromJsonbDateFormat
+43|input SuperHeroInput|   "MM/dd/yyyy"                                            |   Missing Date Format description on Input Type
+44|input SuperHeroInput|   "HH:mm"                                                 |   Missing Time Format description on Input Type
+45|input SuperHeroInput|   "HH:mm:ss dd-MM-yyyy"                                   |   Missing DateTime Format description on Input Type
+
+# testSchemaContainsDefaultValueOnEntityField
+46|input ItemInput     |   supernatural: Boolean = false                           |   Missing default value in Input boolean field
+
+# testSchemaContainsDefaultValueOnEntitySetter
+47|input ItemInput     |   description: String = "An unidentified item"            |   Missing default value in Input String field
+
+# testWithArgumentNameAndDefaultValue
+48|type Query          |   allHeroesIn(city: String = "New York, NY"): [SuperHero] |   Missing default value on argument
+49|type Query          |   allHeroesInTeam(team: String): [SuperHero]              |   Missing argument on Query
+
+# testSourceFieldInType
+50|type SuperHero      |   currentLocation: String                                 |   Expecting a currentLocation field in SuperHero due to Source annotation
+51|type Query          |   currentLocation(superHero: SuperHeroInput): String      |   Expecting a currentLocation query in Query to Source annotation
+52|type SuperHero      |   secretToken(maskFirstPart: Boolean = true): TopSecretToken      |   Expecting a secretToken field with a boolean argument in SuperHero due to Source annotation
+53|type Query          |   !secretToken(maskFirstPart: Boolean = true): TopSecretToken     |   Not expecting a secretToken query in Query
+54|type TopSecretToken |   value: String                                           |   Expecting a TopSecretToken type, with a String value field 
+
+# testGetAndSetNotGetterAndSetter
+55|type Query          |   getaway: String                                         |   Expecting a getaway query where the get is not removed
+56|type Mutation       |   settlement: String                                      |   Expecting a settlement mutation where the set is not removed
+
+# testDescription
+57|type Query          |   "Testing the hideErrorMessage list of Checked Exceptions"       |   Expecting a description for the exportToFile query
+58|type Query          |   "Super hero name, not real name"                        |   Expecting a description for the name parameter on the exportToFile query
+
+# testJsonDefault
+59|type Mutation | provisionHero(hero: String, item: ItemInput = {                  | Expecting a default value for item for provisionHero
+60|type Mutation       |   id : 1000                                                | Expecting an id in the default value for item for provisionHero
+61|type Mutation       |   name : "Cape"                                            | Expecting a name in the default value for item for provisionHero
+62|type Mutation       |   powerLevel : 3                                           | Expecting a powerLevel in the default value for item for provisionHero
+63|type Mutation       |   height : 1.2                                             | Expecting a height in the default value for item for provisionHero
+64|type Mutation       |   weight : 0.3                                             | Expecting a weight in the default value for item for provisionHero
+65|type Mutation       |   supernatural : false                                     | Expecting a supernatural in the default value for item for provisionHero
+66|type Mutation       |   dateCreated : "19 February 1900 at 12:00 in Africa/Johannesburg" | Expecting a dateCreated in the default value for item for provisionHero
+67|type Mutation       |   dateLastUsed : "29 Jan 2020 at 09:45 in zone +0200"      | Expecting a dateLastUsed in the default value for item for provisionHero

@@ -1,17 +1,13 @@
 package miner;
 
-import explorer.FrequentItemsetAnalysis;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.mllib.fpm.AssociationRules;
 import org.apache.spark.mllib.fpm.FPGrowth;
 import org.apache.spark.mllib.fpm.FPGrowthModel;
-import visitors.BaseAUGLabelProvider;
 
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class Miner {
@@ -100,9 +96,9 @@ public class Miner {
             .collect(Collectors.toList());
     }
 
-    public HashMap<String, CombinedResult> trainPerSubApi(HashMap<String, List<Itemset>> allSubApiUsages) {
-        // Represents number of sub-APIs
-        this.initialNumOfProjects = allSubApiUsages.entrySet().size();
+    public HashMap<String, CombinedResult> trainPerAnnotation(HashMap<String, List<Itemset>> allAnnotationsUsages) {
+        // Represents number of unique annotations
+        this.initialNumOfProjects = allAnnotationsUsages.entrySet().size();
 
         // Return stuff
         HashMap<String, CombinedResult> results = new HashMap<>();
@@ -112,16 +108,16 @@ public class Miner {
         conf.set("spark.master", "local");
         conf.set("spark.driver.allowMultipleContexts", "true");
         conf.set("spark.network.timeout", "240");
-        for (Map.Entry<String, List<Itemset>> subApiUsages : allSubApiUsages.entrySet()) {
-            System.out.println("Now processing " + subApiUsages.getKey() + " sub-API usages");
+        for (Map.Entry<String, List<Itemset>> annotationUsages : allAnnotationsUsages.entrySet()) {
+            System.out.println("Now processing usages of the " + annotationUsages.getKey() + " annotation");
             this.sc = new JavaSparkContext(conf);
             this.sc.setLogLevel("ERROR");
 
             // Obtain frequent itemsets for each project
-            this.datasetSize = subApiUsages.getValue().size();
-            this.totalItemsets = subApiUsages.getValue().size();
+            this.datasetSize = annotationUsages.getValue().size();
+            this.totalItemsets = annotationUsages.getValue().size();
             this.uniqueItemsets = -1;
-            this.inputData = subApiUsages.getValue().stream().map(Itemset::getItems).collect(Collectors.toList());
+            this.inputData = annotationUsages.getValue().stream().map(Itemset::getItems).collect(Collectors.toList());
 
             // Run the model
             List<FPGrowth.FreqItemset<String>> freqItemsets = this.generateItemsets(this.inputData);
@@ -154,7 +150,7 @@ public class Miner {
             // Keep all association rules in a separate place
             this.allAssociationRules.addAll(associationRules);
 
-            results.put(subApiUsages.getKey(), new CombinedResult(this.frequentItemsets, this.datasetSize));
+            results.put(annotationUsages.getKey(), new CombinedResult(this.frequentItemsets, this.datasetSize));
 
             System.out.println("Finishes processing, now unpersisting RDDs...");
             this.sc.getPersistentRDDs().values().forEach(t -> t.unpersist(true));
@@ -205,6 +201,8 @@ public class Miner {
             "declaredInBeans"
         };
 
+        //Removed the process of generating candidate rules without FP growth
+        /*
         // Supply missing rules from some frequent itemsets
         for (FrequentItemset fi : itemsetsWithoutExistingRules) {
             // Make sure the frequent itemset is not there
@@ -257,8 +255,44 @@ public class Miner {
             assert antecedent.size() + consequent.size() == initialSize;
             oneRulePerItemset.put(fi, AssociationRule.toAssociationRule(antecedent, consequent, -1.0));
         }
+         */
 
         return new ArrayList<>(oneRulePerItemset.values());
+    }
+
+    public static List<FrequentItemset> getMaximalFreqItemsetsLocal(List<FrequentItemset> input) {
+        List<FrequentItemset> originals = new ArrayList<>(input);
+        List<FrequentItemset> toDelete = new ArrayList<>();
+        HashSet<Integer> marked = new HashSet<>();
+
+        for (int i = 0; i < originals.size(); ++i) {
+            FrequentItemset I1 = originals.get(i);
+            if (marked.contains(i)) {
+                continue;
+            }
+
+            for (int j = i + 1; j < originals.size(); ++j) {
+                FrequentItemset I2 = originals.get(j);
+                if (marked.contains(j) || i == j) {
+                    continue;
+                }
+
+                // Check if R1 is superset of R2
+                if (I1.getItems().containsAll(I2.getItems())) {
+                    toDelete.add(I2);
+                    marked.add(j);
+                }
+                else if (I2.getItems().containsAll(I1.getItems())) {
+                    toDelete.add(I1);
+                    marked.add(i);
+                    break;
+                }
+            }
+        }
+
+        originals.removeAll(toDelete);
+
+        return originals;
     }
 
     private List<FPGrowth.FreqItemset<String>> getMaximalFreqItemsets(List<FPGrowth.FreqItemset<String>> input) {

@@ -69,6 +69,12 @@ public class AssociationRule {
         this.consequent = consequent;
     }
 
+    public void moveToConsequent(String antecedent){
+        this.antecedent().add(this.consequent());
+        this.antecedent().remove(antecedent);
+        this.setConsequent(antecedent);
+    }
+
     public void setConfidence(Double confidence) {
         this.confidence = confidence;
     }

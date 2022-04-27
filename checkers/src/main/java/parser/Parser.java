@@ -1,7 +1,6 @@
 package parser;
 
 import com.github.javaparser.ast.CompilationUnit;
-import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.MethodDeclaration;
 import com.github.javaparser.ast.expr.*;
 import com.github.javaparser.resolution.UnsolvedSymbolException;
@@ -92,7 +91,10 @@ public class Parser {
 
                 if (cu.getTypes().size() > 0) {
                     if (Configuration.libraryChoice.equals("microprofile")) {
-                        runMicroprofileCheckers(cu, projectName, currFilePath);
+                        try {
+                            runMicroprofileCheckers(cu, projectName, currFilePath);
+                        } catch(Exception ignore){}
+
                     }
                     else if (Configuration.libraryChoice.equals("springboot")) {
                         runSpringCheckers(cu, projectName, currFilePath, allReturnTypes, allImportClasses);
@@ -406,6 +408,7 @@ public class Parser {
 
     private void runMicroprofileCheckers(CompilationUnit cu, String projectName, String currFilePath) {
         // Verified
+        /*
         cu.accept(
             new AsyncFutureCheckerVisitor(
                 projectName,
@@ -413,8 +416,10 @@ public class Parser {
             ),
             null
         );
+         */
 
         // Verified
+        /*
         cu.accept(
             new JsonWebTokenFieldVisitor(
                 projectName,
@@ -422,6 +427,7 @@ public class Parser {
             ),
             null
         );
+         */
 
         // Verified
         cu.accept(
@@ -432,7 +438,16 @@ public class Parser {
             null
         );
 
+        cu.accept(
+                new GraphQLMutationVisitor(
+                        projectName,
+                        currFilePath
+                ),
+                null
+        );
+
         // Verified
+        /*
         cu.accept(
             new PathParamVisitor(
                 projectName,
@@ -440,6 +455,7 @@ public class Parser {
             ),
             null
         );
+         */
 
         // Verified
         cu.accept(
@@ -450,9 +466,17 @@ public class Parser {
             null
         );
 
+        cu.accept(
+                new IncomingWithScopeVisitor(
+                        projectName,
+                        currFilePath
+                ),
+                null
+        );
+
         // Verified
         cu.accept(
-            new LivenessAndReadinessWithHealthCheckVisitor(
+            new ReadinessWithHealthCheckVisitor(
                 projectName,
                 currFilePath
             ),
@@ -468,6 +492,46 @@ public class Parser {
             null
         );
 
+        cu.accept(
+                new LivenessWithHealthCheckVisitor(
+                        projectName,
+                        currFilePath
+                ),
+                null
+        );
+
+        cu.accept(
+                new HealthWithHealthCheckVisitor(
+                        projectName,
+                        currFilePath
+                ),
+                null
+        );
+
+        cu.accept(
+                new ConfigPropertyInjectFieldVisitor(
+                        projectName,
+                        currFilePath
+                ),
+                null
+        );
+
+        cu.accept(
+                new RegisterRestClientPathVisitor(
+                        projectName,
+                        currFilePath
+                ),
+                null
+        );
+
+        cu.accept(
+                new RegistryTypeInjectWithMetricRegistryVisitor(
+                        projectName,
+                        currFilePath
+                ),
+                null
+        );
+
         // Verified
         cu.accept(
             new RestClientInjectFieldVisitor(
@@ -478,6 +542,7 @@ public class Parser {
         );
 
         // Verified
+        /*
         cu.accept(
             new JaxRsAnnotationsVisitor(
                 projectName,
@@ -485,6 +550,7 @@ public class Parser {
             ),
             null
         );
+         */
 
         // Verified TODO: Is this correct?
 //        cu.accept(

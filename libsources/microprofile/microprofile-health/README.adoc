@@ -1,0 +1,174 @@
+//
+// Copyright (c) 2016-2021 Contributors to the Eclipse Foundation
+//
+// See the NOTICES file(s) distributed with this work for additional
+// information regarding copyright ownership.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+= MicroProfile Health
+
+== Motivation
+
+Health checks are used to probe the state of a computing node from another machine (i.e. kubernetes service controller) with the primary target being cloud infrastructure environments where automated processes maintain the state of computing nodes.
+
+In this scenario, _health checks are used to determine if a computing node needs to be discarded (terminated, shutdown)_ and eventually replaced by another (healthy) instance.
+
+It’s not intended (although could be used) as a monitoring solution for human operators.
+
+== Proposed solution
+
+The proposed solution breaks down into two parts:
+
+- A health check protocol and wireformat
+- A Java API to implement health check procedures
+
+== Detailed design
+
+=== Protocol
+
+This project defines a protocol (wireformat, semantics and possible forms of interactions) between system components that need to determine the “liveliness” of computing nodes in a bigger architecture.
+A detailed description of the health check protocol can be found in the link:https://github.com/eclipse/microprofile-health/tree/master/spec/src/main/asciidoc/protocol-wireformat.asciidoc[companion document].
+
+=== API Usage
+
+The main API to provide health check procedures on the application level is the _HealthCheck_ interface:
+
+```java
+@FunctionalInterface
+public interface HealthCheck {
+
+    HealthCheckResponse call();
+}
+```
+
+Applications are expected to provide health check procedures (implementation of a _HealthCheck_), which will be used by the framework or runtime hosting the application to verify the healthiness of the computing node.
+
+The runtime will _call()_ the _HealthCheck_ which in turn creates a _HealthCheckResponse_ that signals the health status to a consuming end:
+
+```java
+public class HealthCheckResponse {
+
+    public enum Status { UP, DOWN }
+
+    private final String name;
+    
+    private final Status status;
+    
+    private final Optional<Map<String, Object>> data;
+    
+    [...]
+}
+```
+
+=== Constructing HealthCheckResponse
+
+Application level code is expected to use one of static methods on _HealthCheckResponse_ to retrieve a _HealthCheckResponseBuilder_ used to construct a response, i.e. :
+
+```java
+public class SuccessfulCheck implements HealthCheck {
+    @Override
+    public HealthCheckResponse call() {
+        return HealthCheckResponse.up("successful-check");
+    }
+}
+```
+
+== Different kinds of Health Checks
+
+This specification provides different kinds of health check procedures.
+Difference between them is only semantic.
+The nature of the procedure is defined by annotating the _HealthCheck_ procedure with a specific annotation.
+
+* Readiness checks defined with _@Readiness_ annotation
+* Liveness checks defined with _@Liveness_ annotation
+
+A _HealthCheck_ procedure with none of the above annotations is not an active procedure and should be ignored.
+
+=== Readiness check
+
+A Health Check for readiness allows third party services to know if the application is ready to process requests or not.
+
+The _@Readiness_ annotation must be applied on a _HealthCheck_ implementation to define a readiness check procedure, otherwise, this annotation is ignored.
+
+=== Liveness check
+
+A Health Check for liveness allows third party services to determine if the application is running.
+This means that if this procedure fails the application can be discarded (terminated, shutdown).
+
+The _@Liveness_ annotation must be applied on a _HealthCheck_ implementation to define a Liveness check procedure, otherwise, this annotation is ignored.
+
+=== Startup check
+
+A Health check for startup allows applications to define startup probes that are used for initial verification of the application before the liveness probe takes over.
+
+The _@Startup_ annotation must be applied on a _HealthCheck_ implementation to define a startup check procedure, otherwise, this annotation is ignored.
+
+
+== Integration with CDI
+
+Any enabled bean with a bean of type _org.eclipse.microprofile.health.HealthCheck_ and _@Liveness_, _@Readiness_, or _@Startup_ qualifier can be used as health check procedure.
+
+
+Contextual references of health check procedures are invoked by runtime when the outermost protocol entry point (i.e. _http://HOST:PORT/health_) receives an inbound request
+
+
+```
+@ApplicationScoped
+@Liveness
+@Readiness
+public class MyCheck implements HealthCheck {
+
+    public HealthCheckResponse call() {
+        [...]
+    }
+}
+```
+
+Health check procedures are CDI beans, therefore, they can also be defined with CDI producers:
+
+
+```
+@ApplicationScoped
+class MyChecks {
+
+  @Produces
+  @Liveness
+  HealthCheck check1() {
+    return () -> HealthCheckResponse.named("heap-memory").status(getMemUsage() < 0.9).build();
+  }
+
+  @Produces
+  @Readiness
+  HealthCheck check2() {
+    return () -> HealthCheckResponse.named("cpu-usage").status(getCpuUsage() < 0.9).build();
+  }
+  
+  @Produces
+  @Startup
+  HealthCheck check3() {
+    return () -> HealthCheckResponse.named("initial-heap-memory").status(getMemUsage() < 0.95).build();
+  }
+}
+```
+
+== SPI Usage
+
+Implementors of the API are expected to supply implementations of _HealthCheckResponse_ and _HealthCheckResponseBuilder_ by providing a _HealthCheckResponseProvider_ to their implementation. The _HealthCheckResponseProvider_ is discovered using the default JDK service loader.
+
+A _HealthCheckResponseProvider_ is used internally to create a _HealthCheckResponseBuilder_ which is used to construct a _HealthCheckResponse_. This pattern allows implementors to extend a _HealthCheckResponse_ and adapt it to their implementation needs. Common implementation details that fall into this category are invocation and security contexts or anything else required to map a _HealthCheckResponse_ to the outermost invocation protocol (i.e. HTTP/JSON).
+
+== Contributing
+
+Do you want to contribute to this project? link:CONTRIBUTING.adoc[Find out how you can help here].

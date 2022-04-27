@@ -1,0 +1,100 @@
+//
+// Copyright (c) 2020 Contributors to the Eclipse Foundation
+//
+// See the NOTICE file(s) distributed with this work for additional
+// information regarding copyright ownership.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// You may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+# Contributing to MicroProfile
+
+Thanks for your interest in this project.
+
+## Project description
+
+The MicroProfile project is aimed at
+
+* https://projects.eclipse.org/projects/technology.microprofile
+
+## Developer resources
+
+Information regarding source code management, builds, coding standards, and
+more.
+
+* https://projects.eclipse.org/projects/technology.microprofile/developer
+
+The project maintains the following source code repositories
+
+* https://github.com/eclipse/microprofile
+* https://github.com/eclipse/microprofile-config
+* https://github.com/eclipse/microprofile-evolution-process
+* https://github.com/eclipse/microprofile-conference
+* https://github.com/eclipse/microprofile-samples
+* https://github.com/eclipse/microprofile-fault-tolerance
+* https://github.com/eclipse/microprofile-health
+* https://github.com/eclipse/microprofile-jwt-auth
+* https://github.com/eclipse/microprofile-sandbox
+* https://github.com/eclipse/microprofile-bom
+* https://github.com/eclipse/microprofile-rest-client
+* https://github.com/eclipse/microprofile-open-api
+* https://github.com/eclipse/microprofile-metrics
+* https://github.com/eclipse/microprofile-opentracing
+* https://github.com/eclipse/microprofile-parent
+* https://github.com/eclipse/microprofile-service-mesh
+* https://github.com/eclipse/microprofile-lra
+* https://github.com/eclipse/microprofile-service-mesh-service-a
+* https://github.com/eclipse/microprofile-service-mesh-service-b
+* https://github.com/eclipse/microprofile-reactive-streams-operators
+* https://github.com/eclipse/microprofile-reactive-messaging
+* https://github.com/eclipse/microprofile-context-propagation
+* https://github.com/eclipse/microprofile-starter
+* https://github.com/eclipse/microprofile-marketing
+* https://github.com/eclipse/microprofile-graphql
+
+## Eclipse Development Process
+
+This Eclipse Foundation open project is governed by the Eclipse Foundation
+Development Process and operates under the terms of the Eclipse IP Policy.
+
+## Specifications
+
+This specification project operates under the terms of the Eclipse Foundation
+Specification process.
+
+* https://eclipse.org/projects/dev_process
+* https://www.eclipse.org/org/documents/Eclipse_IP_Policy.pdf
+* https://www.eclipse.org/projects/efsp/
+* https://www.eclipse.org/legal/efsp_non_assert.php
+
+## Eclipse Contributor Agreement
+
+Before your contribution can be accepted by the project team contributors must
+electronically sign the Eclipse Contributor Agreement (ECA).
+
+* http://www.eclipse.org/legal/ECA.php
+
+Commits that are provided by non-committers must have a Signed-off-by field in
+the footer indicating that the author is aware of the terms by which the
+contribution has been provided to the project. The non-committer must
+additionally have an Eclipse Foundation account and must have a signed Eclipse
+Contributor Agreement (ECA) on file.
+
+For more information, please see the Eclipse Committer Handbook:
+https://www.eclipse.org/projects/handbook/#resources-commit
+
+## Contact
+
+Contact the project developers via the project's "dev" list.
+
+* https://dev.eclipse.org/mailman/listinfo/microprofile-dev

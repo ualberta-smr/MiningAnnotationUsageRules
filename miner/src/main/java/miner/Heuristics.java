@@ -64,6 +64,49 @@ public class Heuristics {
         return true;
     }
 
+    public static void rearrangeConsequent(AssociationRule rule){
+        boolean type = false;
+        //All other relationships take precedence in consequent over annotatedWith
+        String consequent = rule.consequent();
+        boolean correctConsequent = consequent.contains("hasType")|| consequent.contains("hasReturnType") || consequent.contains("extends")
+                || consequent.contains("implements") || consequent.contains("definedIn") || consequent.contains("declaredInBeans");
+
+        if(!correctConsequent){
+            for(String item: rule.getAllItems()){
+                if((item.contains("hasType")|| item.contains("hasReturnType") || item.contains("extends")
+                        || item.contains("implements") || item.contains("definedIn") || item.contains("declaredInBeans"))){
+                    rule.moveToConsequent(item);
+                    type = true;
+                    break;
+                }
+            }
+        }
+
+
+        //class annotatedWith takes precedence over the other (field, method, parameter) annotatedWith
+        if(!type && !consequent.contains("Class")){
+            boolean cls = false, other = false;
+            for(String item: rule.getAllItems()){
+                if(item.contains("Class")){
+                    cls = true;
+                }else if(item.contains("Field") || item.contains("Method") || item.contains("Parameter")){
+                    other = true;
+                    break;
+                }
+            }
+
+            if(cls && other){
+                for(String item: rule.getAllItems()){
+                    if(item.contains("Class")){
+                        rule.moveToConsequent(item);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+
     public static boolean containsTargetSubApiPrefix(FrequentItemset frequentItemset, String subApi) {
         return frequentItemset.getItems().stream().anyMatch(a -> a.contains(subApi));
     }

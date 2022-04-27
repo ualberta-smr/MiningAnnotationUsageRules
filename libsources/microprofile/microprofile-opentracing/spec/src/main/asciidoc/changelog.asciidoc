@@ -1,0 +1,86 @@
+//
+// Copyright (c) 2018 Eclipse Microprofile Contributors:
+// Mark Struberg
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+//
+
+== Changelog
+
+:numbered!:
+
+=== Release 3.0
+
+==== Incompatible changes
+
+===== Jakarta EE 9.1 alignment (https://github.com/eclipse/microprofile-opentracing/pull/221[#221])
+* Use `microprofile-parent` version `2.1` in `pom.xml`
+* Rename all `javax.` packages to `jakarta.` 
+
+=== Release 2.0
+
+==== Incompatible changes
+
+===== Update OpenTracing API to 0.33.0 (https://github.com/eclipse/microprofile-opentracing/pull/177[#177])
+
+The following APIs were removed:
+
+* `Scope = ScopeManager.active()`: no alternative, the reference `Scope` has to be kept explicitly since the scope was created.
+* `Scope = ScopeManager.activate(Span, boolean)`: no alternative auto-finishing has been removed.
+* `Span = Scope.span()`: use `ScopeManager.activeSpan()` or hold the reference to `Span` explicitly since the span was started.
+* `Scope =SpanBuilder.startActive()`: use `Tracer.activateSpan(Span)` instead.
+* `Span = Tracer.startManual()`: use `Tracer.start()` instead.
+* `AutoFinishScopeManager`: no alternative, auto-finishing has been removed.
+
+==== Other changes
+
+* Exclude transitive dependency on `javax.el-api` (https://github.com/eclipse/microprofile-opentracing/pull/196[#196])
+* Make OSGI dependency provided (https://github.com/eclipse/microprofile-opentracing/pull/190[#190])
+* Remove OpenTracing API from WAR in TCK (https://github.com/eclipse/microprofile-opentracing/pull/183[#183])
+* Update Arquillian version in TCK to 1.6.0 (https://github.com/eclipse/microprofile-opentracing/pull/168[#168])
+* Use Jakarta EE 8 APIs instead of Java EE 7 and remove dependency on Jackson (https://github.com/eclipse/microprofile-opentracing/pull/162[#162])
+
+=== Release 1.3.1
+
+* Add return MIME type to Rest Client interface in TCK (https://github.com/eclipse/microprofile-opentracing/pull/145[#145])
+
+=== Release 1.3
+
+* Instrument MicroProfile Rest Client 1.2 (https://github.com/eclipse/microprofile-opentracing/pull/102[#102])
+* Clarify http-path when path contains regular expressions (https://github.com/eclipse/microprofile-opentracing/pull/136[#136])
+
+=== Release 1.2.1
+
+* Split tree equals in TCK and remove logs from server spans (https://github.com/eclipse/microprofile-opentracing/pull/132[#132])
+* Remove servlets from TCK and use context root to test MP Metrics, OpenAPI, Health URLs (https://github.com/eclipse/microprofile-opentracing/pull/127[#127])
+* Clarified default skip pattern value (https://github.com/eclipse/microprofile-opentracing/pull/126[#126])
+* Added HTTP method to http-path operation name (https://github.com/eclipse/microprofile-opentracing/pull/125[#125])
+* Added tests for `ClientTracingRegistrar` (https://github.com/eclipse/microprofile-opentracing/pull/105[#105])
+* Update metadata in `pom.xml` (https://github.com/eclipse/microprofile-opentracing/pull/101[#101])
+* Renamed test class to match OpenTracing (https://github.com/eclipse/microprofile-opentracing/pull/106[#106])
+
+=== Release 1.2
+
+* By default will not trace endpoints associated with MicroProfile Metrics, Health and OpenAPI (https://github.com/eclipse/microprofile-opentracing/pull/95[#95])
+* Added logging exceptions thrown by explicit instrumentation (`@Traced`)(https://github.com/eclipse/microprofile-opentracing/pull/94[#94])
+* Added server operation name provider (https://github.com/eclipse/microprofile-opentracing/pull/90[#90])
+* Removed `geronimo-atinject` and `javax.annotation` dependencies for API module (https://github.com/eclipse/microprofile-opentracing/pull/92[#92])
+* Added support for server side skip pattern (https://github.com/eclipse/microprofile-opentracing/pull/86[#86])
+
+=== Release 1.1
+
+* Added component tag to server and client spans (https://github.com/eclipse/microprofile-opentracing/pull/70[#70])
+* Explicitly enabled tracing for JAX-RS clients (https://github.com/eclipse/microprofile-opentracing/pull/64[#64])
+* Updated OpenTracing API from 0.30.0 to 0.31.0. Note that these two versions contain breaking changes (https://github.com/eclipse/microprofile-opentracing/pull/67[#67]).
+
+:numbered:

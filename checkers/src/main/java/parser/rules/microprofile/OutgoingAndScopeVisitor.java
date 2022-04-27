@@ -34,17 +34,16 @@ public class OutgoingAndScopeVisitor extends VoidVisitorAdapter<Object> {
         NodeList<AnnotationExpr> classAnnotations = c.getAnnotations();
 
         // Check if a method is annotated with @Outgoing or @Incoming
-        boolean hasOutgoingOrIncoming = false;
+        boolean hasOutgoing = false;
         for (MethodDeclaration method : c.getMethods()) {
             for (AnnotationExpr annotation : method.getAnnotations()) {
-                hasOutgoingOrIncoming = Helper.annotationExists(annotation, "org.eclipse.microprofile.reactive.messaging.Outgoing")
-                    || Helper.annotationExists(annotation, "org.eclipse.microprofile.reactive.messaging.Incoming");
+                hasOutgoing = Helper.annotationExists(annotation, "org.eclipse.microprofile.reactive.messaging.Outgoing");
 
-                if (hasOutgoingOrIncoming) {
+                if (hasOutgoing) {
                     break;
                 }
             }
-            if (hasOutgoingOrIncoming) {
+            if (hasOutgoing) {
                 break;
             }
         }
@@ -59,7 +58,7 @@ public class OutgoingAndScopeVisitor extends VoidVisitorAdapter<Object> {
             }
         }
 
-        boolean antecedent = hasOutgoingOrIncoming;
+        boolean antecedent = hasOutgoing;
         boolean consequent = hasApplicationScopedOrDependent;
 
         if (antecedent && !consequent) {
@@ -67,7 +66,7 @@ public class OutgoingAndScopeVisitor extends VoidVisitorAdapter<Object> {
             Location classLoc = new Location(
                 this.projectName, this.filepath, c.getName().getBegin().get().line
             );
-            Violation.print("@Outgoing|@Incoming on method --> @ApplicationScoped | @Dependent on class", classLoc);
+            Violation.print("@Outgoing on method --> @ApplicationScoped | @Dependent on class", classLoc);
         }
 
     }

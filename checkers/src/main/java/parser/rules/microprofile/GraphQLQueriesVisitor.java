@@ -16,7 +16,7 @@ public class GraphQLQueriesVisitor extends VoidVisitorAdapter<Object> {
     public GraphQLQueriesVisitor(String projectName,
                                  String filePath) {
         if (projectName == null || filePath == null) {
-            throw new RuntimeException("[ConstructVisitor] projectName, filePath, and importDecls cannot be null!");
+            throw new RuntimeException("[GraphQLQueriesVisitor] projectName, filePath, and importDecls cannot be null!");
         }
         this.projectName = projectName;
         this.filepath = filePath;
@@ -33,18 +33,17 @@ public class GraphQLQueriesVisitor extends VoidVisitorAdapter<Object> {
 
         NodeList<AnnotationExpr> classAnnotations = c.getAnnotations();
 
-        boolean hasMutationOrQueryOnMethod = false;
+        boolean hasQueryOnMethod = false;
         for (MethodDeclaration method : c.getMethods()) {
             for (AnnotationExpr annotation : method.getAnnotations()) {
 
-                hasMutationOrQueryOnMethod = Helper.annotationExists(annotation, "org.eclipse.microprofile.graphql.Mutation")
-                    || Helper.annotationExists(annotation, "org.eclipse.microprofile.graphql.Query");
-                if (hasMutationOrQueryOnMethod) {
+                hasQueryOnMethod = Helper.annotationExists(annotation, "org.eclipse.microprofile.graphql.Query");
+                if (hasQueryOnMethod) {
                     break;
                 }
             }
 
-            if (hasMutationOrQueryOnMethod) break;
+            if (hasQueryOnMethod) break;
         }
 
         boolean hasGraphQLApiAnnOnClass = false;
@@ -59,7 +58,7 @@ public class GraphQLQueriesVisitor extends VoidVisitorAdapter<Object> {
         Location classLocation = new Location(this.projectName, this.filepath, c.getName().getBegin().get().line);
 
 
-        boolean antecedent = hasMutationOrQueryOnMethod;
+        boolean antecedent = hasQueryOnMethod;
         boolean consequent = hasGraphQLApiAnnOnClass;
 
         // Attempt to deep scan before reporting violation

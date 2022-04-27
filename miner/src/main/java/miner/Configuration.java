@@ -7,8 +7,8 @@ public class Configuration {
     /**
      * All projects (collective) strategy configs
      */
-    public static double minSupp = 0.15;
-    public static double minConf = 0.5;
+    public static double minSupp = 0.8;
+    public static double minConf = 0.85;
 
     /**
      * Version of the tool currently being run (can be any value; used just for convenience)
@@ -16,15 +16,15 @@ public class Configuration {
     public final static String version = "v0.0.10_final";
 
     /** Projects directory - specify the absolute path to dir that contains client projects to mine */
-    public final static String projectsDir = "/home/...";
+    public final static String projectsDir = "/home/rahatly/Desktop/projects/MiningAnnotationUsageRules/testMPHealthcheck";
 
     /** Library prefixes/regexes - uncomment one or the other */
 
     // Spring
-//    public final static String libSubApiRegex = "org\\.springframework\\.\\w+";
+//    public final static String libSubApiRegex = "Annotation_org\\.springframework[\\w,\\.]+";
 //    public final static String libPref = "org.springframework";
     // Microprofile
-    public final static String libSubApiRegex = "org\\.eclipse\\.microprofile\\.\\w+";
+    public final static String libSubApiRegex = "Annotation_org\\.eclipse\\.microprofile[\\w,\\.]+";
     public final static String libPref = "org.eclipse.microprofile";
 
     /** Target library (or libraries) directory */
@@ -50,16 +50,16 @@ public class Configuration {
 //        "../../libsources/spring-boot/spring-ws",
 
         // microprofile
-        "../../libsources/microprofile/microprofile-config",
-        "../../libsources/microprofile/microprofile-jwt-auth",
-        "../../libsources/microprofile/microprofile-fault-tolerance",
-        "../../libsources/microprofile/microprofile-graphql",
-        "../../libsources/microprofile/microprofile-health",
-        "../../libsources/microprofile/microprofile-metrics",
-        "../../libsources/microprofile/microprofile-open-api",
-        "../../libsources/microprofile/microprofile-opentracing",
-        "../../libsources/microprofile/microprofile-reactive-streams-operators",
-        "../../libsources/microprofile/microprofile-rest-client",
+        "../libsources/microprofile/microprofile-config",
+        "../libsources/microprofile/microprofile-jwt-auth",
+        "../libsources/microprofile/microprofile-fault-tolerance",
+        "../libsources/microprofile/microprofile-graphql",
+        "../libsources/microprofile/microprofile-health",
+        "../libsources/microprofile/microprofile-metrics",
+        "../libsources/microprofile/microprofile-open-api",
+        "../libsources/microprofile/microprofile-opentracing",
+        "../libsources/microprofile/microprofile-reactive-streams-operators",
+        "../libsources/microprofile/microprofile-rest-client",
     };
 
     public final static List<String> subApiLibPrefixes = new ArrayList<String>() {{
@@ -96,6 +96,7 @@ public class Configuration {
         add("org.eclipse.microprofile.opentracing");
         add("org.eclipse.microprofile.reactive");
         add("org.eclipse.microprofile.rest");
+        add("org.eclipse.microprofile.auth");
     }};
 
     /** Library prefix */

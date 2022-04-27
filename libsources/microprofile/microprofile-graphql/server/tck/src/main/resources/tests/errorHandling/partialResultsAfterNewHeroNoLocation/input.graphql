@@ -1,0 +1,21 @@
+mutation createNewHeroAndListAll {
+    createNewHero(hero:{
+            name: "Captain America"
+            realName: "Steven Rogers"
+            superPowers: ["Super strength", "Vibranium Shield"]
+            primaryLocation: "New York, NY"
+            teamAffiliations: [{name: "Avengers"}]
+            idNumber: "ID-65784312"
+        }) {
+            name
+            teamAffiliations {
+              members {
+                name
+                currentLocation
+              }
+            }
+            primaryLocation
+            superPowers
+            realName
+        }
+}
