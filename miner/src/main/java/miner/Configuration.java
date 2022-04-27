@@ -7,8 +7,8 @@ public class Configuration {
     /**
      * All projects (collective) strategy configs
      */
-    public static double minSupp = 0.5;
-    public static double minConf = 0.5;
+    public static double minSupp = 0.8;
+    public static double minConf = 0.85;
 
     /**
      * Version of the tool currently being run (can be any value; used just for convenience)
@@ -96,6 +96,7 @@ public class Configuration {
         add("org.eclipse.microprofile.opentracing");
         add("org.eclipse.microprofile.reactive");
         add("org.eclipse.microprofile.rest");
+        add("org.eclipse.microprofile.auth");
     }};
 
     /** Library prefix */
