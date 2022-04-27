@@ -13,18 +13,6 @@ git://github.com/1819-5ahif-nvs/1819-5ahif-nvs-mircroprofile-microproject-Langot
 git://github.com/abalasu1/cargotracker-monolith.git
 a7e2a8580481261dbc6461a2dddba45621bb40eb
 ---------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
 git://github.com/acmeair-svt/acmeair-mainservice-java.git
 54f56b24f7c788e3615a7959a4d69517c79a191d
 ---------------------------------------
@@ -66,9 +54,6 @@ git://github.com/aldolushkja/microprofile-blogpad.git
 ---------------------------------------
 git://github.com/aldolushkja/mp-blogpad.git
 0f842d46ff1dc87ae158f9fdb26facc517179ad4
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
 ---------------------------------------
 git://github.com/alexandrezanetti/orquestradorbawnovo.git
 b9aeed5be89e34f3624e3bca781d119ed7446310
@@ -127,9 +112,6 @@ git://github.com/ankitagrawa/foodOrderRestaurantApp.git
 git://github.com/AntonioSpinelli/ICPLisbon2018.git
 5b7c83d69047ac2d29d92db8029264ca9f499f08
 ---------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
 git://github.com/appsody/stacks.git
 8d8aebc9c256923cc155eaf2fff1be9e4a1a924c
 ---------------------------------------
@@ -148,17 +130,11 @@ git://github.com/arun1252/s2i-open-liberty.git
 git://github.com/ask1666/quizappserver.git
 bba2bb7a7b12ae6b6a8b6f8390d5c2b4491faac4
 ---------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
 git://github.com/atjapan2015/k8s-microservice.git
 2fc94b21b02370b36dcbd9d2acdda6989012d8ec
 ---------------------------------------
 git://github.com/AustinSeto/cogent-cats.git
 75c43407f3031e8972ba4f7eb49a0e7b6a8e9a85
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
 ---------------------------------------
 git://github.com/avbravo/adminfacesarchetype.git
 9671debfa60988afeb9edca1a0850d8511627f34
@@ -208,9 +184,6 @@ git://github.com/blueperf/acmeair-mainservice-java.git
 git://github.com/BolivianJUG/launch.git
 dd0c4604d7976ddb7f42f9ce2aadc1d63a2c0c97
 ---------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
 git://github.com/boowecall/gl.git
 afb96556596df107613800fb73ebf2fda3998fc0
 ---------------------------------------
@@ -222,9 +195,6 @@ e463c970b35860175e931ce6e79503df6c063c91
 ---------------------------------------
 git://github.com/Carm2501/myAktion.git
 5d340c0899bc1bbfd943b83ee55e11b1b9698227
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
 ---------------------------------------
 git://github.com/cbustamantem/microprofileacademy.git
 113a523e2588dfb250407e6111fa64768f52dbd2
@@ -246,9 +216,6 @@ ae3b66913c41afa42593dbbefb491f53807c67c1
 ---------------------------------------
 git://github.com/cicekhayri/ebook-Building-an-API-Backend-with-MicroProfile.git
 52501477f96b69ccecbe194036ebef4eebf423df
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
 ---------------------------------------
 git://github.com/Clo74/cloud_storage.git
 68b0677e1fffeee2fa0ed3b0d1c1c07cfbd50da0
@@ -274,17 +241,11 @@ ef5f4a7417a6bd39902eb18684ed2e9fb4726b92
 git://github.com/cstalker99/defaultapplicationpublic.git
 8ee29ba2b53d3dfb0e2fcd7b9c0e062ccea85193
 ---------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
 git://github.com/CurtisNewbie/BookStoreApp.git
 547974dd41a6b6382e68368875483c6da4d6c8d8
 ---------------------------------------
 git://github.com/cwansart/testcontainers-university.git
 15e322b5045eb9e829642e4f448bcd704c252d7c
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
 ---------------------------------------
 git://github.com/cyl-007/acmeair.git
 7ec5f17aa1feae28d8db9d58fd99e9cd0a5e5965
@@ -418,9 +379,6 @@ ce6d389858695a1a8ce59e5717fca4347df05fcb
 git://github.com/EspenK/hjornet.git
 db9c7748368e21897272af1afab36e3db48d0a1a
 ---------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
 git://github.com/EventosJEspanol/latin-america-micro-profile.git
 35344d4ce7901f66712b04ba9d1ec1405d67f273
 ---------------------------------------
@@ -495,9 +453,6 @@ git://github.com/HasseNasse/NotificationService.git
 ---------------------------------------
 git://github.com/heike2718/checklistenserver.git
 6d5ff3a89ddfe487e778624bba3638c69eeb42ab
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
 ---------------------------------------
 git://github.com/henrydevteam/stack-hub.git
 677e3bf9fe425f70894b57dc6bff85e58de91639
@@ -640,9 +595,6 @@ git://github.com/imixs/imixs-workflow.git
 git://github.com/intelsdi-x/stack-hub.git
 2ba69075158a97c6a228c9302d5145c839400300
 ---------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
 git://github.com/ivargrimstad/dukes-local-greeting.git
 8e75bd7a5ad28dcd5f4e7339533ba6b6b68bc666
 ---------------------------------------
@@ -664,23 +616,8 @@ c174a2099f78428873e37ff5ade9d8fe8f6c58fe
 git://github.com/jarryDk/quarkus-wildfly-faglig-fredag.git
 0bfacf51eb554cd7dfed6bd9dd1ec31923052ad0
 ---------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
 git@github.com:AdamBien/javaee8-essentials-archetype.git
 9650c1391f49df9f549e142aa501b58374bb2a1b
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
 ---------------------------------------
 git://github.com/JavaProgramTo/CoreJava.git
 e7bc9c1f53f55492db5e3f849f15cd39c8654501
@@ -699,9 +636,6 @@ bd58ee462ee973e26049b46dbc36d84f42a6a3b6
 ---------------------------------------
 git://github.com/jbrasileiro/resume-online.git
 8ba15b418e3bc3aa9e14242437588618b27753eb
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
 ---------------------------------------
 git@github.com:jeddict/jeddict.git
 0b652fb14c1fc25205a85c96279f90801d451abf
@@ -787,9 +721,6 @@ cdae8ccd9aca492b3f449a69bf27bfb44de073c8
 git://github.com/kabanero-io-test/sysprop.git
 3bc7611c0c32679426899a6c47e6ece497a9925a
 ---------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
 git://github.com/kahlan147/Kwetter.git
 f2da6366054d71c723ac66a95bb7ce65d6585572
 ---------------------------------------
@@ -801,9 +732,6 @@ b8bbd8b665b3bbca11421ee3249e695b0f763746
 ---------------------------------------
 git://github.com/kappnav/apis.git
 802e813b3a2e1b9342582c5bf23dc57e5942d803
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
 ---------------------------------------
 git://github.com/kayroone/twttr.git
 6db41a110dcf7bfbc4001e76f91ed2dca24a0e70
@@ -873,12 +801,6 @@ git://github.com/leventarican/cookbook-webapps.git
 ---------------------------------------
 git://github.com/LEVI-PAITA/sakila-payara-server.git
 25e743f188f60f2afc8c8f1a7eea53a356ac9e65
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
 ---------------------------------------
 git://github.com/LinaPoC/stack-hub.git
 677e3bf9fe425f70894b57dc6bff85e58de91639
@@ -997,12 +919,6 @@ git://github.com/microclimate-dev2ops/openLibertyTemplate.git
 git://github.com/microclimate-dev2ops/rogue-cloud-client.git
 ad3cc611efa627a080145f6361e9fd70b49b9878
 ---------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
 git://github.com/microprofile-extensions/config-ext.git
 27013e7e0fd814ba666e4bae671521e1635eda18
 ---------------------------------------
@@ -1011,18 +927,6 @@ fed9fd0d7b95576bae69fd46c82e26623c9c20f7
 ---------------------------------------
 git://github.com/microprofile-extensions/openapi-ext.git
 dac59beac4c765fc5aff60d658e90986793a4698
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
 ---------------------------------------
 git://github.com/MicroShed/microshed-testing.git
 443526893cdd521e03f73417485a790ca5db7ad0
@@ -1201,9 +1105,6 @@ b6d52e0080d2aeb8e3b09145bb730d59b2cb6bbd
 git://github.com/phuchieuct93abc/microprofile.git
 325105fc276cbf4f8fa284125cbb047bd794ce6c
 ---------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
 git://github.com/pon-raj/openliberty.git
 20d1dbd7c0060d1408856cfd23db11d1bb134214
 ---------------------------------------
@@ -1225,14 +1126,8 @@ git://github.com/projekt-opal/metadata-refinement.git
 git://github.com/Projucti/EntitySearch.git
 451fe9cbb2eaf241b45ef0014c2820dd261990eb
 ---------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
 git://github.com/ProsystemIngegneriAffiliati/preesence.git
 e19b64d07339a908726793460c259dcbd5e57610
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
 ---------------------------------------
 git://github.com/quarkus-qe/quarkus-startstop.git
 dbc2ed315db53bc55e706ea6009ddbac26807514
@@ -1282,9 +1177,6 @@ git://github.com/rishard1010/microfactinvsoft.git
 git://github.com/rkunas/pm4j.git
 aaaacb2391023b2042b2f0157b06e24ba170b58c
 ---------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
 git://github.com/rodrigoprestesmachado/tpack.git
 8aee3d0975c1d70ca75106018e95e14a30f275b0
 ---------------------------------------
@@ -1330,9 +1222,6 @@ git://github.com/seabaylea/NodeLibertyLab.git
 git://github.com/sebastsg/ntnu-durak.git
 5023a9682c1577ea2c7a2025e16027a0e5435545
 ---------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
 git://github.com/sirAlexander/openliberty-io.git
 33d533f7c303e8ed38057378463ebf8363da8d9b
 ---------------------------------------
@@ -1354,23 +1243,11 @@ git://github.com/soujava/mvc-cxf-tomee.git
 git://github.com/SouzaRodrigo61/themovies.git
 77b6d9d34067d153544ab7888e8f6944520b25da
 ---------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
 git://github.com/sriniketana/myadapter.git
 35c6592327bb81b9f28e1b1c44f607ab149a6f64
 ---------------------------------------
 git://github.com/sruthakeerthikotla/mfadapter.git
 967b00b52cb0e813b9c42965a5cf973321e51bd3
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
 ---------------------------------------
 git://github.com/StacksCP4A/stack-hub.git
 4ea88617451c5034cf0b5d0a7b3bf94a1f447f85
@@ -1392,9 +1269,6 @@ a3e6a0f06473b17c7c9c071055838ff258cbe095
 ---------------------------------------
 git://github.com/Stigus96/rubikkannonsesystem_v2.git
 ff84bed121ad0ddf56e7eac427d0d217e6230fc5
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
 ---------------------------------------
 git://github.com/SugorovskiyNikita/EjbBoard.git
 9d5ce4474e35cad0821980816d6a4ca2206a6a0b
@@ -1515,9 +1389,6 @@ git://github.com/user1-cp4a/OL.git
 ---------------------------------------
 git://github.com/valdecimenon/projetowebservices.git
 3e27bcc18b6c1ae684d3d4365014202bfe899244
----------------------------------------
-[PROJECT REDACTED (PROPRIETARY)]
-[COMMIT HASH REDACTED (PROPRIETARY)]
 ---------------------------------------
 git://github.com/vignesh-arjunan/microservice.git
 2e5ff78a098049979242215e8e3a0ab8763a9d25
