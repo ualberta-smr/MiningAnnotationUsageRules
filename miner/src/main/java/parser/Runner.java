@@ -242,6 +242,8 @@ public class Runner {
         // Now take one rule per itemset
         List<AssociationRule> uniqueRules = Miner.getOneRulePerFreqItemset(miner.getAllAssociationRules(),  finalFreqItemsets);
 
+        //Rearrange consequent
+        uniqueRules.forEach(Heuristics::rearrangeConsequent);
 
         // Check final rules if they have been mined previously and labeled.
         uniqueRules.forEach(r -> {
