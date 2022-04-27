@@ -20,14 +20,14 @@ microservices framework).
 #### Input data
 
 - **Manually extracted usage rules:** 12 usage rules manually extracted from documentation and developers' forums are [here](./artifacts/manually-extracted-rules.xlsx).
-- **MicroProfile client projects:** The list of open-source projects used for mining and scanning for violations is available [here](https://github.com/ualberta-smr/MiningAnnotationUsageRules/blob/main/miner/clientProjects_MicroProfile.txt) (same list of projects for both tasks). The list does not include the 81 proprietary projects.
+- **MicroProfile client projects:** The list of open-source projects used for mining and scanning for violations is available [here](./miner/clientProjects_MicroProfile.txt) (same list of projects for both tasks). The list does not include the 81 proprietary projects.
 
 #### Output data (results)
 
 Rules:
 
-- **Mined rules:** Mined rules for [MicroProfile](https://github.com/ualberta-smr/MiningAnnotationUsageRules/blob/main/results/rules/minedRules_MicroProfile.json) along with edit distance comments.
-- **Unique confirmed rules:** Confirmed (unique) rules for [MicroProfile](https://github.com/ualberta-smr/MiningAnnotationUsageRules/blob/main/results/rules/uniqueMinedAndConfirmedRules_MicroProfile.json).
+- **Mined rules:** Mined rules for [MicroProfile](./results/rules/minedRules_MicroProfile.json) along with edit distance comments.
+- **Unique confirmed rules:** Confirmed (unique) rules for [MicroProfile](./results/rules/uniqueMinedAndConfirmedRules_MicroProfile.json).
 
 Violations:
 
