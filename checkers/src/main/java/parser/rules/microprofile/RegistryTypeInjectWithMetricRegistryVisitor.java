@@ -8,6 +8,8 @@ import parser.Location;
 import parser.Violation;
 import parser.util.Helper;
 
+import java.util.ArrayList;
+
 public class RegistryTypeInjectWithMetricRegistryVisitor extends VoidVisitorAdapter<Object> {
     private String projectName;
     private String filepath;
@@ -34,9 +36,10 @@ public class RegistryTypeInjectWithMetricRegistryVisitor extends VoidVisitorAdap
         for (AnnotationExpr annotation : fieldAnnotations) {
             hasRegistryType = Helper.annotationExists(annotation, "org.eclipse.microprofile.metrics.annotation.RegistryType");
             if (hasRegistryType) {
-                String paramValue = annotation.asSingleMemberAnnotationExpr().getMemberValue().toString();
-                if(paramValue.equals("MetricRegistry.Type.APPLICATION") || paramValue.equals("MetricRegistry.Type.BASE")
-                        || paramValue.equals("MetricRegistry.Type.VENDOR")){
+                ArrayList<String> paramValues = new ArrayList<>();
+                annotation.asNormalAnnotationExpr().getPairs().forEach(n -> paramValues.add(n.getValue().toString()));
+                if(paramValues.contains("MetricRegistry.Type.APPLICATION") || paramValues.contains("MetricRegistry.Type.BASE")
+                        || paramValues.contains("MetricRegistry.Type.VENDOR")){
                     hasParamType = true;
                 }
                 break;
