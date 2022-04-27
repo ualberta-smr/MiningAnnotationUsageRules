@@ -201,6 +201,8 @@ public class Miner {
             "declaredInBeans"
         };
 
+        //Removed the process of generating candidate rules without FP growth
+        /*
         // Supply missing rules from some frequent itemsets
         for (FrequentItemset fi : itemsetsWithoutExistingRules) {
             // Make sure the frequent itemset is not there
@@ -253,6 +255,7 @@ public class Miner {
             assert antecedent.size() + consequent.size() == initialSize;
             oneRulePerItemset.put(fi, AssociationRule.toAssociationRule(antecedent, consequent, -1.0));
         }
+         */
 
         return new ArrayList<>(oneRulePerItemset.values());
     }
