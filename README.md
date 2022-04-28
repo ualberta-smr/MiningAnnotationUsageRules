@@ -35,11 +35,6 @@ Violations:
 
 ## Reproducing Results
 
-**!!! Disclaimer !!!:** The following instructions (including for the General
-Usage) have only been tested on Linux OS. I have not tested whether the
-instructions on Windows or Mac OS. Use them at your own discretion.
-
-
 ### Mining candidate usage rules
 
 Note that the output results may slightly vary due to proprietary projects
@@ -130,6 +125,9 @@ bash run_checkers.bash /correct/absolute/path/rules-checker-1.0-SNAPSHOT-jar-wit
 
 The script just runs the jar file for each cloned project. Also works if it is
 not a git repository (while the `traverse_git.bash` requires git repo to access its commit history).
+
+***!!! Disclaimer !!!:*** The above `bash` scripts might not work properly on other than Linux OS.
+
 
 ## General Usage
 
